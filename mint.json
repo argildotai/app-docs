@@ -23,15 +23,15 @@
     }
   ],
   "topbarCtaButton": {
-    "name": "Back to the app",
+    "name": "Go to the app",
     "url": "https://app.argil.ai"
   },
   "tabs": [
   ],
   "anchors": [
     {
-      "name": "Back to the app",
-      "icon": "rotate-left",
+      "name": "Go to the app",
+      "icon": "A",
       "url": "https://app.argil.ai"
     },
     {
@@ -40,9 +40,9 @@
       "url": "https://discord.gg/Xy5NEqUv"
     },
     {
-      "name": "Blog",
+      "name": "Changelog",
       "icon": "newspaper",
-      "url": "https://www.argil.ai/blog"
+      "url": "https://argilai.notion.site/Argil-Change-log-73153fe50c3f410b8a2147f130fcceda"
     }
   ],
   "navigation": [
@@ -66,9 +66,9 @@
         "pages/api-reference/overview",
         "pages/api-reference/endpoint/avatars",
         "pages/api-reference/endpoint/voices",
-        "pages/api-reference/endpoint/videoProjects",
-        "pages/api-reference/endpoint/videoProject",
-        "pages/api-reference/endpoint/create-project",
+        "pages/api-reference/endpoint/videos",
+        "pages/api-reference/endpoint/video",
+        "pages/api-reference/endpoint/create-video",
         "pages/api-reference/endpoint/render",
         "pages/api-reference/endpoint/delete"
       ]
