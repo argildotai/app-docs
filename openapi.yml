@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   title: Argil API
-  description: API to manage video projects with custom avatars and voices.
+  description: API for AI clone video generation
   version: 1.0.0
   license:
     name: MIT
@@ -13,7 +13,7 @@ paths:
   /voices:
     get:
       summary: List all voices
-      description: Returns an array of Voice objects available for use in video projects.
+      description: Returns an array of Voice objects available for the user
       responses:
         200:
           description: An array of voices
@@ -32,7 +32,7 @@ paths:
   /avatars:
     get:
       summary: List all avatars
-      description: Returns an array of Avatar objects available for creating videos.
+      description: Returns an array of Avatar objects available for the user
       responses:
         200:
           description: An array of avatars
@@ -48,19 +48,19 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /videoProjects:
+  /videos:
     get:
-      summary: List all video projects
-      description: Returns a paginated array of VideoProjects.
+      summary: Paginated list of Videos
+      description: Returns a paginated array of Videos
       responses:
         200:
-          description: A paginated list of video projects
+          description: A paginated list of Videos
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/VideoProject'
+                  $ref: '#/components/schemas/Video'
         400:
           description: Unexpected error
           content:
@@ -68,61 +68,61 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
     post:
-      summary: Create a video project
-      description: Creates a new video project with the specified details.
+      summary: Create a new Video
+      description: Creates a new Video with the specified details
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/VideoProjectCreateArgs'
+              $ref: '#/components/schemas/VideoCreateArgs'
       responses:
         201:
-          description: Successfully created video project
+          description: Successfully created Video
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/VideoProject'
+                $ref: '#/components/schemas/Video'
         400:
           description: Validation error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /videoProjects/{id}:
+  /videos/{id}:
     get:
-      summary: Get a video project
-      description: Returns a single VideoProject identified by its ID.
+      summary: Get a Video by id
+      description: Returns a single Video identified by its id
       parameters:
         - name: id
           in: path
           required: true
           schema:
             type: string
-            description: The ID of the video project to retrieve.
+            description: The id of the Video to retrieve
       responses:
         200:
-          description: Detailed information about a video project
+          description: Detailed information about the Video
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/VideoProject'
+                $ref: '#/components/schemas/Video'
         404:
-          description: Video project not found
+          description: Video not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
     delete:
-      summary: Delete a video project
-      description: Delete the specified video project.
+      summary: Delete a Video by id
+      description: Delete a single Video identified by its id
       parameters:
         - name: id
           in: path
           required: true
           schema:
             type: string
-            description: The ID of the video project to delete.
+            description: The id of the Video to delete
       responses:
         200:
           description: Success message.
@@ -131,31 +131,31 @@ paths:
               schema:
                 $ref: '#/components/schemas/Success'
         404:
-          description: Video project not found
+          description: Video not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
   /render/{id}:
     post:
-      summary: Render a video project
-      description: Returns a single VideoProject identified by its ID for which job status will be iteratively checked until generation is done.
+      summary: Render a Video by id
+      description: Returns a single Video object, with its updated status and information
       parameters:
         - name: id
           in: path
           required: true
           schema:
             type: string
-            description: The ID of the video project to render.
+            description: The id of the Video to render
       responses:
         200:
-          description: Detailed information about a video project
+          description: Detailed information about the Video
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/VideoProject'
+                $ref: '#/components/schemas/Video'
         404:
-          description: Video project not found
+          description: Video not found
           content:
             application/json:
               schema:
@@ -210,7 +210,7 @@ components:
           type: integer
         height:
           type: integer
-    VideoProject:
+    Video:
       type: object
       properties:
         id:
@@ -250,7 +250,7 @@ components:
         videoUrl:
           type: string
           description: "The url of the final avatar rendering video, containing all the moments merged."
-    VideoProjectCreateArgs:
+    VideoCreateArgs:
       type: object
       required:
         - name
