@@ -1,0 +1,110 @@
+---
+title: 'Quickstart'
+description: 'Start automating your content creation workflow'
+---
+
+import Integrations from '/snippets/unlock-argil-full-potential.mdx';
+
+<Info>
+  **Prerequisite** You should be all setup with your [API Credentials](/pages/get-started/credentials) before starting this tutorial.
+  **Prerequisite** You should have created and successfully trained at least one [Avatar](https://app.argil.ai/avatars) from the app.
+</Info>
+
+<Steps>
+  <Step icon="magnifying-glass" title="Get a look at your avatar and voice resources">
+    In order to generate your first video through our API, you'll need to know which avatar and voice you want to use.
+    <Note>
+      Not finding your Avatar? It might not be ready yet. Check at your [Avatars](https://app.argil.ai/avatars) page for updates.
+    </Note>
+    <AccordionGroup>
+      <Accordion icon="user" title="Check your available avatars">
+        Get your avatars list by running a GET request on the '/avatars' route.
+        <Tip>
+          Check the [Avatars API Reference](/pages/api-reference/endpoint/avatars) to run the request using an interactive UI.
+        </Tip>
+      </Accordion>
+      <Accordion icon="microphone" title="Check your available voices">
+        Get your voices list by running a GET request on the '/voices' route.
+        <Tip>
+          Check the [Voices API Reference](/pages/api-reference/endpoint/voices) to run the request using an interactive UI.
+        </Tip>
+      </Accordion>
+    </AccordionGroup>
+    <Check>
+      You are done with this step if you have the id of the avatar and and the id of the voice you want to use for the next steps.
+    </Check>
+  </Step>
+  <Step icon="square-plus" title="Create a video project">
+    Create a VideoProject by running a POST request on the '/videoprojects' route.
+
+    <Tip>
+      Check the [Project creation API Reference](/pages/api-reference/endpoint/create-project) to run the request using an interactive UI.
+    </Tip>
+
+    To create a VideoProject resource, you'll need:
+    - A name for the project
+    - A list of Moment objects, representing your avatar's speech
+
+    ```mermaid
+    flowchart TB
+        subgraph project["Video project {name}"]
+            direction LR
+              subgraph subgraph1["Moment 1"]
+                  direction LR
+                  item1{{avatar}}
+                  item2{{voice}}
+                  item3{{transcript}}
+              end
+              subgraph subgraph2["Moment 2"]
+                  direction LR
+                  item4{{avatar}}
+                  item5{{voice}}
+                  item6{{transcript}}
+              end
+              subgraph subgraph3["Moment n"]
+                  direction LR
+                  item7{{avatar}}
+                  item8{{voice}}
+                  item9{{transcript}}
+              end
+              subgraph1 --> subgraph2
+              subgraph2 --> subgraph3
+        end
+    ```
+    
+    For each moment, you will be able to choose the avatar, the voice and the transcript to be used.
+
+    <Check>
+      You are done with this step if the request returned a status 200 and a VideoProject object as body.
+      <br/>Note the id of the video project for the next step.
+    </Check>
+  </Step>
+  <Step icon="video" title="Render the video project we have created">
+    Render a VideoProject by running a POST request on the '/render/[video_project_id]' route.
+    <Tip>
+      Check the [Render API Reference](/pages/api-reference/endpoint/render) to run the request using an interactive UI.
+    </Tip>
+    <Check>
+        You are done with this step if the route returned a VideoProject object, with its status set to 'GENERATING_AUDIO' or 'GENERATING_VIDEO'.
+    </Check>
+  </Step>
+  <Step icon="badge-check" title="Check for updates until your avatar's video generation is finished">
+    Get your VideoProject updates by running a GET request on the '/videoprojects/[video_project_id]' route.
+    <Tip>
+      Check the [videoProjects API Reference](/pages/api-reference/endpoint/videoProject) to run the request using an interactive UI.
+    </Tip>
+    <Check>
+        You are done with this step once the route returns a VideoProject with status set to 'IDLE' and a videoUrl field not empty.
+    </Check>
+  </Step>
+  <Step icon="share-nodes" title="Retrieve your avatar's video">
+    From the VideoProject object you got from the previous step, retrieve the 'videoUrl' field.
+    <Tip>
+      Use this url anywhere to download / share / publish your video and automate your workflow.
+    </Tip>
+  </Step>
+</Steps>
+
+## What to do next?
+
+<Integrations />

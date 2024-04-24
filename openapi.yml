@@ -1,0 +1,300 @@
+openapi: 3.0.1
+info:
+  title: Argil API
+  description: API to manage video projects with custom avatars and voices.
+  version: 1.0.0
+  license:
+    name: MIT
+servers:
+  - url: http://api.argil.ai
+security:
+  - ApiKeyAuth: []
+paths:
+  /voices:
+    get:
+      summary: List all voices
+      description: Returns an array of Voice objects available for use in video projects.
+      responses:
+        200:
+          description: An array of voices
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Voice'
+        400:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /avatars:
+    get:
+      summary: List all avatars
+      description: Returns an array of Avatar objects available for creating videos.
+      responses:
+        200:
+          description: An array of avatars
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Avatar'
+        400:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /videoProjects:
+    get:
+      summary: List all video projects
+      description: Returns a paginated array of VideoProjects.
+      responses:
+        200:
+          description: A paginated list of video projects
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/VideoProject'
+        400:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      summary: Create a video project
+      description: Creates a new video project with the specified details.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VideoProjectCreateArgs'
+      responses:
+        201:
+          description: Successfully created video project
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VideoProject'
+        400:
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /videoProjects/{id}:
+    get:
+      summary: Get a video project
+      description: Returns a single VideoProject identified by its ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            description: The ID of the video project to retrieve.
+      responses:
+        200:
+          description: Detailed information about a video project
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VideoProject'
+        404:
+          description: Video project not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      summary: Delete a video project
+      description: Delete the specified video project.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            description: The ID of the video project to delete.
+      responses:
+        200:
+          description: Success message.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        404:
+          description: Video project not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /render/{id}:
+    post:
+      summary: Render a video project
+      description: Returns a single VideoProject identified by its ID for which job status will be iteratively checked until generation is done.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            description: The ID of the video project to render.
+      responses:
+        200:
+          description: Detailed information about a video project
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VideoProject'
+        404:
+          description: Video project not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Voice:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        createAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        status:
+          type: string
+        sampleUrl:
+          type: string
+    Avatar:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        createAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        gestures:
+          type: array
+          description: "A list of labelized gestures available for your avatar."
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: "Allows identifying the gesture when using it for a specific moment."
+              label:
+                type: string
+                description: "A label for user readability. Can be setup from the app's UI."
+        status:
+          type: string
+        width:
+          type: integer
+        height:
+          type: integer
+    VideoProject:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        status:
+          type: string
+          description: "Can be either 'IDLE', 'GENERATING_AUDIO', 'GENERATING_VIDEO' or 'FAILED'."
+        moments:
+          type: array
+          description: "An array of Moment items, each representing a portion of the complete video."
+          items:
+            type: object
+            properties:
+              transcript:
+                type: string
+                description: "A portion of the complete transcript. Current limit: 250 characters."
+              audioUrl:
+                type: string
+                description: "The audio that will be used for the video rendering. Automatically generated from the transcript when not provided. Current limit: 20 seconds."
+              videoUrl:
+                type: string
+                description: "The url of the avatar rendering video for this moment."
+              avatar:
+                type: string
+                description: "The id of the avatar to be used for this moment."
+              voice:
+                type: string
+                description: "The id of the voice to be used for this moment."
+        videoUrl:
+          type: string
+          description: "The url of the final avatar rendering video, containing all the moments merged."
+    VideoProjectCreateArgs:
+      type: object
+      required:
+        - name
+        - moments
+      properties:
+        name:
+          type: string
+        moments:
+          type: array
+          description: "An array of Moment items, each representing a portion of the complete video."
+          items:
+            type: object
+            required:
+              - transcript
+              - avatar
+              - voice
+            properties:
+              transcript:
+                type: string
+                description: "A portion of the complete transcript. Current limit: 250 characters."
+              audioUrl:
+                type: string
+                description: "Optional url to the audio to be used for the video rendering, for bypassing our audio generation model. Current limit: 20 seconds."
+              avatar:
+                type: string
+                description: "The id of the avatar to be used for this moment."
+              voice:
+                type: string
+                description: "The id of the voice to be used for this moment."
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+    Success:
+      type: object
+      properties:
+        message:
+          type: string
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
