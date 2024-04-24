@@ -1,91 +1,82 @@
 {
   "$schema": "https://mintlify.com/schema.json",
   "name": "Argil",
+  "openapi": ["/openapi.yml"],
   "logo": {
     "dark": "/logo/dark.svg",
     "light": "/logo/light.svg"
   },
   "favicon": "/favicon.svg",
   "colors": {
-    "primary": "#0D9373",
-    "light": "#07C983",
-    "dark": "#0D9373",
+    "primary": "#741FFF",
+    "light": "#741FFF",
+    "dark": "#741FFF",
     "anchors": {
-      "from": "#0D9373",
-      "to": "#07C983"
+      "from": "#741FFF",
+      "to": "#741FFF"
     }
   },
   "topbarLinks": [
     {
       "name": "Support",
-      "url": "mailto:hi@mintlify.com"
+      "url": "mailto:brivael@argil.ai"
     }
   ],
   "topbarCtaButton": {
-    "name": "Dashboard",
-    "url": "https://dashboard.mintlify.com"
+    "name": "Back to the app",
+    "url": "https://app.argil.ai"
   },
   "tabs": [
-    {
-      "name": "API Reference",
-      "url": "api-reference"
-    }
   ],
   "anchors": [
     {
-      "name": "Documentation",
-      "icon": "book-open-cover",
-      "url": "https://mintlify.com/docs"
+      "name": "Back to the app",
+      "icon": "rotate-left",
+      "url": "https://app.argil.ai"
     },
     {
       "name": "Community",
-      "icon": "slack",
-      "url": "https://mintlify.com/community"
+      "icon": "discord",
+      "url": "https://discord.gg/Xy5NEqUv"
     },
     {
       "name": "Blog",
       "icon": "newspaper",
-      "url": "https://mintlify.com/blog"
+      "url": "https://www.argil.ai/blog"
     }
   ],
   "navigation": [
     {
       "group": "Get Started",
       "pages": [
-        "introduction",
-        "quickstart",
-        "development"
+        "pages/get-started/introduction",
+        "pages/get-started/credentials",
+        "pages/get-started/quickstart"
       ]
     },
     {
-      "group": "Essentials",
+      "group": "Integrations",
       "pages": [
-        "essentials/markdown",
-        "essentials/code",
-        "essentials/images",
-        "essentials/settings",
-        "essentials/navigation",
-        "essentials/reusable-snippets"
+        "pages/integrations/zapier"
       ]
     },
     {
-      "group": "API Documentation",
+      "group": "Reference APIs",
       "pages": [
-        "api-reference/introduction"
-      ]
-    },
-    {
-      "group": "Endpoint Examples",
-      "pages": [
-        "api-reference/endpoint/get",
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/delete"
+        "pages/api-reference/overview",
+        "pages/api-reference/endpoint/avatars",
+        "pages/api-reference/endpoint/voices",
+        "pages/api-reference/endpoint/videoProjects",
+        "pages/api-reference/endpoint/videoProject",
+        "pages/api-reference/endpoint/create-project",
+        "pages/api-reference/endpoint/render",
+        "pages/api-reference/endpoint/delete"
       ]
     }
   ],
   "footerSocials": {
-    "twitter": "https://twitter.com/mintlify",
-    "github": "https://github.com/mintlify",
-    "linkedin": "https://www.linkedin.com/company/mintsearch"
+    "twitter": "https://twitter.com/argildotai",
+    "github": "https://github.com/argildotai",
+    "linkedin": "https://www.linkedin.com/company/argilai"
   }
 }
