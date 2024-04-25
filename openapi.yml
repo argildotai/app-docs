@@ -316,6 +316,12 @@ components:
         videoUrl:
           type: string
           description: "The url of the final avatar rendering video, containing all the moments merged."
+        extras:
+          type: object
+          description: "A dictionary of custom key-value pairs to extend the video metadata. Maximum of 5 key-value pairs of 256 characters allowed."
+          additionalProperties:
+            type: string
+          maxProperties: 5
     VideoCreateArgs:
       type: object
       required:
@@ -348,10 +354,9 @@ components:
                 description: "The id of the voice to be used for this moment."
         extras:
           type: object
-          description: "Optional field to store additional, free-form data relevant to the video."
+          description: "Optional dictionary of custom key-value pairs to extend the video metadata. Maximum of 5 key-value pairs of 256 characters allowed."
           additionalProperties:
-            type: object
-            description: "This can be any JSON object containing arbitrary data."
+            type: string
     Error:
       type: object
       properties:
