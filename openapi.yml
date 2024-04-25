@@ -6,7 +6,7 @@ info:
   license:
     name: MIT
 servers:
-  - url: http://api.argil.ai
+  - url: http://api.argil.ai/v1
 security:
   - ApiKeyAuth: []
 paths:
@@ -52,15 +52,45 @@ paths:
     get:
       summary: Paginated list of Videos
       description: Returns a paginated array of Videos
+      parameters:
+        - name: page
+          in: query
+          description: Page number of the video list
+          required: false
+          schema:
+            type: integer
+            default: 1
+        - name: limit
+          in: query
+          description: Number of videos per page
+          required: false
+          schema:
+            type: integer
+            default: 10
       responses:
         200:
           description: A paginated list of Videos
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Video'
+                type: object
+                properties:
+                  totalItems:
+                    type: integer
+                    description: Total number of videos available
+                  totalPages:
+                    type: integer
+                    description: Total number of pages
+                  currentPage:
+                    type: integer
+                    description: Current page number
+                  itemsPerPage:
+                    type: integer
+                    description: Number of items per page
+                  videos:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Video'
         400:
           description: Unexpected error
           content:
@@ -154,6 +184,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Video'
+        400:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         404:
           description: Video not found
           content:
@@ -210,6 +246,8 @@ components:
           type: integer
         height:
           type: integer
+        thumbnailUrl:
+          type: string
     Video:
       type: object
       properties:
@@ -225,7 +263,7 @@ components:
           format: date-time
         status:
           type: string
-          description: "Can be either 'IDLE', 'GENERATING_AUDIO', 'GENERATING_VIDEO' or 'FAILED'."
+          description: "Can be either `IDLE`, `GENERATING_AUDIO`, `GENERATING_VIDEO` or `FAILED`."
         moments:
           type: array
           description: "An array of Moment items, each representing a portion of the complete video."
@@ -247,6 +285,9 @@ components:
               voice:
                 type: string
                 description: "The id of the voice to be used for this moment."
+              gesture:
+                type: string
+                description: "The id of the gesture to be used for this moment."
         videoUrl:
           type: string
           description: "The url of the final avatar rendering video, containing all the moments merged."
