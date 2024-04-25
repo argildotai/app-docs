@@ -67,6 +67,31 @@ paths:
           schema:
             type: integer
             default: 10
+        - name: name
+          in: query
+          description: Filter videos by name, case-insensitive substring match.
+          required: false
+          schema:
+            type: string
+        - name: avatarId
+          in: query
+          description: Filter videos by avatar ID.
+          required: false
+          schema:
+            type: string
+        - name: voiceId
+          in: query
+          description: Filter videos by voice ID.
+          required: false
+          schema:
+            type: string
+        - name: extrasFilter
+          in: query
+          description: A JSON string representing filters to apply on the extras JSON field. Must be a valid JSON object as a string, specifying properties and values to match.
+          required: false
+          schema:
+            type: string
+            example: '{"X_ID": "YOUR_CUSTOM_ID"}'
       responses:
         200:
           description: A paginated list of Videos
@@ -321,6 +346,12 @@ components:
               voice:
                 type: string
                 description: "The id of the voice to be used for this moment."
+        extras:
+          type: object
+          description: "Optional field to store additional, free-form data relevant to the video."
+          additionalProperties:
+            type: object
+            description: "This can be any JSON object containing arbitrary data."
     Error:
       type: object
       properties:
