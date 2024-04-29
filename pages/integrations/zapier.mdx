@@ -1,7 +1,82 @@
 ---
-title: 'Zapier integration'
+title: 'Argil + Zapier Integration'
 sidebarTitle: 'Zapier'
-description: "Integrate Argil video capabilities to your Zapier workflow"
+description: 'Set up automated workflows to create and distribute personalized videos with Argil’s Zapier integration.'
 ---
 
-Coming soon...
+## Introduction to Argil + Zapier
+
+Unlock the power of automation in your content creation process with Argil’s integration on Zapier. This guide will walk you through setting up workflows that enable you to create and distribute personalized videos automatically, without writing any code.
+
+## Getting Started with Argil on Zapier
+
+<Steps>
+  <Step title="Obtain Your Argil API Key">
+    To use Argil's API features through Zapier, you need an active subscription. Check our [Credentials](/pages/get-started/credentials) documentation for further information.
+  </Step>
+  <Step title="Find Argil on Zapier">
+    Access Argil’s Zapier integration by searching for "Argil" in the Zapier app directory or by visiting our [Argil Zapier Integration Page](https://zapier.com/apps/argil/integrations).
+  </Step>
+  <Step title="Connect Zapier to your Argil account">
+    Connect Zapier to your Argil Account using your API key. This authentication will be available from any Argil task you run in Zapier.
+  </Step>
+  <Step title="Creating Workflows with Argil and Zapier">
+    To efficiently handle video creation and distribution, we recommend setting up at least two zaps: one for creating the video and another for handling the video once it's ready.
+    
+    #### Run Argil Actions from any Zapier trigger
+
+    Configure a Zap triggered on events from various apps available on Zapier and connect it to an argil action.
+    
+    <AccordionGroup>
+      <Accordion title="Create Video">
+        Create a Video object on our system with specifying its data.<br />
+        Check our [API Reference for Creating Video](/pages/api-reference/endpoint/videos.create) for more information about Video Creation.
+      </Accordion>
+      <Accordion title="Render Video">
+        Generate a previouly created Video according to its specified data.<br />
+        Check our [API Reference for Video Rendering](/pages/api-reference/endpoint/videos.render) for more information about Video Rendering.
+      </Accordion>
+      <Accordion title="Delete Video">
+        Delete a Video. Can be used once you have retrieved it from Argil Trigger if you don't need it to be kept in our system.<br />
+        Check our [API Reference for Deleting Video](/pages/api-reference/endpoint/videos.delete) for more information about Video Deletion.
+      </Accordion>
+    </AccordionGroup>
+
+    <Frame>
+      <img
+        className="block dark:hidden"
+        src="/images/zapier_actions.png"
+        style={{borderRadius: '8px'}}
+        alt="Argil Actions"
+      />
+    </Frame>
+    
+    #### Run any Zapier Action from Argil trigger
+    
+    Configure a Zap triggered on Argil events such as `Successful Video Generation` and `Failed Video Generation`. Run Zapier action from various apps available on Zapier when this event occurs.
+    
+    <AccordionGroup>
+      <Accordion title="Successful Video Generation">
+        Create a Video object on our system with specifying its data.<br />
+        Check our [video_generation_success event documentation](/pages/webhook-events/video-generation-success).
+      </Accordion>
+      <Accordion title="Failed Video Generation">
+        Generate a previouly created Video according to its specified data.<br />
+        Check our [video_generation_failed event documentation](/pages/webhook-events/video-generation-failed).
+      </Accordion>
+    </AccordionGroup>
+
+    <Frame>
+      <img
+        className="block dark:hidden"
+        src="/images/zapier_triggers.png"
+        style={{borderRadius: '8px'}}
+        alt="Argil Triggers"
+      />
+    </Frame>
+  </Step>
+</Steps>
+
+## Need Help?
+
+For further assistance with the Argil + Zapier integration, feel free to join our [Discord community](https://discord.gg/Xy5NEqUv) or reach out to us at [brivael@argil.ai](mailto:brivael@argil.ai).

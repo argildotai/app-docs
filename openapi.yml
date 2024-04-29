@@ -67,7 +67,7 @@ paths:
           schema:
             type: integer
             default: 10
-        - name: name
+        - name: nameSearchQuery
           in: query
           description: Filter videos by name, case-insensitive substring match.
           required: false
@@ -191,7 +191,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /render/{id}:
+  /videos/{id}/render:
     post:
       summary: Render a Video by id
       description: Returns a single Video object, with its updated status and information
@@ -217,6 +217,129 @@ paths:
                 $ref: '#/components/schemas/Error'
         404:
           description: Video not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /webhooks:
+    post:
+      summary: Create a new webhook
+      description: Creates a new webhook with the specified details.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - callbackUrl
+                - events
+              properties:
+                callbackUrl:
+                  type: string
+                  description: URL to which the webhook will send POST requests.
+                events:
+                  type: array
+                  items:
+                    type: string
+                    description: List of events the webhook is subscribing to.
+                extrasFilters:
+                  type: object
+                  additionalProperties:
+                    type: string
+                  maxProperties: 10
+      responses:
+        201:
+          description: Successfully created webhook
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+        400:
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    get:
+      summary: Retrieve all webhooks
+      description: Retrieves all webhooks for the authenticated user.
+      responses:
+        200:
+          description: An array of webhooks
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Webhook'
+        400:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /webhooks/{id}:
+    put:
+      summary: Update a webhook
+      description: Updates the specified details of an existing webhook.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                callbackUrl:
+                  type: string
+                events:
+                  type: array
+                  items:
+                    type: string
+                extrasFilters:
+                  type: object
+                  additionalProperties:
+                    type: string
+                  maxProperties: 10
+      responses:
+        200:
+          description: Successfully updated webhook
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+        400:
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        404:
+          description: Webhook not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      summary: Delete a webhook
+      description: Deletes a single webhook identified by its ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        204:
+          description: Successfully deleted webhook
+        404:
+          description: Webhook not found
           content:
             application/json:
               schema:
@@ -304,13 +427,13 @@ components:
               videoUrl:
                 type: string
                 description: "The url of the avatar rendering video for this moment."
-              avatar:
+              avatarId:
                 type: string
                 description: "The id of the avatar to be used for this moment."
-              voice:
+              voiceId:
                 type: string
                 description: "The id of the voice to be used for this moment."
-              gesture:
+              gestureId:
                 type: string
                 description: "The id of the gesture to be used for this moment."
         videoUrl:
@@ -321,7 +444,7 @@ components:
           description: "A dictionary of custom key-value pairs to extend the video metadata. Maximum of 5 key-value pairs of 256 characters allowed."
           additionalProperties:
             type: string
-          maxProperties: 5
+          maxProperties: 10
     VideoCreateArgs:
       type: object
       required:
@@ -346,17 +469,46 @@ components:
               audioUrl:
                 type: string
                 description: "Optional url to the audio to be used for the video rendering, for bypassing our audio generation model. Current limit: 20 seconds."
-              avatar:
+              avatarId:
                 type: string
                 description: "The id of the avatar to be used for this moment."
-              voice:
+              voiceId:
                 type: string
                 description: "The id of the voice to be used for this moment."
+              gestureId:
+                type: string
+                description: "This id of the gesture to be used for this moment."
         extras:
           type: object
           description: "Optional dictionary of custom key-value pairs to extend the video metadata. Maximum of 5 key-value pairs of 256 characters allowed."
           additionalProperties:
             type: string
+          maxProperties: 10
+    Webhook:
+      type: object
+      properties:
+        id:
+          type: string
+        callbackUrl:
+          type: string
+        events:
+          type: array
+          items:
+            type: string
+        filters:
+          type: object
+          additionalProperties:
+            type: string
+          maxProperties: 10
+        createAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        lastTriggeredAt:
+          type: string
+          format: date-time
     Error:
       type: object
       properties:

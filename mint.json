@@ -27,6 +27,10 @@
     "url": "https://app.argil.ai"
   },
   "tabs": [
+    {
+      "url": "api-reference",
+      "name": "Reference APIs"
+    }
   ],
   "anchors": [
     {
@@ -61,16 +65,37 @@
       ]
     },
     {
-      "group": "Reference APIs",
+      "group": "Webhook Events",
       "pages": [
-        "pages/api-reference/overview",
-        "pages/api-reference/endpoint/avatars",
-        "pages/api-reference/endpoint/voices",
-        "pages/api-reference/endpoint/videos",
-        "pages/api-reference/endpoint/video",
-        "pages/api-reference/endpoint/create-video",
-        "pages/api-reference/endpoint/render",
-        "pages/api-reference/endpoint/delete"
+        "pages/webhook-events/introduction",
+        "pages/webhook-events/video-generation-success",
+        "pages/webhook-events/video-generation-failed"
+      ]
+    },
+    {
+      "group": "Avatars and Voices",
+      "pages": [
+        "api-reference/endpoint/avatars.list",
+        "api-reference/endpoint/voices.list"
+      ]
+    },
+    {
+      "group": "Videos",
+      "pages": [
+        "api-reference/endpoint/videos.list",
+        "api-reference/endpoint/videos.create",
+        "api-reference/endpoint/videos.get",
+        "api-reference/endpoint/videos.delete",
+        "api-reference/endpoint/videos.render"
+      ]
+    },
+    {
+      "group": "Webhooks",
+      "pages": [
+        "api-reference/endpoint/webhooks.list",
+        "api-reference/endpoint/webhooks.create",
+        "api-reference/endpoint/webhooks.update",
+        "api-reference/endpoint/webhooks.delete"
       ]
     }
   ],
@@ -78,5 +103,14 @@
     "twitter": "https://twitter.com/argildotai",
     "github": "https://github.com/argildotai",
     "linkedin": "https://www.linkedin.com/company/argilai"
+  },
+  "feedback": {
+      "thumbsRating": true,
+      "suggestEdit": true,
+      "raiseIssue": true
+  },
+  "modeToggle": {
+    "default": "light",
+    "isHidden": true
   }
 }

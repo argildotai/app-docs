@@ -1,0 +1,71 @@
+---
+title: "Introduction to Argil's Webhook Events"
+sidebarTitle: 'Introduction'
+description: 'Learn what webhooks are, how they work, and how to set them up with Argil through our API.'
+---
+
+## What are Webhooks?
+
+Webhooks are automated messages sent from apps when something happens. In the context of Argil, webhooks allow you to receive real-time notifications about various events occurring within your environment, such as video generation successes or failures.
+
+## How Webhooks Work
+
+Webhooks in Argil send a POST request to your specified callback URL whenever subscribed events occur. This enables your applications to respond immediately to events within Argil as they happen.
+
+### Available Events for subscription
+
+<AccordionGroup>
+  <Accordion title="Video Generation Success">
+    This event is triggered when an avatar video generation is successful.<br />
+    Check our [video_generation_success Event Documentation](/pages/webhook-events/video_generation_success) for more information about this event.
+  </Accordion>
+  <Accordion title="Video Generation Failed">
+    This event is triggered when an avatar video generation is failed.<br />
+    Check our [video_generation_failed Event Documentation](/pages/webhook-events/video_generation_failed) for more information about this event.
+  </Accordion>
+</AccordionGroup>
+
+<Tip>
+  A single webhook can subscribe to multiple events.
+</Tip>
+
+## Managing Webhooks via API
+
+You can manage your webhooks entirely through API calls, which allows you to programmatically list, register, edit, and unregister webhooks. Below are the primary actions you can perform with our API:
+
+<AccordionGroup>
+  <Accordion title="List All Webhooks">
+    Retrieve a list of all your registered webhook.<br />
+    [API Reference for Listing Webhooks](/pages/api-reference/endpoint/webhooks/list)
+  </Accordion>
+  <Accordion title="Register to a Webhook">
+    Learn how to register a webhook by specifying a callback URL and the events you are interested in. You can also set filters to refine when the webhook should trigger.<br />
+    [API Reference for Creating Webhooks](/pages/api-reference/endpoint/webhooks/create)
+  </Accordion>
+  <Accordion title="Unregister a Webhook">
+    Unregister a webhook when it's no longer needed.<br />
+    [API Reference for Deleting Webhooks](/pages/api-reference/endpoint/webhooks/delete)
+  </Accordion>
+  <Accordion title="Edit a Webhook">
+    Update your webhook settings, such as changing the callback URL, events, or filters.<br />
+    [API Reference for Editing Webhooks](/pages/api-reference/endpoint/webhooks/update)
+  </Accordion>
+</AccordionGroup>
+
+## Argil's Webhook Specificities
+
+### Filtering System
+
+Argil's webhooks can be tailored with filters to trigger only under specific conditions. This functionality allows you to manage when and how your services are notified about events, minimizing unnecessary communications and focusing on relevant data. Filters can be applied based on various attributes of the events, such as:
+
+<AccordionGroup>
+  <Accordion title="Event Specific Data">
+    Filters can check for specific event attributes, like video IDs or names. Check the documentation page of each event to see authorized filters.
+  </Accordion>
+  <Accordion title="Custom Filters">
+    For some events, you can define custom key-value pairs within events to further control the webhook triggers. This will be applied to the specific resource the event is focused on.<br />
+    For example, the `video_generation_success` event is focus on the `Video` resource where you can add custom key-value pairs in the `extras` field. In that case, your custom filters will be applied to the values you have setup in this `extras` field.
+  </Accordion>
+</AccordionGroup>
+
+Filters ensure that your systems only receive webhooks when predefined conditions are met, making the integration both efficient and effective.

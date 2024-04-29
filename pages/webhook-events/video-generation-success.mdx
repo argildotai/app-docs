@@ -1,0 +1,37 @@
+---
+title: 'Video Generation Success Webhook'
+sidebarTitle: 'video_generation_success'
+description: "Get notified when an avatar video generation completed successfully"
+---
+
+## About the Video Generation Success Event
+
+The `video_generation_success` event is triggered when a video generation process completes successfully in Argil. This webhook event provides your service with a payload containing detailed information about the successful video generation.
+
+## Payload Details
+
+When this event triggers, the following data is sent to your callback URL:
+
+```json
+{
+  "event": "video_generation_success",
+  "data": {
+    "videoId": "<video_id>",
+    "videoName": "<video_name>",
+    "videoUrl": "<public_url_to_access_video>",
+    "extras": "<additional_key-value_data_related_to_the_video>"
+  }
+}
+```
+
+## Filters
+
+You can specify filters to limit when this webhook fires. For example, you might only want to receive the video_generation_success event for videos with specific characteristics:
+
+- `videoId`: Only triggers for the specified video ID.
+- `nameSearchQuery`: Triggers for videos whose names contain the specified string.
+- `extrasFilters`: Key-value pairs that must match the video's extras.
+
+<Note>
+  For detailed instructions on setting up this webhook event, visit our [Webhooks API Reference](/pages/api-reference/endpoint/webhooks.create).
+</Note>
