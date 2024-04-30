@@ -6,7 +6,7 @@ info:
   license:
     name: MIT
 servers:
-  - url: http://api.argil.ai/v1
+  - url: rest:8181/v1
 security:
   - ApiKeyAuth: []
 paths:
@@ -459,9 +459,8 @@ components:
           items:
             type: object
             required:
-              - transcript
-              - avatar
-              - voice
+              - avatarId
+              - voiceId
             properties:
               transcript:
                 type: string
@@ -526,4 +525,5 @@ components:
     ApiKeyAuth:
       type: apiKey
       in: header
-      name: X-API-Key
+      name: Authorization
+      description: 'API key prefixed by "ApiKey " to be included in the Authorization header'
