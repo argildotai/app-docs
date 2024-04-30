@@ -1,5 +1,5 @@
 {
-  "$schema": "https://mintlify.com/schema.json",
+"$schema": "https://mintlify.com/schema.json",
   "name": "Argil",
   "openapi": ["/openapi.yml"],
   "logo": {
@@ -56,12 +56,6 @@
         "pages/get-started/introduction",
         "pages/get-started/credentials",
         "pages/get-started/quickstart"
-      ]
-    },
-    {
-      "group": "Integrations",
-      "pages": [
-        "pages/integrations/zapier"
       ]
     },
     {
