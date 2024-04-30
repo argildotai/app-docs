@@ -6,7 +6,7 @@ info:
   license:
     name: MIT
 servers:
-  - url: rest:8181/v1
+  - url: https://api.argil.ai/v1
 security:
   - ApiKeyAuth: []
 paths:
