@@ -45,6 +45,12 @@ description: 'Start automating your content creation workflow'
     - A `name` for the video
     - A list of `Moment` objects, representing segments of your final video. For each moment, you will be able to choose the `avatar`, the `voice` and the `transcript` to be used.
 
+    <Tip>
+        For each moment, you can also optionally specify:
+        - An audioUrl to be used as voice for the moment. This audio will override our voice generation.
+        - A gestureSlug to select which gesture from the avatar should be used for the moment. 
+    </Tip>
+
     ```mermaid
     flowchart TB
         subgraph video["Video {name}"]
@@ -54,18 +60,24 @@ description: 'Start automating your content creation workflow'
                   item1{{avatar}}
                   item2{{voice}}
                   item3{{transcript}}
+                  item4{{optional - gestureSlug}}
+                  item5{{optional - audioUrl}}
               end
-              subgraph subgraph2["Moment 2"]
+              subgraph subgraph2["Moment n"]
                   direction LR
-                  item4{{avatar}}
-                  item5{{voice}}
-                  item6{{transcript}}
+                  item6{{avatar}}
+                  item7{{voice}}
+                  item8{{transcript}}
+                  item9{{optional - gestureSlug}}
+                  item10{{optional - audioUrl}}
               end
-              subgraph subgraph3["Moment n"]
+              subgraph subgraph3["Moment n+1"]
                   direction LR
-                  item7{{avatar}}
-                  item8{{voice}}
-                  item9{{transcript}}
+                  item11{{avatar}}
+                  item12{{voice}}
+                  item13{{transcript}}
+                  item14{{optional - gestureSlug}}
+                  item15{{optional - audioUrl}}
               end
               subgraph1 --> subgraph2
               subgraph2 --> subgraph3
