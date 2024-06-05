@@ -468,22 +468,22 @@ components:
             properties:
               transcript:
                 type: string
-                description: "A portion of the complete transcript. Current limit: 250 characters."
+                description: "A portion of the complete transcript. Current limit: 250 characters"
               avatarId:
                 type: string
-                description: "The id of the avatar to be used for this moment."
+                description: "The id of the avatar to be used for this moment"
               voiceId:
                 type: string
-                description: "The id of the voice to be used for this moment."
+                description: "The id of the voice to be used for this moment"
               gestureSlug:
                 type: string
-                description: "The slug identifier of the gesture to be used for this moment."
+                description: "The slug identifier of the gesture to be used for this moment"
               audioUrl:
                 type: string
-                description: "Optional url to the audio to be used for the video rendering, for bypassing our audio generation model. Current limit: 20 seconds."
+                description: "Optional url to the audio to be used for the video rendering, for bypassing our audio generation model. Current limit: 20 seconds"
         extras:
           type: object
-          description: "Optional dictionary of custom key-value pairs to extend the video metadata. Maximum of 5 key-value pairs of 256 characters allowed."
+          description: "Optional dictionary of custom key-value pairs to extend the video metadata. Maximum of 5 key-value pairs of 256 characters allowed"
           additionalProperties:
             type: string
           maxProperties: 10
