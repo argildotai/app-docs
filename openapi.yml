@@ -382,12 +382,15 @@ components:
           items:
             type: object
             properties:
-              id:
-                type: string
-                description: "Allows identifying the gesture when using it for a specific moment."
               label:
                 type: string
                 description: "A label for user readability. Can be setup from the app's UI."
+              slug:
+                type: string
+                description: "Allows identifying the gesture when using it for a specific moment."
+              startFrame:
+                type: number
+                description: "The startFrame of the source Avatar video to be used as start for the video template."
         status:
           type: string
         width:
@@ -421,21 +424,21 @@ components:
               transcript:
                 type: string
                 description: "A portion of the complete transcript. Current limit: 250 characters."
-              audioUrl:
-                type: string
-                description: "The audio that will be used for the video rendering. Automatically generated from the transcript when not provided. Current limit: 20 seconds."
-              videoUrl:
-                type: string
-                description: "The url of the avatar rendering video for this moment."
               avatarId:
                 type: string
                 description: "The id of the avatar to be used for this moment."
               voiceId:
                 type: string
                 description: "The id of the voice to be used for this moment."
-              gestureId:
+              audioUrl:
                 type: string
-                description: "The id of the gesture to be used for this moment."
+                description: "The audio that will be used for the video rendering. Automatically generated from the transcript when not provided. Current limit: 20 seconds."
+              videoUrl:
+                type: string
+                description: "The url of the avatar rendering video for this moment."
+              gestureSlug:
+                type: string
+                description: "The slug identifier of the gesture to be used for this moment."
         videoUrl:
           type: string
           description: "The url of the final avatar rendering video, containing all the moments merged."
@@ -459,24 +462,25 @@ components:
           items:
             type: object
             required:
+              - transcript
               - avatarId
               - voiceId
             properties:
               transcript:
                 type: string
                 description: "A portion of the complete transcript. Current limit: 250 characters."
-              audioUrl:
-                type: string
-                description: "Optional url to the audio to be used for the video rendering, for bypassing our audio generation model. Current limit: 20 seconds."
               avatarId:
                 type: string
                 description: "The id of the avatar to be used for this moment."
               voiceId:
                 type: string
                 description: "The id of the voice to be used for this moment."
-              gestureId:
+              gestureSlug:
                 type: string
-                description: "This id of the gesture to be used for this moment."
+                description: "The slug identifier of the gesture to be used for this moment."
+              audioUrl:
+                type: string
+                description: "Optional url to the audio to be used for the video rendering, for bypassing our audio generation model. Current limit: 20 seconds."
         extras:
           type: object
           description: "Optional dictionary of custom key-value pairs to extend the video metadata. Maximum of 5 key-value pairs of 256 characters allowed."
@@ -525,5 +529,5 @@ components:
     ApiKeyAuth:
       type: apiKey
       in: header
-      name: Authorization
-      description: 'API key prefixed by "ApiKey " to be included in the Authorization header'
+      name: x-api-key
+      description: 'API key to be included in the x-api-key header'
