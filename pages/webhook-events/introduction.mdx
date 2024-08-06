@@ -17,11 +17,11 @@ Webhooks in Argil send a POST request to your specified callback URL whenever su
 <AccordionGroup>
   <Accordion title="Video Generation Success">
     This event is triggered when an avatar video generation is successful.<br />
-    Check our [video_generation_success Event Documentation](/pages/webhook-events/video-generation-success) for more information about this event.
+    Check our [VIDEO_GENERATION_SUCCESS Event Documentation](/pages/webhook-events/video-generation-success) for more information about this event.
   </Accordion>
   <Accordion title="Video Generation Failed">
     This event is triggered when an avatar video generation is failed.<br />
-    Check our [video_generation_failed Event Documentation](/pages/webhook-events/video-generation-failed) for more information about this event.
+    Check our [VIDEO_GENERATION_FAILED Event Documentation](/pages/webhook-events/video-generation-failed) for more information about this event.
   </Accordion>
 </AccordionGroup>
 
@@ -64,7 +64,7 @@ Argil's webhooks can be tailored with filters to trigger only under specific con
   </Accordion>
   <Accordion title="Custom Filters">
     For some events, you can define custom key-value pairs within events to further control the webhook triggers. This will be applied to the specific resource the event is focused on.<br />
-    For example, the `video_generation_success` event is focus on the `Video` resource where you can add custom key-value pairs in the `extras` field. In that case, your custom filters will be applied to the values you have setup in this `extras` field.
+    For example, the `VIDEO_GENERATION_SUCCESS` event is focus on the `Video` resource where you can add custom key-value pairs in the `extras` field. In that case, your custom filters will be applied to the values you have setup in this `extras` field.
   </Accordion>
 </AccordionGroup>
 
