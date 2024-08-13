@@ -48,7 +48,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /avatar/{id}:
+  /avatars/{id}:
     get:
       summary: Get an Avatar by id
       description: Returns a single Avatar identified by its id
