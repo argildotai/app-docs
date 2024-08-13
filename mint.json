@@ -69,6 +69,7 @@
     {
       "group": "Avatars and Voices",
       "pages": [
+        "api-reference/endpoint/avatars.get",
         "api-reference/endpoint/avatars.list",
         "api-reference/endpoint/voices.list"
       ]
