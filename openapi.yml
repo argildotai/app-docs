@@ -48,6 +48,30 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  /avatar/{id}:
+    get:
+      summary: Get an Avatar by id
+      description: Returns a single Avatar identified by its id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            description: The id of the Avatar to retrieve
+      responses:
+        200:
+          description: Detailed information about the Avatar
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Avatar'
+        404:
+          description: Avatar not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /videos:
     get:
       summary: Paginated list of Videos
