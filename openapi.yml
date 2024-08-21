@@ -438,7 +438,7 @@ components:
           format: date-time
         status:
           type: string
-          description: "Can be either `IDLE`, `GENERATING_AUDIO`, `GENERATING_VIDEO` or `FAILED`."
+          description: "Can be either `IDLE`, `GENERATING_AUDIO`, `GENERATING_VIDEO`, `DONE` or `FAILED`."
         moments:
           type: array
           description: "An array of Moment items, each representing a portion of the complete video."
