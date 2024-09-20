@@ -466,6 +466,12 @@ components:
         videoUrl:
           type: string
           description: "The url of the final avatar rendering video, containing all the moments merged."
+        subtitles:
+          type: object
+          properties:
+            enable:
+              type: boolean
+          description: "Subtitles settings for the video"
         extras:
           type: object
           description: "A dictionary of custom key-value pairs to extend the video metadata. Maximum of 5 key-value pairs of 256 characters allowed."
@@ -505,11 +511,18 @@ components:
               audioUrl:
                 type: string
                 description: "Optional url to the audio to be used for the video rendering, for bypassing our audio generation model. Current limit: 20 seconds"
-        enableSubtitles:
-          type: boolean
-          description: "Enable auto subtitling for the video. Default: false."
+        subtitles:
+          type: object
+          properties:
+            enable:
+              type: boolean
+          required:
+            - enable
+          additionalProperties: false
+          description: "Subtitles settings for the video"
         aspectRatio:
           type: string
+          enum: ['16:9', '9:16']
           description: "Select desired output aspectRatio: 16:9 or 9:16. Optional, default depends on used avatar."
         extras:
           type: object
