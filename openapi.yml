@@ -466,6 +466,9 @@ components:
         videoUrl:
           type: string
           description: "The url of the final avatar rendering video, containing all the moments merged."
+        videoUrlSubtitled:
+          type: string
+          description: "The url of the final avatar rendering video with subtitles. Only available if subtitles are enabled."
         subtitles:
           type: object
           properties:
