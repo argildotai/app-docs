@@ -92,6 +92,12 @@
         "api-reference/endpoint/webhooks.update",
         "api-reference/endpoint/webhooks.delete"
       ]
+    },
+    {
+      "group": "Assets",
+      "pages": [
+        "api-reference/endpoint/assets.list"
+      ]
     }
   ],
   "footerSocials": {

@@ -245,6 +245,25 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  /assets:
+    get:
+      summary: List audio assets
+      description: Returns an array of audio assets available for the user
+      responses:
+        200:
+          description: An array of audio assets
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Asset'
+        400:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /webhooks:
     post:
       summary: Create a new webhook
@@ -527,12 +546,42 @@ components:
           type: string
           enum: ['16:9', '9:16']
           description: "Select desired output aspectRatio: 16:9 or 9:16. Optional, default depends on used avatar."
+        enableAutoBrolls:
+          type: boolean 
+          description: "Enable automatic B-roll generation and placement. When enabled, the system will analyze your content and automatically add relevant B-rolls to appropriate moments."
         extras:
           type: object
           description: "Optional dictionary of custom key-value pairs to extend the video metadata. Maximum of 5 key-value pairs of 256 characters allowed"
           additionalProperties:
             type: string
           maxProperties: 10
+        backgroundMusic:
+          type: object
+          description: "Optional configuration for background music"
+          properties:
+            assetId:
+              type: string
+              description: "ID of an audio asset to use as background music"
+            volume:
+              type: number
+              description: "Volume level of the background music (0-1). Default is 0.14"
+              minimum: 0
+              maximum: 1
+          required:
+            - assetId
+    Asset:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+          enum: [AUDIO]
+        fileUrl:
+          type: string
+          description: "URL to access the asset"
     Webhook:
       type: object
       properties:
