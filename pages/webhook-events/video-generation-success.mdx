@@ -24,14 +24,6 @@ When this event triggers, the following data is sent to your callback URL:
 }
 ```
 
-## Filters
-
-You can specify filters to limit when this webhook fires. For example, you might only want to receive the VIDEO_GENERATION_SUCCESS event for videos with specific characteristics:
-
-- `videoId`: Only triggers for the specified video ID.
-- `nameSearchQuery`: Triggers for videos whose names contain the specified string.
-- `extrasFilters`: Key-value pairs that must match the video's extras.
-
 <Note>
   For detailed instructions on setting up this webhook event, visit our [Webhooks API Reference](/pages/api-reference/endpoint/webhooks.create).
 </Note>

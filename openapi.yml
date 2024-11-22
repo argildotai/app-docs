@@ -48,6 +48,28 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+    post:
+      summary: Create a new Avatar
+      description: Creates a new Avatar by uploading source videos and launches training. The process is asynchronous - the avatar will initially be created with 'NOT_TRAINED' status and will transition to 'TRAINING' then 'IDLE' once ready.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AvatarCreateArgs'
+      responses:
+        201:
+          description: Successfully created Avatar. The training process will start automatically.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Avatar'
+        400:
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /avatars/{id}:
     get:
       summary: Get an Avatar by id
@@ -282,15 +304,7 @@ paths:
                   type: string
                   description: URL to which the webhook will send POST requests.
                 events:
-                  type: array
-                  items:
-                    type: string
-                    description: List of events the webhook is subscribing to.
-                extrasFilters:
-                  type: object
-                  additionalProperties:
-                    type: string
-                  maxProperties: 10
+                  $ref: '#/components/schemas/WebhookEventSchema'
       responses:
         201:
           description: Successfully created webhook
@@ -342,14 +356,7 @@ paths:
                 callbackUrl:
                   type: string
                 events:
-                  type: array
-                  items:
-                    type: string
-                extrasFilters:
-                  type: object
-                  additionalProperties:
-                    type: string
-                  maxProperties: 10
+                  $ref: '#/components/schemas/WebhookEventSchema'
       responses:
         200:
           description: Successfully updated webhook
@@ -394,6 +401,7 @@ components:
       properties:
         id:
           type: string
+          format: uuid
         name:
           type: string
         createAt:
@@ -406,11 +414,73 @@ components:
           type: string
         sampleUrl:
           type: string
+    AvatarCreateArgs:
+      type: object
+      required:
+        - name
+        - datasetVideo
+        - consentVideo
+      properties:
+        name:
+          type: string
+          description: "Name of the avatar"
+          minLength: 1
+          maxLength: 256
+        datasetVideo:
+          type: object
+          required:
+            - url
+          properties:
+            url:
+              type: string
+              format: uri
+              pattern: ^https://.*
+              description: "HTTPS URL to the source video for training. Must be 1-5 minutes long, in MP4 or MOV format, resolution between 720p and 4K. Max size 1.5GB."
+          additionalProperties: false
+        consentVideo:
+          type: object
+          required:
+            - url
+          properties:
+            url:
+              type: string
+              format: uri
+              pattern: ^https://.*
+              description: "HTTPS URL to the consent video recording. Must be 30 seconds or less, in MP4 or MOV format. Max size 100MB."
+          additionalProperties: false
+        extras:
+          type: object
+          description: "Optional dictionary of custom key-value pairs to extend the video metadata. Maximum of 5 key-value pairs of 256 characters allowed"
+          additionalProperties:
+            type: string
+          maxProperties: 10
+      additionalProperties: false
+      example:
+        name: "My Avatar"
+        datasetVideo:
+          url: "https://example.com/source-video.mp4"
+        consentVideo:
+          url: "https://example.com/consent-video.mp4"
+    AvatarStatus:
+      type: string
+      enum:
+        - NOT_TRAINED
+        - TRAINING
+        - TRAINING_FAILED
+        - IDLE
+        - REFUSED
+      description: |
+        * NOT_TRAINED - Initial state after creation
+        * TRAINING - Avatar is currently training
+        * TRAINING_FAILED - Training process failed
+        * IDLE - Avatar is ready to use
+        * REFUSED - Avatar was refused by moderation
     Avatar:
       type: object
       properties:
         id:
           type: string
+          format: uuid
         name:
           type: string
         createAt:
@@ -435,18 +505,25 @@ components:
                 type: number
                 description: "The startFrame of the source Avatar video to be used as start for the video template."
         status:
-          type: string
+          $ref: '#/components/schemas/AvatarStatus'
         width:
           type: integer
         height:
           type: integer
         thumbnailUrl:
           type: string
+        extras:
+          type: object
+          description: "A dictionary of custom key-value pairs to extend the Avatar metadata. Maximum of 5 key-value pairs of 256 characters allowed."
+          additionalProperties:
+            type: string
+          maxProperties: 10
     Video:
       type: object
       properties:
         id:
           type: string
+          format: uuid
         name:
           type: string
         createdAt:
@@ -533,6 +610,20 @@ components:
               audioUrl:
                 type: string
                 description: "Optional url to the audio to be used for the video rendering, for bypassing our audio generation model. Current limit: 20 seconds"
+              zoom:
+                type: object
+                description: "Controls the zoom level of the viewport/display, allowing content to be scaled larger or smaller"
+                required:
+                  - level
+                properties:
+                  level:
+                    type: number
+                    minimum: 1.0
+                    maximum: 2.0
+                    default: 1.0
+                    description: "Specifies the zoom scaling factor where 1.0 represents 100% (original size), and 2.0 is 200% (zoomed in)"
+                additionalProperties: false
+            additionalProperties: false
         subtitles:
           type: object
           properties:
@@ -547,7 +638,7 @@ components:
           enum: ['16:9', '9:16']
           description: "Select desired output aspectRatio: 16:9 or 9:16. Optional, default depends on used avatar."
         enableAutoBrolls:
-          type: boolean 
+          type: boolean
           description: "Enable automatic B-roll generation and placement. When enabled, the system will analyze your content and automatically add relevant B-rolls to appropriate moments."
         extras:
           type: object
@@ -574,6 +665,7 @@ components:
       properties:
         id:
           type: string
+          format: uuid
         name:
           type: string
         type:
@@ -587,17 +679,11 @@ components:
       properties:
         id:
           type: string
+          format: uuid
         callbackUrl:
           type: string
         events:
-          type: array
-          items:
-            type: string
-        filters:
-          type: object
-          additionalProperties:
-            type: string
-          maxProperties: 10
+          $ref: '#/components/schemas/WebhookEventSchema'
         createAt:
           type: string
           format: date-time
@@ -620,6 +706,14 @@ components:
       properties:
         message:
           type: string
+    WebhookEventSchema:
+      type: string
+      description: List of events the webhook is subscribing to.
+      enum:
+        - AVATAR_TRAINING_SUCCESS
+        - AVATAR_TRAINING_FAILED
+        - VIDEO_GENERATION_SUCCESS
+        - VIDEO_GENERATION_FAILED
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

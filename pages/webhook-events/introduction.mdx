@@ -6,7 +6,7 @@ description: 'Learn what webhooks are, how they work, and how to set them up wit
 
 ## What are Webhooks?
 
-Webhooks are automated messages sent from apps when something happens. In the context of Argil, webhooks allow you to receive real-time notifications about various events occurring within your environment, such as video generation successes or failures.
+Webhooks are automated messages sent from apps when something happens. In the context of Argil, webhooks allow you to receive real-time notifications about various events occurring within your environment, such as video generation successes and failures or avatar training successes and failures.
 
 ## How Webhooks Work
 
@@ -22,6 +22,14 @@ Webhooks in Argil send a POST request to your specified callback URL whenever su
   <Accordion title="Video Generation Failed">
     This event is triggered when an avatar video generation is failed.<br />
     Check our [VIDEO_GENERATION_FAILED Event Documentation](/pages/webhook-events/video-generation-failed) for more information about this event.
+  </Accordion>
+  <Accordion title="Avatar Training Success">
+    This event is triggered when an avatar training is successful.<br />
+    Check our [AVATAR_TRAINING_SUCCESS Event Documentation](/pages/webhook-events/avatar-training-success) for more information about this event.
+  </Accordion>
+  <Accordion title="Avatar Training Failed">
+    This event is triggered when an avatar training is failed.<br />
+    Check our [AVATAR_TRAINING_FAILED Event Documentation](/pages/webhook-events/avatar-training-failed) for more information about this event.
   </Accordion>
 </AccordionGroup>
 
@@ -39,7 +47,7 @@ You can manage your webhooks entirely through API calls, which allows you to pro
     [API Reference for Listing Webhooks](/api-reference/endpoint/webhooks.list)
   </Accordion>
   <Accordion title="Register to a Webhook">
-    Learn how to register a webhook by specifying a callback URL and the events you are interested in. You can also set filters to refine when the webhook should trigger.<br />
+    Learn how to register a webhook by specifying a callback URL and the events you are interested in.<br />
     [API Reference for Creating Webhooks](/api-reference/endpoint/webhooks.create)
   </Accordion>
   <Accordion title="Unregister a Webhook">
@@ -47,25 +55,7 @@ You can manage your webhooks entirely through API calls, which allows you to pro
     [API Reference for Deleting Webhooks](/api-reference/endpoint/webhooks.delete)
   </Accordion>
   <Accordion title="Edit a Webhook">
-    Update your webhook settings, such as changing the callback URL, events, or filters.<br />
+    Update your webhook settings, such as changing the callback URL or events.<br />
     [API Reference for Editing Webhooks](/api-reference/endpoint/webhooks.update)
   </Accordion>
 </AccordionGroup>
-
-## Argil's Webhook Specificities
-
-### Filtering System
-
-Argil's webhooks can be tailored with filters to trigger only under specific conditions. This functionality allows you to manage when and how your services are notified about events, minimizing unnecessary communications and focusing on relevant data. Filters can be applied based on various attributes of the events, such as:
-
-<AccordionGroup>
-  <Accordion title="Event Specific Data">
-    Filters can check for specific event attributes, like video IDs or names. Check the documentation page of each event to see authorized filters.
-  </Accordion>
-  <Accordion title="Custom Filters">
-    For some events, you can define custom key-value pairs within events to further control the webhook triggers. This will be applied to the specific resource the event is focused on.<br />
-    For example, the `VIDEO_GENERATION_SUCCESS` event is focus on the `Video` resource where you can add custom key-value pairs in the `extras` field. In that case, your custom filters will be applied to the values you have setup in this `extras` field.
-  </Accordion>
-</AccordionGroup>
-
-Filters ensure that your systems only receive webhooks when predefined conditions are met, making the integration both efficient and effective.
