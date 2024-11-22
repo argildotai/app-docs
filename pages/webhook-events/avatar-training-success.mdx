@@ -1,0 +1,36 @@
+---
+title: 'Avatar Training Success Webhook'
+sidebarTitle: 'AVATAR_TRAINING_SUCCESS'
+description: "Get notified when an avatar training completed successfully"
+---
+
+## About the Avatar Training Success Event
+
+The `AVATAR_TRAINING_SUCCESS` event is triggered when an avatar training process completes successfully in Argil. This webhook event provides your service with a payload containing detailed information about the successful avatar training.
+
+## Payload Details
+
+When this event triggers, the following data is sent to your callback URL:
+
+```json
+{
+  "event": "AVATAR_TRAINING_SUCCESS",
+  "data": {
+    "avatarId": "<avatar_id>",
+    "avatarName": "<avatar_name>",
+    "extras": "<additional_key-value_data_related_to_the_avatar>"
+  }
+}
+```
+
+## Filters
+
+You can specify filters to limit when this webhook fires. For example, you might only want to receive the AVATAR_TRAINING_SUCCESS event for avatars with specific characteristics:
+
+- `id`: Only triggers for the specified avatar ID.
+- `nameSearchQuery`: Triggers for avatars whose names contain the specified string.
+- `extrasFilters`: Key-value pairs that must match the avatar's extras.
+
+<Note>
+  For detailed instructions on setting up this webhook event, visit our [Webhooks API Reference](/pages/api-reference/endpoint/webhooks.create).
+</Note>

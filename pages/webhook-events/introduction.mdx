@@ -6,7 +6,7 @@ description: 'Learn what webhooks are, how they work, and how to set them up wit
 
 ## What are Webhooks?
 
-Webhooks are automated messages sent from apps when something happens. In the context of Argil, webhooks allow you to receive real-time notifications about various events occurring within your environment, such as video generation successes or failures.
+Webhooks are automated messages sent from apps when something happens. In the context of Argil, webhooks allow you to receive real-time notifications about various events occurring within your environment, such as video generation successes and failures or avatar training successes and failures.
 
 ## How Webhooks Work
 
@@ -22,6 +22,14 @@ Webhooks in Argil send a POST request to your specified callback URL whenever su
   <Accordion title="Video Generation Failed">
     This event is triggered when an avatar video generation is failed.<br />
     Check our [VIDEO_GENERATION_FAILED Event Documentation](/pages/webhook-events/video-generation-failed) for more information about this event.
+  </Accordion>
+  <Accordion title="Avatar Training Success">
+    This event is triggered when an avatar training is successful.<br />
+    Check our [AVATAR_TRAINING_SUCCESS Event Documentation](/pages/webhook-events/avatar-training-success) for more information about this event.
+  </Accordion>
+  <Accordion title="Avatar Training Failed">
+    This event is triggered when an avatar training is failed.<br />
+    Check our [AVATAR_TRAINING_FAILED Event Documentation](/pages/webhook-events/avatar-training-failed) for more information about this event.
   </Accordion>
 </AccordionGroup>
 

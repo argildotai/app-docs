@@ -63,14 +63,22 @@
       "pages": [
         "pages/webhook-events/introduction",
         "pages/webhook-events/video-generation-success",
-        "pages/webhook-events/video-generation-failed"
+        "pages/webhook-events/video-generation-failed",
+        "pages/webhook-events/avatar-training-success",
+        "pages/webhook-events/avatar-training-failed"
       ]
     },
     {
-      "group": "Avatars and Voices",
+      "group": "Avatars",
       "pages": [
         "api-reference/endpoint/avatars.get",
         "api-reference/endpoint/avatars.list",
+        "api-reference/endpoint/avatars.create"
+      ]
+    },
+    {
+      "group": "Voices",
+      "pages": [
         "api-reference/endpoint/voices.list"
       ]
     },
