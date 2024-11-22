@@ -23,14 +23,6 @@ When this event triggers, the following data is sent to your callback URL:
 }
 ```
 
-## Filters
-
-You can specify filters to limit when this webhook fires. For example, you might only want to receive the AVATAR_TRAINING_FAILED event for avatars with specific characteristics:
-
-- `id`: Only triggers for the specified avatar ID.
-- `nameSearchQuery`: Triggers for avatars whose names contain the specified string.
-- `extrasFilters`: Key-value pairs that must match the avatar's extras.
-
 <Note>
   For detailed instructions on setting up this webhook event, visit our [Webhooks API Reference](/pages/api-reference/endpoint/webhooks.create).
 </Note>

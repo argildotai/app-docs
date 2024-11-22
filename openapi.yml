@@ -305,11 +305,6 @@ paths:
                   description: URL to which the webhook will send POST requests.
                 events:
                   $ref: '#/components/schemas/WebhookEventSchema'
-                extrasFilters:
-                  type: object
-                  additionalProperties:
-                    type: string
-                  maxProperties: 10
       responses:
         201:
           description: Successfully created webhook
@@ -362,11 +357,6 @@ paths:
                   type: string
                 events:
                   $ref: '#/components/schemas/WebhookEventSchema'
-                extrasFilters:
-                  type: object
-                  additionalProperties:
-                    type: string
-                  maxProperties: 10
       responses:
         200:
           description: Successfully updated webhook
@@ -694,11 +684,6 @@ components:
           type: string
         events:
           $ref: '#/components/schemas/WebhookEventSchema'
-        filters:
-          type: object
-          additionalProperties:
-            type: string
-          maxProperties: 10
         createAt:
           type: string
           format: date-time
