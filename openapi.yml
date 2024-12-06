@@ -305,6 +305,7 @@ paths:
                   description: URL to which the webhook will send POST requests.
                 events:
                   $ref: '#/components/schemas/WebhookEventSchema'
+              additionalProperties: false
       responses:
         201:
           description: Successfully created webhook
@@ -357,6 +358,7 @@ paths:
                   type: string
                 events:
                   $ref: '#/components/schemas/WebhookEventSchema'
+              additionalProperties: false
       responses:
         200:
           description: Successfully updated webhook
@@ -707,13 +709,16 @@ components:
         message:
           type: string
     WebhookEventSchema:
-      type: string
+      type: array
       description: List of events the webhook is subscribing to.
-      enum:
-        - AVATAR_TRAINING_SUCCESS
-        - AVATAR_TRAINING_FAILED
-        - VIDEO_GENERATION_SUCCESS
-        - VIDEO_GENERATION_FAILED
+      items:
+        type: string
+        enum:
+          - AVATAR_TRAINING_SUCCESS
+          - AVATAR_TRAINING_FAILED
+          - VIDEO_GENERATION_SUCCESS
+          - VIDEO_GENERATION_FAILED
+      minItems: 1
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
