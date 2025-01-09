@@ -1,51 +1,121 @@
 ---
-title: "Voice settings: more dynamism & Pro voices"
+title: "Voice Settings & Pro Voices"
+description: "Configure voice settings and set up professional voices"
 ---
 
-### Voices settings
+### Voice Settings Guide
 
-We use elevenlabs for the voices. Check their guidelines right here : [https://elevenlabs.io/docs/speech-synthesis/voice-settings](https://elevenlabs.io/docs/speech-synthesis/voice-settings)
+<CardGroup cols={2}>
+  <Card title="Voice Settings" icon="sliders" style={{width: "200px", color: "#741FFF"}}>
+    Configure voices using [Elevenlabs guidelines](https://elevenlabs.io/docs/speech-synthesis/voice-settings)
+  </Card>
+  
+  <Card title="Pro Features" icon="star" style={{width: "200px", color: "#741FFF"}}>
+    Access premium voices for hyper-realistic results
+  </Card>
+</CardGroup>
 
 <AccordionGroup>
-  <Accordion title="For most voices" defaultOpen={false}>
-    Stability: 50 to 80
-
-    Similarity: 60 to 100
-
-    Style Exaggeration: really depends on the original voice tone
+  <Accordion title="Standard Voice Settings" defaultOpen={true}>
+    <CardGroup cols={3}>
+      <Card title="Stability" icon="gauge" style={{width: "200px", color: "#741FFF"}}>
+        50 to 80
+      </Card>
+      
+      <Card title="Similarity" icon="copy" style={{width: "200px", color: "#741FFF"}}>
+        60 to 100
+      </Card>
+      
+      <Card title="Style" icon="wand-magic-sparkles" style={{width: "200px", color: "#741FFF"}}>
+        Varies by voice tone
+      </Card>
+    </CardGroup>
   </Accordion>
 
-  <Accordion title="For a personal voice or pro voice" defaultOpen={false}>
-    Stability: 70 to 100
-
-    Similarity: 80 to 100
-
-    Style Exaggeration: really depends on the original voice tone
+  <Accordion title="Pro Voice Settings" defaultOpen={false}>
+    <CardGroup cols={3}>
+      <Card title="Stability" icon="gauge" style={{width: "200px", color: "#741FFF"}}>
+        70 to 100
+      </Card>
+      
+      <Card title="Similarity" icon="copy" style={{width: "200px", color: "#741FFF"}}>
+        80 to 100
+      </Card>
+      
+      <Card title="Style" icon="wand-magic-sparkles" style={{width: "200px", color: "#741FFF"}}>
+        Varies by voice tone
+      </Card>
+    </CardGroup>
   </Accordion>
 </AccordionGroup>
 
-### Connect Elevenlabs to Argil
+### Connect Elevenlabs
 
-* Add the voices you want to your Elevenlabs account
+<Steps>
+  <Step title="Add Voices">
+    Select and add voices to your Elevenlabs account
+  </Step>
+  
+  <Step title="API Setup">
+    Create and paste API key in Argil (voices > Elevenlabs)
+  </Step>
+  
+  <Step title="Synchronize">
+    Click "synchronize" after adding new voices
+  </Step>
+</Steps>
 
-* Create an API key and copy paste it in "voices" > "Elevenlabs" on Argil
+<Card 
+  title="Link Voices" 
+  icon="link" 
+  href="/resources/Train-your-avatar/Link-a-voice"
+  style={{width: "200px", color: "#741FFF", display: "flex", alignItems: "center"}}
+>
+  Learn how to link voices to your avatar
+</Card>
 
-* Click "synchronize" and click again on it again every time you added new voices
+### Create Pro Voice
 
-Discover how to link a voice here: (Devin, link to Done-Adri-Link-a-voice.mdx)
+<Warning>
+  Pro voices require clean audio: no pauses, hesitations, or background noise
+</Warning>
 
-### Create a pro voice
+<Steps>
+  <Step title="Subscribe">
+    Get Elevenlabs creator plan
+  </Step>
+  
+  <Step title="Record">
+    Prepare 30 minutes of clear speech in your desired voice style
+  </Step>
+  
+  <Step title="Connect">
+    Add API key to Argil (voices > Elevenlabs)
+  </Step>
+  
+  <Step title="Link">
+    Edit avatar settings to use your pro voice
+  </Step>
+</Steps>
 
-Pro voices are the best voices available on the market to clone the way you talk. They are ideal for hyper realistic results. Here is how to do create and add them (video tutorial below):&#x20;
+<iframe
+  width="100%"
+  height="400"
+  src="https://www.loom.com/embed/f083b2f5b86f4971851d158009d60772?sid=bc9df527-2dba-45c1-bee7-dc81870770c7"
+  frameBorder="0"
+  allowFullScreen
+  style={{
+    borderRadius: "8px",
+    marginTop: "16px",
+    marginBottom: "16px"
+  }}
+/>
 
-* Subscribe to their creator plan
-
-* Upload 30 minutes of audio of yourself: no pauses, hesitations and background noises. Talk the way you want your avatar to sound like.&#x20;
-
-* Create an API key and copy paste it in "voices" > "Elevenlabs" on Argil
-
-* Then go edit your avatar and link your Pro voice
-
-\<div style="position: relative; padding-bottom: 55.13016845329249%; height: 0;">\<iframe src="https://www.loom.com/embed/f083b2f5b86f4971851d158009d60772?sid=bc9df527-2dba-45c1-bee7-dc81870770c7" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">\</iframe>\</div>
-
-Devin Introduce a link to voice transformation documentation
+<Card 
+  title="Voice Transformation" 
+  icon="microphone-lines" 
+  href="/resources/Features/voice-transformation"
+  style={{width: "200px", color: "#741FFF", display: "flex", alignItems: "center"}}
+>
+  Learn about voice transformation features
+</Card>
