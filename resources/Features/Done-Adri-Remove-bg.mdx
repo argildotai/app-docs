@@ -3,15 +3,29 @@ title: "Remove background"
 description: "On all the avatars available, including your own. "
 ---
 
-You can pick a video or a picture as a background media.&#x20;
+<CardGroup cols={2}>
+  <Card title="Image Background" icon="image" style={{width: "200px", display: "flex", alignItems: "center"}}>
+    Upload jpg, jpeg, or png files
+  </Card>
+  <Card title="Video Background" icon="video" style={{width: "200px", display: "flex", alignItems: "center"}}>
+    Upload mp4 or mov files
+  </Card>
+</CardGroup>
 
-<Accordion title="Accepted formats (max 50 Mo)" defaultOpen={false}>
-  * jpg, jpeg, png
+<Warning>
+  Maximum file size: 50 MB
+</Warning>
 
-  * mp4, mov
-</Accordion>
-
-Simply open the background panel in the studio and upload your media.&#x20;
-If you want the remove background only to apply to one clip, just click on the clip, upload the image, and for the display, select "back".&#x20;
+<Steps>
+  <Step title="Open background panel">
+    Access the background options in the studio
+  </Step>
+  <Step title="Upload media">
+    Choose your image or video file
+  </Step>
+  <Step title="Apply to specific clip">
+    Select clip, upload media, and choose "back" display option
+  </Step>
+</Steps>
 
 ![](/Captured’écran2025-01-02à13.45.10.png)
