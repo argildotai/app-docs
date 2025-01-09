@@ -1,51 +1,58 @@
 ---
-title: "Voice settings: more dynamism & Pro voices"
+title: "Voice Settings"
+description: "Configure voice settings and set up pro voices for your avatars"
 ---
 
-### Voices settings
+## Voice Settings
 
-We use elevenlabs for the voices. Check their guidelines right here : [https://elevenlabs.io/docs/speech-synthesis/voice-settings](https://elevenlabs.io/docs/speech-synthesis/voice-settings)
+<Note>
+We use ElevenLabs for voice generation. For detailed voice settings guidelines, visit the [ElevenLabs documentation](https://elevenlabs.io/docs/speech-synthesis/voice-settings).
+</Note>
 
-<AccordionGroup>
-  <Accordion title="For most voices" defaultOpen={false}>
-    Stability: 50 to 80
+<CardGroup cols={2}>
+  <Card title="Standard Voices" icon="microphone" color="purple">
+    - Stability: 50-80
+    - Similarity: 60-100
+    - Style: Varies by voice tone
+  </Card>
+  <Card title="Pro Voices" icon="microphone-lines" color="purple">
+    - Stability: 70-100
+    - Similarity: 80-100
+    - Style: Varies by voice tone
+  </Card>
+</CardGroup>
 
-    Similarity: 60 to 100
+## Connect ElevenLabs
 
-    Style Exaggeration: really depends on the original voice tone
-  </Accordion>
+1. Add desired voices to your ElevenLabs account
+2. Create an API key
+3. Paste API key in "voices" > "ElevenLabs" on Argil
+4. Click "synchronize" after adding new voices
 
-  <Accordion title="For a personal voice or pro voice" defaultOpen={false}>
-    Stability: 70 to 100
+<Card title="Link Your Voice" icon="link" color="purple" href="/resources/train-your-avatar/link-a-voice">
+  Learn how to link voices to your avatar
+</Card>
 
-    Similarity: 80 to 100
+## Create Pro Voice
 
-    Style Exaggeration: really depends on the original voice tone
-  </Accordion>
-</AccordionGroup>
+Pro voices offer hyper-realistic voice cloning for maximum authenticity.
 
-### Connect Elevenlabs to Argil
+1. Subscribe to ElevenLabs creator plan
+2. Record 30 minutes of clean audio (no pauses/noise)
+3. Create and paste API key in "voices" > "ElevenLabs"
+4. Edit avatar to link your Pro voice
 
-* Add the voices you want to your Elevenlabs account
+<Frame>
+  <iframe
+    src="https://www.loom.com/embed/f083b2f5b86f4971851d158009d60772?sid=bc9df527-2dba-45c1-bee7-dc81870770c7"
+    frameBorder="0"
+    webkitallowfullscreen="true"
+    mozallowfullscreen="true"
+    allowFullScreen
+    style={{ width: '100%', height: '400px' }}
+  />
+</Frame>
 
-* Create an API key and copy paste it in "voices" > "Elevenlabs" on Argil
-
-* Click "synchronize" and click again on it again every time you added new voices
-
-Discover how to link a voice here: (Devin, link to Done-Adri-Link-a-voice.mdx)
-
-### Create a pro voice
-
-Pro voices are the best voices available on the market to clone the way you talk. They are ideal for hyper realistic results. Here is how to do create and add them (video tutorial below):&#x20;
-
-* Subscribe to their creator plan
-
-* Upload 30 minutes of audio of yourself: no pauses, hesitations and background noises. Talk the way you want your avatar to sound like.&#x20;
-
-* Create an API key and copy paste it in "voices" > "Elevenlabs" on Argil
-
-* Then go edit your avatar and link your Pro voice
-
-\<div style="position: relative; padding-bottom: 55.13016845329249%; height: 0;">\<iframe src="https://www.loom.com/embed/f083b2f5b86f4971851d158009d60772?sid=bc9df527-2dba-45c1-bee7-dc81870770c7" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">\</iframe>\</div>
-
-Devin Introduce a link to voice transformation documentation
+<Card title="Voice Transformation" icon="wand-magic-sparkles" color="purple" href="/resources/features/audio-and-voicetovoice">
+  Learn about voice transformation features
+</Card>
