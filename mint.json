@@ -28,10 +28,17 @@
   },
   "tabs": [
     {
+      "url": "pages",
+      "name": "API & Integrations"
+    },
+    {
       "url": "api-reference",
-      "name": "Reference APIs"
+      "name": "API Reference"
     }
   ],
+  "primaryTab": {
+      "name": "Help Center"
+  },
   "anchors": [
     {
       "name": "Go to the app",
@@ -42,14 +49,62 @@
       "name": "Community",
       "icon": "discord",
       "url": "https://discord.gg/CnqyRA3bHg"
-    },
-    {
-      "name": "Changelog",
-      "icon": "newspaper",
-      "url": "https://argilai.notion.site/Argil-Change-log-73153fe50c3f410b8a2147f130fcceda"
     }
   ],
   "navigation": [
+    {
+      "group": "Get Started",
+      "pages": [
+        "resources/introduction",
+        "resources/sign-up-sign-in",
+        "resources/subscription-and-plans"
+      ]
+    },
+    {
+      "group": "Features",
+      "pages": [
+        "resources/audio-and-voicetovoice",
+        "resources/music",
+        "resources/editingtips",
+        "resources/captions",
+        "resources/brolls",
+        "resources/cameras-angles",
+        "resources/remove-bg",
+        "resources/create-a-video",
+        "resources/body-language",
+        "resources/voices-and-provoices"
+      ]
+    },
+    {
+      "group": "Train your Avatar",
+      "pages": [
+        "resources/create-body-language",
+        "resources/training-tips",
+        "resources/create-avatar-from-image",
+        "resources/styles-and-cameras",
+        "resources/link-a-voice"
+      ]
+    },
+    {
+      "group": "Settings",
+      "pages": [
+        "resources/account-settings",
+        "resources/delete-account",
+        "resources/affiliates"
+      ]
+    },
+    {
+      "group": "Templates",
+      "pages": [
+        "resources/article-to-video"
+      ]
+    },
+    {
+      "group": "Support",
+      "pages": [
+        "resources/contactsupport"
+      ]
+    },
     {
       "group": "Get Started",
       "pages": [
