@@ -78,8 +78,8 @@
     {
       "group": "Train your Avatar",
       "pages": [
+         "resources/training-tips",
         "resources/create-body-language",
-        "resources/training-tips",
         "resources/create-avatar-from-image",
         "resources/styles-and-cameras",
         "resources/link-a-voice"
@@ -102,7 +102,8 @@
     {
       "group": "Support",
       "pages": [
-        "resources/contactsupport"
+        "resources/contactsupport",
+        "moderated-content"
       ]
     },
     {
