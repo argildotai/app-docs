@@ -29,6 +29,30 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  /voices/{id}:
+    get:
+      summary: Get a Voice by id
+      description: Returns a single Voice identified by its id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            description: The id of the Voice to retrieve
+      responses:
+        200:
+          description: Detailed information about the Voice
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Voice'
+        404:
+          description: Voice not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /avatars:
     get:
       summary: List all avatars
