@@ -161,7 +161,8 @@
     {
       "group": "Assets",
       "pages": [
-        "api-reference/endpoint/assets.list"
+        "api-reference/endpoint/assets.list",
+        "api-reference/endpoint/assets.get"
       ]
     }
   ],
