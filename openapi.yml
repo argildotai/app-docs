@@ -689,7 +689,26 @@ components:
           description: "Select desired output aspectRatio: 16:9 or 9:16. Optional, default depends on used avatar."
         enableAutoBrolls:
           type: boolean
-          description: "Enable automatic B-roll generation and placement. When enabled, the system will analyze your content and automatically add relevant B-rolls to appropriate moments."
+          description: "[DEPRECATED] Enable automatic B-roll generation and placement. When enabled, the system will analyze your content and automatically add relevant B-rolls to appropriate moments."
+        autoBrolls:
+          type: object
+          description: "Configuration for automatic B-roll generation and placement."
+          properties:
+            enable:
+              type: boolean
+              description: "Enable or disable automatic B-roll generation."
+            source:
+              type: string
+              enum: ['GENERATION', 'GOOGLE_IMAGES']
+              description: "Source for B-rolls: 'generation' for system-generated or 'google-images' for images from Google."
+            intensity:
+              type: string
+              enum: ['LOW', 'MEDIUM', 'HIGH']
+              description: "Intensity level of B-rolls: 'LOW', 'MEDIUM', or 'HIGH'."
+          required:
+            - enable
+            - source
+            - intensity
         extras:
           type: object
           description: "Optional dictionary of custom key-value pairs to extend the video metadata. Maximum of 5 key-value pairs of 256 characters allowed"
