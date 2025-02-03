@@ -643,7 +643,6 @@ components:
             required:
               - transcript
               - avatarId
-              - voiceId
             properties:
               transcript:
                 type: string
@@ -653,7 +652,7 @@ components:
                 description: "The id of the avatar to be used for this moment"
               voiceId:
                 type: string
-                description: "The id of the voice to be used for this moment"
+                description: "The id of the voice to be used for this moment. Optional, default is the avatar's voice."
               gestureSlug:
                 type: string
                 description: "The slug identifier of the gesture to be used for this moment"
