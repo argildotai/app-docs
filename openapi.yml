@@ -310,6 +310,30 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  /assets/{id}:
+    get:
+      summary: Get an Asset by id
+      description: Returns a single Asset identified by its id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            description: The id of the Asset to retrieve
+      responses:
+        200:
+          description: Detailed information about the Asset
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Asset'
+        404:
+          description: Asset not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /webhooks:
     post:
       summary: Create a new webhook
