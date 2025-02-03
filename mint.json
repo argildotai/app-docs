@@ -135,7 +135,8 @@
     {
       "group": "Voices",
       "pages": [
-        "api-reference/endpoint/voices.list"
+        "api-reference/endpoint/voices.list",
+        "api-reference/endpoint/voices.get"
       ]
     },
     {
