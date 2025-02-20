@@ -78,7 +78,7 @@
     {
       "group": "Train your Avatar",
       "pages": [
-         "resources/training-tips",
+        "resources/training-tips",
         "resources/create-body-language",
         "resources/create-avatar-from-image",
         "resources/styles-and-cameras",
@@ -111,7 +111,8 @@
       "pages": [
         "pages/get-started/introduction",
         "pages/get-started/credentials",
-        "pages/get-started/quickstart"
+        "pages/get-started/quickstart",
+        "resources/api-pricings"
       ]
     },
     {
