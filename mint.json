@@ -111,8 +111,8 @@
       "pages": [
         "pages/get-started/introduction",
         "pages/get-started/credentials",
+        "resources/api-pricings",
         "pages/get-started/quickstart",
-        "resources/api-pricings"
       ]
     },
     {
