@@ -112,7 +112,7 @@
       "pages": [
         "pages/get-started/introduction",
         "pages/get-started/credentials",
-        "resources/get-started/api-pricings",
+        "resources/api-pricings",
         "pages/get-started/quickstart",
       ]
     },
