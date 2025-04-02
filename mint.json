@@ -58,6 +58,7 @@
         "resources/introduction",
         "resources/sign-up-sign-in",
         "resources/pay-as-you-go-pricings",
+        "resources/api-pricings",
         "resources/subscription-and-plans"
       ]
     },
@@ -112,7 +113,6 @@
       "pages": [
         "pages/get-started/introduction",
         "pages/get-started/credentials",
-        "resources/api-pricings",
         "pages/get-started/quickstart"
       ]
     },
