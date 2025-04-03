@@ -88,6 +88,13 @@
       ]
     },
     {
+      "group": "AI influencer builder",
+      "pages": [
+      "resources/ai-influencer-actions",
+      "resources/ai-influencer-builder"
+      ]
+    },
+    {
       "group": "Settings",
       "pages": [
         "resources/account-settings",
@@ -96,13 +103,7 @@
       ]
     },
     {
-      "group": "AI influencer builder",
-      "pages": [
-        "resources/ai-influencer-actions",
-        "resources/ai-influencer-builder"
-      ]
-    },
-    {
+    
       "group": "Templates",
       "pages": [
         "resources/article-to-video"
