@@ -22,13 +22,13 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Voice'
+                  $ref: "#/components/schemas/Voice"
         400:
           description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
   /voices/{id}:
     get:
       summary: Get a Voice by id
@@ -46,13 +46,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Voice'
+                $ref: "#/components/schemas/Voice"
         404:
           description: Voice not found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
   /avatars:
     get:
       summary: List all avatars
@@ -65,13 +65,13 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Avatar'
+                  $ref: "#/components/schemas/Avatar"
         400:
           description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
     post:
       summary: Create a new Avatar
       description: Creates a new Avatar by uploading source videos and launches training. The process is asynchronous - the avatar will initially be created with 'NOT_TRAINED' status and will transition to 'TRAINING' then 'IDLE' once ready.
@@ -80,20 +80,20 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/AvatarCreateArgs'
+              $ref: "#/components/schemas/AvatarCreateArgs"
       responses:
         201:
           description: Successfully created Avatar. The training process will start automatically.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Avatar'
+                $ref: "#/components/schemas/Avatar"
         400:
           description: Validation error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
   /avatars/{id}:
     get:
       summary: Get an Avatar by id
@@ -111,13 +111,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Avatar'
+                $ref: "#/components/schemas/Avatar"
         404:
           description: Avatar not found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
   /videos:
     get:
       summary: Paginated list of Videos
@@ -185,13 +185,13 @@ paths:
                   videos:
                     type: array
                     items:
-                      $ref: '#/components/schemas/Video'
+                      $ref: "#/components/schemas/Video"
         400:
           description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
     post:
       summary: Create a new Video
       description: Creates a new Video with the specified details
@@ -200,20 +200,20 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/VideoCreateArgs'
+              $ref: "#/components/schemas/VideoCreateArgs"
       responses:
         201:
           description: Successfully created Video
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Video'
+                $ref: "#/components/schemas/Video"
         400:
           description: Validation error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
   /videos/{id}:
     get:
       summary: Get a Video by id
@@ -231,13 +231,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Video'
+                $ref: "#/components/schemas/Video"
         404:
           description: Video not found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
     delete:
       summary: Delete a Video by id
       description: Delete a single Video identified by its id
@@ -254,13 +254,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Success'
+                $ref: "#/components/schemas/Success"
         404:
           description: Video not found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
   /videos/{id}/render:
     post:
       summary: Render a Video by id
@@ -278,19 +278,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Video'
+                $ref: "#/components/schemas/Video"
         400:
           description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
         404:
           description: Video not found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
   /assets:
     get:
       summary: List audio assets
@@ -303,13 +303,13 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Asset'
+                  $ref: "#/components/schemas/Asset"
         400:
           description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
   /assets/{id}:
     get:
       summary: Get an Asset by id
@@ -327,13 +327,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Asset'
+                $ref: "#/components/schemas/Asset"
         404:
           description: Asset not found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
   /webhooks:
     post:
       summary: Create a new webhook
@@ -352,7 +352,7 @@ paths:
                   type: string
                   description: URL to which the webhook will send POST requests.
                 events:
-                  $ref: '#/components/schemas/WebhookEventSchema'
+                  $ref: "#/components/schemas/WebhookEventSchema"
               additionalProperties: false
       responses:
         201:
@@ -360,13 +360,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Webhook'
+                $ref: "#/components/schemas/Webhook"
         400:
           description: Validation error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
     get:
       summary: Retrieve all webhooks
       description: Retrieves all webhooks for the authenticated user.
@@ -378,13 +378,13 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Webhook'
+                  $ref: "#/components/schemas/Webhook"
         400:
           description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
   /webhooks/{id}:
     put:
       summary: Update a webhook
@@ -405,7 +405,7 @@ paths:
                 callbackUrl:
                   type: string
                 events:
-                  $ref: '#/components/schemas/WebhookEventSchema'
+                  $ref: "#/components/schemas/WebhookEventSchema"
               additionalProperties: false
       responses:
         200:
@@ -413,19 +413,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Webhook'
+                $ref: "#/components/schemas/Webhook"
         400:
           description: Validation error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
         404:
           description: Webhook not found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
     delete:
       summary: Delete a webhook
       description: Deletes a single webhook identified by its ID.
@@ -443,7 +443,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
 components:
   schemas:
     Voice:
@@ -555,13 +555,17 @@ components:
                 type: number
                 description: "The startFrame of the source Avatar video to be used as start for the video template."
         status:
-          $ref: '#/components/schemas/AvatarStatus'
+          $ref: "#/components/schemas/AvatarStatus"
         width:
           type: integer
         height:
           type: integer
         thumbnailUrl:
           type: string
+          description: "The url of the thumbnail of the avatar (low resolution)."
+        coverImageUrl:
+          type: string
+          description: "The url of the cover image of the avatar (high resolution)."
         extras:
           type: object
           description: "A dictionary of custom key-value pairs to extend the Avatar metadata. Maximum of 5 key-value pairs of 256 characters allowed."
@@ -684,7 +688,7 @@ components:
           description: "Subtitles settings for the video"
         aspectRatio:
           type: string
-          enum: ['16:9', '9:16']
+          enum: ["16:9", "9:16"]
           description: "Select desired output aspectRatio: 16:9 or 9:16. Optional, default depends on used avatar."
         enableAutoBrolls:
           type: boolean
@@ -698,11 +702,11 @@ components:
               description: "Enable or disable automatic B-roll generation."
             source:
               type: string
-              enum: ['GENERATION', 'GOOGLE_IMAGES']
+              enum: ["GENERATION", "GOOGLE_IMAGES"]
               description: "Source for B-rolls: 'generation' for system-generated or 'google-images' for images from Google."
             intensity:
               type: string
-              enum: ['LOW', 'MEDIUM', 'HIGH']
+              enum: ["LOW", "MEDIUM", "HIGH"]
               description: "Intensity level of B-rolls: 'LOW', 'MEDIUM', or 'HIGH'."
           required:
             - enable
@@ -751,7 +755,7 @@ components:
         callbackUrl:
           type: string
         events:
-          $ref: '#/components/schemas/WebhookEventSchema'
+          $ref: "#/components/schemas/WebhookEventSchema"
         createAt:
           type: string
           format: date-time
@@ -790,4 +794,4 @@ components:
       type: apiKey
       in: header
       name: x-api-key
-      description: 'API key to be included in the x-api-key header'
+      description: "API key to be included in the x-api-key header"
