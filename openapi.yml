@@ -702,12 +702,13 @@ components:
               description: "Enable or disable automatic B-roll generation."
             source:
               type: string
-              enum: ["GENERATION", "GOOGLE_IMAGES"]
-              description: "Source for B-rolls: 'generation' for system-generated or 'google-images' for images from Google."
+              enum:
+                ["GENERATION", "GOOGLE_IMAGES", "STOCKS_VIDEO", "AVATAR_ACTION"]
+              description: "Source for B-rolls: 'GENERATION' for generated images or 'GOOGLE_IMAGES' for images from Google, 'STOCKS_VIDEO' for GettyImages videos or 'AVATAR_ACTION' for generated videos including the avatar (only available with AI Influencer avatars)."
             intensity:
               type: string
               enum: ["LOW", "MEDIUM", "HIGH"]
-              description: "Intensity level of B-rolls: 'LOW', 'MEDIUM', or 'HIGH'."
+              description: "Intensity level of B-rolls: 'LOW', 'MEDIUM', or 'HIGH'. Not available for 'AVATAR_ACTION' source."
           required:
             - enable
             - source
