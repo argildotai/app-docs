@@ -90,8 +90,8 @@
     {
       "group": "AI influencer builder",
       "pages": [
-      "resources/ai-influencer-actions",
-      "resources/ai-influencer-builder"
+      "resources/ai-influencer-builder",
+      "resources/ai-influencer-actions"
       ]
     },
     {
