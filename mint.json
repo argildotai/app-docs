@@ -100,7 +100,8 @@
       "pages": [
         "resources/account-settings",
         "resources/delete-account",
-        "resources/affiliates"
+        "resources/affiliates",
+        "resources/make-automation"
       ]
     },
     {
