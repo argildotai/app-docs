@@ -3,8 +3,8 @@
   "name": "Argil",
   "openapi": ["/openapi.yml"],
   "logo": {
-    "dark": "/logo/dark.svg",
-    "light": "/logo/light.svg"
+    "dark": "/logo/argil.png",
+    "light": "/logo/argil.png"
   },
   "favicon": "/favicon.svg",
   "colors": {
