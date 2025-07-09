@@ -334,6 +334,58 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+  /subtitles:
+    get:
+      summary: List subtitle styles
+      description: Returns a paginated array of subtitle styles available for the user
+      parameters:
+        - name: page
+          in: query
+          description: Page number of the subtitle styles list
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            default: 1
+        - name: pageSize
+          in: query
+          description: Number of subtitle styles per page
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 10
+      responses:
+        200:
+          description: A paginated list of subtitle styles
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/SubtitleStyle"
+                  totalItems:
+                    type: integer
+                    description: Total number of subtitle styles available
+                  totalPages:
+                    type: integer
+                    description: Total number of pages
+                  currentPage:
+                    type: integer
+                    description: Current page number
+                  itemsPerPage:
+                    type: integer
+                    description: Number of items per page
+        400:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
   /webhooks:
     post:
       summary: Create a new webhook
@@ -682,6 +734,17 @@ components:
           properties:
             enable:
               type: boolean
+            styleId:
+              type: string
+              description: "ID of the subtitle style to apply. Styles can be fetched from the /subtitles endpoint."
+            position:
+              type: string
+              enum: ["Top", "Middle", "Bottom"]
+              description: "Position of subtitles on the video"
+            size:
+              type: string
+              enum: ["Small", "Medium", "Large"]
+              description: "Size of the subtitle text"
           required:
             - enable
           additionalProperties: false
@@ -747,6 +810,16 @@ components:
         fileUrl:
           type: string
           description: "URL to access the asset"
+    SubtitleStyle:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: "Unique identifier of the subtitle style"
+        name:
+          type: string
+          description: "Name of the subtitle style"
     Webhook:
       type: object
       properties:

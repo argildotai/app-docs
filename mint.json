@@ -179,6 +179,12 @@
         "api-reference/endpoint/assets.list",
         "api-reference/endpoint/assets.get"
       ]
+    },
+    {
+      "group": "Subtitles",
+      "pages": [
+        "api-reference/endpoint/subtitles.list"
+      ]
     }
   ],
   "footerSocials": {
