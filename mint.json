@@ -63,9 +63,10 @@
       ]
     },
     {
-      "group": "[NEW] Fictions",
+      "group": "Fictions",
       "pages": [
-        "resources/fictions"
+        "resources/fictions", 
+        "resources/article-to-video"
       ]
     },
     {
@@ -84,8 +85,7 @@
         "resources/create-variations",
         "resources/body-language",
         "resources/voices-and-provoices",
-        "resources/voicetone",
-        "resources/create-VEO3-videos"
+        "resources/voicetone"
       ]
     },
     {
@@ -114,13 +114,6 @@
         "resources/delete-account",
         "resources/affiliates",
         "resources/make-automation"
-      ]
-    },
-    {
-    
-      "group": "Templates",
-      "pages": [
-        "resources/article-to-video"
       ]
     },
     {
