@@ -63,6 +63,12 @@
       ]
     },
     {
+      "group": "[NEW] Fictions",
+      "pages": [
+        "resources/fictions"
+      ]
+    },
+    {
       "group": "Features",
       "pages": [
         "resources/audio-and-voicetovoice",
