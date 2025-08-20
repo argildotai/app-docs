@@ -63,7 +63,7 @@
       ]
     },
     {
-      "group": "Fictions",
+      "group": "Templates",
       "pages": [
         "resources/fictions", 
         "resources/article-to-video"
