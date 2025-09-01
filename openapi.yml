@@ -772,6 +772,22 @@ components:
               type: string
               enum: ["LOW", "MEDIUM", "HIGH"]
               description: "Intensity level of B-rolls: 'LOW', 'MEDIUM', or 'HIGH'. Not available for 'AVATAR_ACTION' source."
+            layout:
+              type: string
+              enum:
+                [
+                  "FULLSCREEN",
+                  "AVATAR_BOTTOM_LEFT",
+                  "AVATAR_BOTTOM_RIGHT",
+                  "AVATAR_TOP_LEFT",
+                  "AVATAR_TOP_RIGHT",
+                  "SPLIT_AVATAR_LEFT",
+                  "SPLIT_AVATAR_RIGHT",
+                  "SPLIT_AVATAR_TOP",
+                  "SPLIT_AVATAR_BOTTOM",
+                  "BACKGROUND",
+                ]
+              description: "Layout control for moments containing a B-roll. Controls how the B-rolls appears relative to the avatar."
           required:
             - enable
             - source
