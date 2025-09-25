@@ -89,9 +89,10 @@
       ]
     },
     {
-      "group": "Train your own AI clone",
+      "group": "Create your own AI clone",
       "pages": [
         "resources/training-tips",
+        "generate-your-avatar",
         "resources/create-body-language",
         "resources/create-avatar-from-image",
         "resources/styles-and-cameras",
