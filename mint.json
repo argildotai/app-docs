@@ -91,10 +91,9 @@
     {
       "group": "Create your own AI clone",
       "pages": [
-        "resources/training-tips",
-        "resources/generate-your-avatar",
-        "resources/create-body-language",
-        "resources/create-avatar-from-image",
+        "resources/create-an-avatar",
+        "resources/create-avatar-styles",
+        "resources/edit-avatar-styles",
         "resources/styles-and-cameras",
         "resources/link-a-voice"
       ]
