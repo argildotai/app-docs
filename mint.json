@@ -63,6 +63,16 @@
       ]
     },
     {
+      "group": "Create your own AI clone",
+      "pages": [
+        "resources/create-an-avatar",
+        "resources/create-avatar-styles",
+        "resources/edit-avatar-styles",
+        "resources/styles-and-cameras",
+        "resources/link-a-voice"
+      ]
+    },
+    {
       "group": "Templates",
       "pages": [
         "resources/fictions", 
@@ -86,24 +96,6 @@
         "resources/body-language",
         "resources/voices-and-provoices",
         "resources/voicetone"
-      ]
-    },
-    {
-      "group": "Create your own AI clone",
-      "pages": [
-        "resources/create-an-avatar",
-        "resources/create-avatar-styles",
-        "resources/edit-avatar-styles",
-        "resources/styles-and-cameras",
-        "resources/link-a-voice"
-      ]
-    },
-    {
-      "group": "AI influencer builder",
-      "pages": [
-      "resources/ai-influencer-builder",
-      "resources/ai-influencer-actions",
-      "resources/product-showcase"  
       ]
     },
     {
