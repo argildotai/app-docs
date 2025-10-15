@@ -86,9 +86,7 @@
             "icon": "sparkles",
             "pages": [
                 "resources/audio-and-voicetovoice",
-                "resources/music",
                 "resources/layouts",
-                "resources/cameras-angles",
                 {
                     "group": "Editing tips",
                     "icon": "scissors",
@@ -96,6 +94,7 @@
                         "resources/editingtips",
                         "resources/captions",
                         "resources/brolls",
+                        "resources/music",
                         "resources/assets"
                     ]
                 }
