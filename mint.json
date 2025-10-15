@@ -70,7 +70,6 @@
                 "resources/create-an-avatar",
                 "resources/create-avatar-styles",
                 "resources/edit-avatar-styles",
-                "resources/styles-and-cameras",
                 {
                     "group": "Voices",
                     "pages": [
