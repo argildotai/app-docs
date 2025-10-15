@@ -71,7 +71,13 @@
                 "resources/create-avatar-styles",
                 "resources/edit-avatar-styles",
                 "resources/styles-and-cameras",
-                "resources/link-a-voice"
+                {
+                    "group": "Voices",
+                    "pages": [
+                        "resources/voices-and-provoices",
+                        "resources/link-a-voice"
+                    ]
+                }
             ]
         },
         {
@@ -83,13 +89,11 @@
         },
         {
             "group": "Features",
-            "icon": "sparkles",
             "pages": [
                 "resources/audio-and-voicetovoice",
                 "resources/layouts",
                 {
                     "group": "Editing tips",
-                    "icon": "scissors",
                     "pages": [
                         "resources/editingtips",
                         "resources/captions",
