@@ -852,6 +852,10 @@ components:
               maximum: 1
           required:
             - assetId
+        model:
+          type: string
+          enum: [ARGIL_V1, ARGIL_ATOM]
+          description: "Model to use for the video generation."
     Asset:
       type: object
       properties:
