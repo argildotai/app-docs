@@ -143,7 +143,8 @@
             "pages": [
                 "api-reference/endpoint/avatars.get",
                 "api-reference/endpoint/avatars.list",
-                "api-reference/endpoint/avatars.create"
+                "api-reference/endpoint/avatars.create",
+                "api-reference/endpoint/avatars.create.video"
             ]
         },
         {

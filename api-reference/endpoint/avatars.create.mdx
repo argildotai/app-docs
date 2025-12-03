@@ -2,3 +2,43 @@
 openapi: post /avatars
 sidebarTitle: "/avatars"
 ---
+
+import { Accordion } from "@mintlify/components";
+
+## Overview
+
+Create a new avatar from an image. Supports both URL and base64-encoded image formats. If no `voiceId` is provided, a voice design will be automatically created from the image.
+
+## Request Body
+
+```json
+{
+  "type": "IMAGE",
+  "name": "<avatar_name>",
+  "datasetImage": {
+    "url": "https://example.com/avatar-image.jpg", // OR
+    "base64": "data:image/png;base64,iVBORw0KGgoAAAANS..."
+  },
+  "voiceId": "<voice_id>",
+  "extras": {
+    "custom_key": "custom_value"
+  }
+}
+```
+
+### Image Requirements
+
+- **Format**: PNG, JPEG, or WEBP
+- **Resolution**: Between 720p (1280x720 or 720x1280) and 4K (3840x2160 or 2160x3840)
+- **Aspect Ratio**: Must be exactly 16:9 (landscape) or 9:16 (portrait)
+- **Max Size**: 10MB
+- **Protocol**: HTTPS URLs only (for `url` field)
+
+### Optional Fields
+
+- `voiceId`: UUID of an existing voice to use. If not provided, a voice design will be automatically created from the image.
+- `extras`: Custom metadata dictionary (max 10 key-value pairs, 256 characters each)
+
+## Cost
+
+Each image avatar created from API will cost **2 credits**.
