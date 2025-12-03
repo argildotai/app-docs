@@ -39,6 +39,31 @@ Create a new avatar from an image. Supports both URL and base64-encoded image fo
 - `voiceId`: UUID of an existing voice to use. If not provided, a voice design will be automatically created from the image.
 - `extras`: Custom metadata dictionary (max 10 key-value pairs, 256 characters each)
 
+## Response
+
+Returns the created Avatar object. The avatar will be created with `TRAINING` status and transition to `IDLE` when ready.
+
+## Avatar Status
+
+After creating an avatar, it will be in the `TRAINING` status. The avatar typically becomes ready (status changes to `IDLE`) within **30 seconds**.
+
+**Important**: Before creating videos with a newly created avatar, you must ensure the avatar status is `IDLE`. You have two options:
+
+### Option 1: Poll Avatar Status
+
+Periodically check the avatar status using the [GET /avatars/{id}](/api-reference/endpoint/avatars.get) endpoint until the status is `IDLE`:
+
+```bash
+curl -X GET https://api.argil.ai/v1/avatars/{avatar_id} \
+  -H "x-api-key: YOUR_API_KEY"
+```
+
+### Option 2: Use Webhook Events (Recommended)
+
+Subscribe to the `AVATAR_TRAINING_SUCCESS` webhook event to receive a notification when the avatar is ready. This is the recommended approach as it avoids polling and provides real-time updates.
+
+Learn more about setting up webhooks: [AVATAR_TRAINING_SUCCESS Event](/pages/webhook-events/avatar-training-success)
+
 ## Cost
 
 Each image avatar created from API will cost **2 credits**.
