@@ -59,6 +59,7 @@
             "pages": [
                 "resources/introduction",
                 "resources/sign-up-sign-in",
+                "resources/create-a-video",
                 "resources/pay-as-you-go-pricings",
                 "resources/api-pricings",
                 "resources/subscription-and-plans"
