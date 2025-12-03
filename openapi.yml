@@ -100,13 +100,37 @@ paths:
                 $ref: "#/components/schemas/Error"
     post:
       summary: Create a new Avatar
-      description: Creates a new Avatar by uploading source videos and launches training. The process is asynchronous - the avatar will initially be created with 'NOT_TRAINED' status and will transition to 'TRAINING' then 'IDLE' once ready.
+      description: |
+        Creates a new avatar.
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/AvatarCreateArgs"
+              $ref: "#/components/schemas/AvatarCreateArgsImage"
+            examples:
+              image_url:
+                summary: Create avatar from image URL
+                value:
+                  type: "IMAGE"
+                  name: "My Image Avatar"
+                  datasetImage:
+                    url: "https://example.com/avatar-image.jpg"
+                  voiceId: "123e4567-e89b-12d3-a456-426614174000"
+              image_base64:
+                summary: Create avatar from base64 image
+                value:
+                  type: "IMAGE"
+                  name: "My Image Avatar"
+                  datasetImage:
+                    base64: "data:image/png;base64,iVBORw0KGgoAAAANS..."
+              image_with_voice_design:
+                summary: Create avatar with automatic voice design
+                value:
+                  type: "IMAGE"
+                  name: "My Image Avatar"
+                  datasetImage:
+                    url: "https://example.com/avatar-image.jpg"
       responses:
         201:
           description: Successfully created Avatar. The training process will start automatically.
@@ -532,7 +556,7 @@ components:
           format: uuid
         name:
           type: string
-        createAt:
+        createdAt:
           type: string
           format: date-time
         updatedAt:
@@ -550,13 +574,19 @@ components:
           allOf:
             - $ref: "#/components/schemas/VoiceGender"
             - nullable: true
-    AvatarCreateArgs:
+    AvatarCreateArgsVideo:
+      deprecated: true
       type: object
       required:
         - name
+        - type
         - datasetVideo
         - consentVideo
       properties:
+        type:
+          type: string
+          enum: ["VIDEO"]
+          description: "Avatar creation type - must be 'VIDEO' for video-based avatars. DEPRECATED: This method will be removed in a future version."
         name:
           type: string
           description: "Name of the avatar"
@@ -586,17 +616,73 @@ components:
           additionalProperties: false
         extras:
           type: object
-          description: "Optional dictionary of custom key-value pairs to extend the video metadata. Maximum of 5 key-value pairs of 256 characters allowed"
+          description: "Optional dictionary of custom key-value pairs to extend the avatar metadata. Maximum of 10 key-value pairs of 256 characters allowed"
           additionalProperties:
             type: string
           maxProperties: 10
       additionalProperties: false
-      example:
-        name: "My Avatar"
-        datasetVideo:
-          url: "https://example.com/source-video.mp4"
-        consentVideo:
-          url: "https://example.com/consent-video.mp4"
+    AvatarCreateArgsImage:
+      type: object
+      required:
+        - name
+        - type
+        - datasetImage
+      properties:
+        type:
+          type: string
+          enum: ["IMAGE"]
+          description: "Avatar creation type - must be 'IMAGE' for image-based avatars"
+        name:
+          type: string
+          description: "Name of the avatar"
+          minLength: 1
+          maxLength: 256
+        datasetImage:
+          description: "Image source for avatar creation. Either 'url' or 'base64' must be provided."
+          oneOf:
+            - type: object
+              title: "Image URL"
+              required:
+                - url
+              properties:
+                url:
+                  type: string
+                  format: uri
+                  pattern: ^https://.*
+                  description: |
+                    HTTPS URL to the source image for training. Must meet the following requirements:
+                    - Format: PNG, JPEG, or WEBP
+                    - Resolution: Between 720p (1280x720 or 720x1280) and 4K (3840x2160 or 2160x3840)
+                    - Aspect ratio: 16:9 (landscape) or 9:16 (portrait)
+                    - Max size: 10MB
+              additionalProperties: false
+            - type: object
+              title: "Base64 Image"
+              required:
+                - base64
+              properties:
+                base64:
+                  type: string
+                  pattern: ^data:image/(png|jpeg|jpg|webp);base64,.*
+                  description: |
+                    Base64-encoded image data. Must be in format: data:image/{format};base64,{data}
+                    - Format: PNG, JPEG, or WEBP
+                    - Resolution: Between 720p (1280x720 or 720x1280) and 4K (3840x2160 or 2160x3840)
+                    - Aspect ratio: 16:9 (landscape) or 9:16 (portrait)
+                    - Max size: 10MB
+              additionalProperties: false
+        voiceId:
+          type: string
+          format: uuid
+          description: |
+            Optional voice ID to use for this avatar. If not provided, a voice design will be automatically created from the image.
+        extras:
+          type: object
+          description: "Optional dictionary of custom key-value pairs to extend the avatar metadata. Maximum of 10 key-value pairs of 256 characters allowed"
+          additionalProperties:
+            type: string
+          maxProperties: 10
+      additionalProperties: false
     AvatarStatus:
       type: string
       enum:
@@ -606,8 +692,8 @@ components:
         - IDLE
         - REFUSED
       description: |
-        * NOT_TRAINED - Initial state after creation
-        * TRAINING - Avatar is currently training
+        * NOT_TRAINED - Initial state after VIDEO mode avatar creation (before training starts)
+        * TRAINING - Avatar is currently training. For IMAGE mode avatars, this is the initial status after creation.
         * TRAINING_FAILED - Training process failed
         * IDLE - Avatar is ready to use
         * REFUSED - Avatar was refused by moderation
@@ -621,7 +707,7 @@ components:
           type: string
         actorName:
           type: string
-        createAt:
+        createdAt:
           type: string
           format: date-time
         updatedAt:
@@ -890,7 +976,7 @@ components:
           type: string
         events:
           $ref: "#/components/schemas/WebhookEventSchema"
-        createAt:
+        createdAt:
           type: string
           format: date-time
         updatedAt:

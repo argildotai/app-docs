@@ -1,0 +1,44 @@
+---
+openapi: post /avatars
+sidebarTitle: "/avatars (DEPRECATED)"
+deprecated: true
+---
+
+import { Warning } from "@mintlify/components";
+
+<Warning>
+  **This endpoint is deprecated.** Video-based avatar creation will be removed
+  in a future version. Please use [image-based avatar
+  creation](/api-reference/endpoint/avatars.create) instead.
+</Warning>
+
+## Overview
+
+Create a new avatar from a video. This method requires both a dataset video and a consent video.
+
+<Warning>
+  **Deprecation Notice**: This video-based avatar creation method is deprecated
+  and will be removed in a future API version. Migrate to image-based avatar
+  creation for better performance and simpler workflow.
+</Warning>
+
+### Video Requirements
+
+**Dataset Video:**
+
+- Duration: 1-5 minutes
+- Format: MP4 or MOV
+- Resolution: Between 720p and 4K
+- Max size: 1.5GB
+- Protocol: HTTPS only
+
+**Consent Video:**
+
+- Duration: 30 seconds or less
+- Format: MP4 or MOV
+- Max size: 100MB
+- Protocol: HTTPS only
+
+### Optional Fields
+
+- `extras`: Custom metadata dictionary (max 10 key-value pairs, 256 characters each)
