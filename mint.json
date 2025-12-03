@@ -75,6 +75,7 @@
                     "group": "Voices",
                     "pages": [
                         "resources/voices-and-provoices",
+                        "resources/prompt-a-voice",
                         "resources/link-a-voice"
                     ]
                 }
