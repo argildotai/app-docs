@@ -1,22 +1,24 @@
 ---
-title: 'Overview'
+title: "Overview"
 description: "Discover our API routes enabling integration to your favorite tools"
 ---
 
 <Note>
-    All of our API routes requires an authentication token. Please check the [API Credentials](/pages/get-started/credentials) section for
-    more information and best practices about your authentication process.
+  All of our API routes requires an authentication token. Please check the [API
+  Credentials](/pages/get-started/credentials) section for more information and
+  best practices about your authentication process.
 </Note>
 
 ## Table of contents
 
-| Route               | Method | Description                                          |
-| ------------------- | ------ | ---------------------------------------------------- |
-| /avatars            | GET    | List all avatars available from your account         |
-| /voices             | GET    | List all voices available from your account          |
-| /videos             | GET    | Paginated list of your videos                        |
-| /videos/[id]        | GET    | Get a specified video data                           |
-| /videos/[id]        | POST   | Create a new video                                   |
-| /render/[id]        | POST   | Render the specified video                           |
-| /videos/[id]        | DELETE | Delete a video resource                              |
-
+| Route                                     | Method | Description                                       |
+| ----------------------------------------- | ------ | ------------------------------------------------- |
+| /avatars                                  | GET    | List all avatars available from your account      |
+| /voices                                   | GET    | List all voices available from your account       |
+| /videos                                   | GET    | Paginated list of your videos                     |
+| /videos/[id]                              | GET    | Get a specified video data                        |
+| /videos/[id]                              | POST   | Create a new video                                |
+| /render/[id]                              | POST   | Render the specified video                        |
+| /videos/[id]                              | DELETE | Delete a video resource                           |
+| /subtitles                                | GET    | List all subtitle styles available                |
+| /subtitles/videos/[videoProjectId]/export | GET    | Export subtitles for a video project (VTT or ASS) |
