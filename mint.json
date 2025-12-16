@@ -185,7 +185,8 @@
         {
             "group": "Subtitles",
             "pages": [
-                "api-reference/endpoint/subtitles.list"
+                "api-reference/endpoint/subtitles.list",
+                "api-reference/endpoint/subtitles.export"
             ]
         }
     ],
