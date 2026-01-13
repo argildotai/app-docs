@@ -857,6 +857,13 @@ components:
         videoUrlSubtitled:
           type: string
           description: "The url of the final avatar rendering video with subtitles. Only available if subtitles are enabled."
+        previewUrl:
+          type: string
+          description: "Url to the embedable preview of the video. Can be watched from web browsers or integrated in other websites before launching the generation. For embedable mode, add ?embed=true to the url."
+        aspectRatio:
+          type: string
+          enum: ["16:9", "9:16"]
+          description: "The aspect ratio of the video output: 16:9 or 9:16."
         subtitles:
           type: object
           properties:
