@@ -1,6 +1,10 @@
 {
     "$schema": "https://mintlify.com/schema.json",
     "name": "Argil",
+    "metadata": {
+        "agentSystemVersion": "1.0.0",
+        "agentSystemTest": "Worker w001 cross-repo validation"
+    },
     "openapi": [
         "/openapi.yml"
     ],
