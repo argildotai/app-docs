@@ -85,8 +85,13 @@
         {
             "group": "Templates",
             "pages": [
-                "resources/fictions",
-                "resources/article-to-video"
+                "resources/article-to-video",
+                "resources/product-visual",
+                "resources/motion-control",
+                "resources/avatar-actions",
+                "resources/product-interaction",
+                "resources/animate-an-image",
+                "resources/product-presentation"
             ]
         },
         {
