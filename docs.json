@@ -1,0 +1,223 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Argil",
+  "colors": {
+    "primary": "#741FFF",
+    "light": "#741FFF",
+    "dark": "#741FFF"
+  },
+  "favicon": "/favicon.svg",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Resources",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "resources/introduction",
+              "resources/sign-up-sign-in",
+              "resources/create-a-video",
+              "resources/pay-as-you-go-pricings",
+              "resources/api-pricings",
+              "resources/subscription-and-plans"
+            ]
+          },
+          {
+            "group": "Create your own AI clone",
+            "pages": [
+              "resources/create-an-avatar",
+              "resources/create-avatar-styles",
+              "resources/edit-avatar-styles",
+              "resources/copy-a-style",
+              {
+                "group": "Voices",
+                "pages": [
+                  "resources/voices-and-provoices",
+                  "resources/prompt-a-voice",
+                  "resources/link-a-voice"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Templates",
+            "pages": [
+              "resources/article-to-video",
+              "resources/product-visual",
+              "resources/motion-control",
+              "resources/avatar-actions",
+              "resources/product-interaction",
+              "resources/animate-an-image",
+              "resources/product-presentation"
+            ]
+          },
+          {
+            "group": "Features",
+            "pages": [
+              "resources/audio-and-voicetovoice",
+              "resources/layouts",
+              {
+                "group": "Editing tips",
+                "pages": [
+                  "resources/editingtips",
+                  "resources/captions",
+                  "resources/brolls",
+                  "resources/music",
+                  "resources/assets"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Settings",
+            "pages": [
+              "resources/account-settings",
+              "resources/manage-plan",
+              "resources/delete-account",
+              "resources/affiliates",
+              "resources/make-automation"
+            ]
+          },
+          {
+            "group": "Support",
+            "pages": [
+              "resources/contactsupport",
+              "resources/moderated-content"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API & Integrations",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "pages/get-started/introduction",
+              "pages/get-started/credentials",
+              "pages/get-started/quickstart"
+            ]
+          },
+          {
+            "group": "Webhook Events",
+            "pages": [
+              "pages/webhook-events/introduction",
+              "pages/webhook-events/video-generation-success",
+              "pages/webhook-events/video-generation-failed",
+              "pages/webhook-events/avatar-training-success",
+              "pages/webhook-events/avatar-training-failed"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API Reference",
+        "groups": [
+          {
+            "group": "Avatars",
+            "pages": [
+              "api-reference/endpoint/avatars.get",
+              "api-reference/endpoint/avatars.list",
+              "api-reference/endpoint/avatars.create",
+              "api-reference/endpoint/avatars.create.video"
+            ]
+          },
+          {
+            "group": "Voices",
+            "pages": [
+              "api-reference/endpoint/voices.list",
+              "api-reference/endpoint/voices.get"
+            ]
+          },
+          {
+            "group": "Videos",
+            "pages": [
+              "api-reference/endpoint/videos.list",
+              "api-reference/endpoint/videos.create",
+              "api-reference/endpoint/videos.get",
+              "api-reference/endpoint/videos.delete",
+              "api-reference/endpoint/videos.render"
+            ]
+          },
+          {
+            "group": "Webhooks",
+            "pages": [
+              "api-reference/endpoint/webhooks.list",
+              "api-reference/endpoint/webhooks.create",
+              "api-reference/endpoint/webhooks.update",
+              "api-reference/endpoint/webhooks.delete"
+            ]
+          },
+          {
+            "group": "Assets",
+            "pages": [
+              "api-reference/endpoint/assets.list",
+              "api-reference/endpoint/assets.get"
+            ]
+          },
+          {
+            "group": "Subtitles",
+            "pages": [
+              "api-reference/endpoint/subtitles.list",
+              "api-reference/endpoint/subtitles.export"
+            ]
+          }
+        ]
+      }
+    ],
+    "global": {
+      "anchors": [
+        {
+          "anchor": "Go to the app",
+          "href": "https://app.argil.ai",
+          "icon": "A"
+        },
+        {
+          "anchor": "Community",
+          "href": "https://discord.gg/CnqyRA3bHg",
+          "icon": "discord"
+        }
+      ]
+    }
+  },
+  "logo": {
+    "light": "/logo/argil.png",
+    "dark": "/logo/argil.png"
+  },
+  "api": {
+    "openapi": [
+      "openapi.yml"
+    ]
+  },
+  "appearance": {
+    "default": "light",
+    "strict": true
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "Support",
+        "href": "mailto:support@argil.ai"
+      }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Go to the app",
+      "href": "https://app.argil.ai"
+    }
+  },
+  "footer": {
+    "socials": {
+      "twitter": "https://twitter.com/argildotai",
+      "github": "https://github.com/argildotai",
+      "linkedin": "https://www.linkedin.com/company/argilai"
+    }
+  },
+  "feedback": {
+    "thumbsRating": true,
+    "suggestEdit": true,
+    "raiseIssue": true
+  }
+}
