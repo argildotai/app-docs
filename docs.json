@@ -9,6 +9,20 @@
   },
   "favicon": "/favicon.svg",
   "navigation": {
+    "global": {
+      "anchors": [
+        {
+          "anchor": "Go to the app",
+          "icon": "A",
+          "href": "https://app.argil.ai"
+        },
+        {
+          "anchor": "Community",
+          "icon": "discord",
+          "href": "https://discord.gg/CnqyRA3bHg"
+        }
+      ]
+    },
     "tabs": [
       {
         "tab": "Resources",
@@ -38,7 +52,8 @@
                   "resources/prompt-a-voice",
                   "resources/link-a-voice"
                 ]
-              }
+              },
+              "resources/create-your-own-ai-clone/public-avatars"
             ]
           },
           {
@@ -166,21 +181,7 @@
           }
         ]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Go to the app",
-          "href": "https://app.argil.ai",
-          "icon": "A"
-        },
-        {
-          "anchor": "Community",
-          "href": "https://discord.gg/CnqyRA3bHg",
-          "icon": "discord"
-        }
-      ]
-    }
+    ]
   },
   "logo": {
     "light": "/logo/argil.png",
