@@ -71,7 +71,6 @@ paths:
       summary: Sync voices from connected providers
       description: |
         Re-syncs the voices imported from your connected ElevenLabs or Minimax provider accounts.
-        This only affects provider-imported voices — voices created directly in Argil are not impacted.
 
         After the sync completes, you can call `GET /voices` to retrieve the updated list.
 
