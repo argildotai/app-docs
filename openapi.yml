@@ -70,13 +70,13 @@ paths:
     post:
       summary: Sync voices from connected providers
       description: |
-        Triggers a re-sync of voices from your connected voice providers (ElevenLabs or Minimax).
-        The sync performs a safe diff:
-        - Voices still present at the provider are kept (same Argil ID preserved)
-        - Voices no longer at the provider are removed
-        - New voices at the provider are added
+        Re-syncs the voices imported from your connected ElevenLabs or Minimax provider accounts.
+        This only affects provider-imported voices — voices created directly in Argil are not impacted.
 
-        The sync runs asynchronously. Use `GET /voices` to check the updated voice list after sync completes.
+        After the sync completes, you can call `GET /voices` to retrieve the updated list.
+
+        You must have at least one voice provider connected to your workspace before calling this endpoint.
+        Providers can be connected from the Argil dashboard under the Voices page.
       requestBody:
         required: false
         content:
