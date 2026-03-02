@@ -66,6 +66,63 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+  /voices/sync:
+    post:
+      summary: Sync voices from connected providers
+      description: |
+        Triggers a re-sync of voices from your connected voice providers (ElevenLabs or Minimax).
+        The sync performs a safe diff:
+        - Voices still present at the provider are kept (same Argil ID preserved)
+        - Voices no longer at the provider are removed
+        - New voices at the provider are added
+
+        The sync runs asynchronously. Use `GET /voices` to check the updated voice list after sync completes.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                providerName:
+                  type: string
+                  enum:
+                    - ELEVEN_LABS
+                    - MINIMAX
+                  description: "Optional. Sync only this provider. If omitted, all connected voice providers are synced."
+            examples:
+              sync_all:
+                summary: Sync all connected providers
+                value: {}
+              sync_elevenlabs:
+                summary: Sync only ElevenLabs
+                value:
+                  providerName: "ELEVEN_LABS"
+              sync_minimax:
+                summary: Sync only Minimax
+                value:
+                  providerName: "MINIMAX"
+      responses:
+        200:
+          description: Sync triggered successfully. Returns the list of providers being synced.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/SyncedProvider"
+        404:
+          description: No connected voice providers found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        400:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
   /avatars:
     get:
       summary: List all avatars
@@ -1052,6 +1109,28 @@ components:
         lastTriggeredAt:
           type: string
           format: date-time
+    SyncedProvider:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: "The provider connection ID"
+        providerName:
+          type: string
+          enum:
+            - ELEVEN_LABS
+            - MINIMAX
+          description: "The voice provider name"
+        connectionName:
+          type: string
+          nullable: true
+          description: "The user-defined connection name"
+        syncStatus:
+          type: string
+          enum:
+            - SYNCING
+          description: "Status of the sync (will be SYNCING after this call)"
     Error:
       type: object
       properties:
