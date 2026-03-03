@@ -66,6 +66,62 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+  /voices/sync:
+    post:
+      summary: Sync voices from connected providers
+      description: |
+        Re-syncs the voices imported from your connected ElevenLabs or Minimax provider accounts.
+
+        After the sync completes, you can call `GET /voices` to retrieve the updated list.
+
+        You must have at least one voice provider connected to your workspace before calling this endpoint.
+        Providers can be connected from the Argil dashboard under the Voices page.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                providerName:
+                  type: string
+                  enum:
+                    - ELEVEN_LABS
+                    - MINIMAX
+                  description: "Optional. Sync only this provider. If omitted, all connected voice providers are synced."
+            examples:
+              sync_all:
+                summary: Sync all connected providers
+                value: {}
+              sync_elevenlabs:
+                summary: Sync only ElevenLabs
+                value:
+                  providerName: "ELEVEN_LABS"
+              sync_minimax:
+                summary: Sync only Minimax
+                value:
+                  providerName: "MINIMAX"
+      responses:
+        200:
+          description: Sync triggered successfully. Returns the list of providers being synced.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/SyncedProvider"
+        404:
+          description: No connected voice providers found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        400:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
   /avatars:
     get:
       summary: List all avatars
@@ -1052,6 +1108,28 @@ components:
         lastTriggeredAt:
           type: string
           format: date-time
+    SyncedProvider:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: "The provider connection ID"
+        providerName:
+          type: string
+          enum:
+            - ELEVEN_LABS
+            - MINIMAX
+          description: "The voice provider name"
+        connectionName:
+          type: string
+          nullable: true
+          description: "The user-defined connection name"
+        syncStatus:
+          type: string
+          enum:
+            - SYNCING
+          description: "Status of the sync (will be SYNCING after this call)"
     Error:
       type: object
       properties:
