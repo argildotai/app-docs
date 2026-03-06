@@ -27,6 +27,15 @@ paths:
           required: false
           schema:
             $ref: "#/components/schemas/VoiceGender"
+        - name: visibility
+          in: query
+          description: "Filter by visibility. 'public' returns only Argil's public voices, 'private' returns only your workspace's custom voices. Omit to return both."
+          required: false
+          schema:
+            type: string
+            enum:
+              - public
+              - private
       responses:
         200:
           description: An array of voices
@@ -139,6 +148,15 @@ paths:
           required: false
           schema:
             $ref: "#/components/schemas/AvatarModel"
+        - name: visibility
+          in: query
+          description: "Filter by visibility. 'public' returns only Argil's public avatars, 'private' returns only your workspace's custom avatars. Omit to return both."
+          required: false
+          schema:
+            type: string
+            enum:
+              - public
+              - private
       responses:
         200:
           description: An array of avatars
@@ -1183,6 +1201,12 @@ components:
       enum:
         - ARGIL_V1
         - ARGIL_ATOM
+    Visibility:
+      type: string
+      enum:
+        - public
+        - private
+      description: "Filter resources by visibility scope"
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
