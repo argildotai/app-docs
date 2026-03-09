@@ -976,6 +976,12 @@ components:
               voiceId:
                 type: string
                 description: "The id of the voice to be used for this moment. Optional, default is the avatar's voice."
+              voiceModel:
+                type: string
+                description: |
+                  Optional override for the voice's default TTS model. Must be compatible with the voice's provider.
+                  ElevenLabs voices: eleven_multilingual_v2, eleven_multilingual_v1, eleven_monolingual_v1, eleven_turbo_v2, eleven_turbo_v2_5, eleven_flash_v2_5, eleven_v3
+                  Minimax voices: speech-02-hd, speech-02-turbo, speech-2.5-hd, speech-2.5-turbo, speech-2.6-hd, speech-2.6-turbo, speech-2.8-hd, speech-2.8-turbo
               gestureSlug:
                 type: string
                 description: "The slug identifier of the gesture to be used for this moment"
