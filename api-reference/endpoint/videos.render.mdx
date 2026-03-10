@@ -7,8 +7,6 @@ sidebarTitle: "/videos/{id}/render"
 
 You can optionally pass a `callbackUrl` in the request body to receive a one-shot notification when this specific render completes.
 
-This is useful when you want to be notified about a single render without setting up a permanent webhook via the [Webhooks API](/pages/webhook-events/introduction).
-
 ```json
 {
   "callbackUrl": "https://example.com/hooks/argil-render"
