@@ -409,7 +409,6 @@ paths:
                   description: >
                     Optional HTTPS URL to receive a one-shot webhook notification when this specific render completes (success or fail).
                     The callback is fired once and then discarded.
-                    Must use HTTPS. Private/reserved IP addresses are blocked.
                   example: "https://example.com/hooks/argil-render"
       responses:
         200:
