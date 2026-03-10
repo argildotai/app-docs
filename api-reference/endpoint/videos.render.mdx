@@ -2,3 +2,21 @@
 openapi: post /videos/{id}/render
 sidebarTitle: "/videos/{id}/render"
 ---
+
+## Per-Render Callback URL
+
+You can optionally pass a `callbackUrl` in the request body to receive a one-shot notification when this specific render completes.
+
+This is useful when you want to be notified about a single render without setting up a permanent webhook via the [Webhooks API](/pages/webhook-events/introduction).
+
+```json
+{
+  "callbackUrl": "https://example.com/hooks/argil-render"
+}
+```
+
+The callback URL receives the same payload as the permanent webhook events ([VIDEO_GENERATION_SUCCESS](/pages/webhook-events/video-generation-success) or [VIDEO_GENERATION_FAILED](/pages/webhook-events/video-generation-failed)), and is called exactly once then discarded.
+
+<Note>
+  The `callbackUrl` must use HTTPS. Private and reserved IP addresses (localhost, 10.x, 172.16-31.x, 192.168.x) are blocked for security.
+</Note>

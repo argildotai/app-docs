@@ -37,6 +37,14 @@ Webhooks in Argil send a POST request to your specified callback URL whenever su
   A single webhook can subscribe to multiple events.
 </Tip>
 
+## Per-Render Callback URL
+
+In addition to permanent webhooks, you can pass an optional `callbackUrl` directly in the [render endpoint](/api-reference/endpoint/videos.render) request body. This one-shot callback is fired once when that specific render completes (success or fail), then automatically discarded. It does not require creating a webhook subscription.
+
+<Tip>
+  Use per-render callbacks when you need a notification for a single render. Use permanent webhooks when you want ongoing notifications for all renders.
+</Tip>
+
 ## Managing Webhooks via API
 
 You can manage your webhooks entirely through API calls, which allows you to programmatically list, register, edit, and unregister webhooks. Below are the primary actions you can perform with our API:

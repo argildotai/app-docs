@@ -396,6 +396,21 @@ paths:
           schema:
             type: string
             description: The id of the Video to render
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                callbackUrl:
+                  type: string
+                  format: uri
+                  description: >
+                    Optional HTTPS URL to receive a one-shot webhook notification when this specific render completes (success or fail).
+                    The callback is fired once and then discarded. This is independent of permanent webhooks registered via the Webhooks API.
+                    Must use HTTPS. Private/reserved IP addresses are blocked.
+                  example: "https://example.com/hooks/argil-render"
       responses:
         200:
           description: Detailed information about the Video
