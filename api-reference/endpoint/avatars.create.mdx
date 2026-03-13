@@ -20,6 +20,7 @@ Create a new avatar from an image. Supports both URL and base64-encoded image fo
     "base64": "data:image/png;base64,iVBORw0KGgoAAAANS..."
   },
   "voiceId": "<voice_id>",
+  "callbackUrl": "https://your-server.com/webhook",
   "extras": {
     "custom_key": "custom_value"
   }
@@ -37,6 +38,7 @@ Create a new avatar from an image. Supports both URL and base64-encoded image fo
 ### Optional Fields
 
 - `voiceId`: UUID of an existing voice to use. If not provided, a voice design will be automatically created from the image.
+- `callbackUrl`: HTTPS URL that receives a one-shot POST notification when training completes or fails. See [Callback URL](#callback-url) below.
 - `extras`: Custom metadata dictionary (max 10 key-value pairs, 256 characters each)
 
 ## Response
@@ -63,6 +65,49 @@ curl -X GET https://api.argil.ai/v1/avatars/{avatar_id} \
 Subscribe to the `AVATAR_TRAINING_SUCCESS` webhook event to receive a notification when the avatar is ready. This is the recommended approach as it avoids polling and provides real-time updates.
 
 Learn more about setting up webhooks: [AVATAR_TRAINING_SUCCESS Event](/pages/webhook-events/avatar-training-success)
+
+### Option 3: Use `callbackUrl` (Per-Request Webhook)
+
+Pass a `callbackUrl` in the request body to receive a one-shot POST notification for this specific avatar creation — no webhook configuration required.
+
+```json
+{
+  "type": "IMAGE",
+  "name": "My Avatar",
+  "datasetImage": { "url": "https://example.com/photo.jpg" },
+  "callbackUrl": "https://your-server.com/avatar-ready"
+}
+```
+
+On success, your endpoint receives:
+```json
+{
+  "event": "AVATAR_TRAINING_SUCCESS",
+  "data": {
+    "avatarId": "<avatar_id>",
+    "avatarName": "My Avatar",
+    "voiceId": "<voice_id_or_empty_string>",
+    "message": "Avatar training completed successfully"
+  }
+}
+```
+
+On failure (after all retries are exhausted):
+```json
+{
+  "event": "AVATAR_TRAINING_FAILED",
+  "data": {
+    "avatarId": "<avatar_id>",
+    "avatarName": "My Avatar",
+    "message": "<error_message>"
+  }
+}
+```
+
+**Notes:**
+- The URL must use HTTPS.
+- The callback is fired once and not retried if your endpoint is unreachable.
+- This is a lightweight alternative to setting up a persistent webhook subscription.
 
 ## Cost
 

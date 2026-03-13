@@ -205,6 +205,14 @@ paths:
                   name: "My Image Avatar"
                   datasetImage:
                     url: "https://example.com/avatar-image.jpg"
+              image_with_callback:
+                summary: Create avatar with per-request callback
+                value:
+                  type: "IMAGE"
+                  name: "My Image Avatar"
+                  datasetImage:
+                    url: "https://example.com/avatar-image.jpg"
+                  callbackUrl: "https://your-server.com/avatar-ready"
       responses:
         201:
           description: Successfully created Avatar. The training process will start automatically.
@@ -824,6 +832,15 @@ components:
           format: uuid
           description: |
             Optional voice ID to use for this avatar. If not provided, a voice design will be automatically created from the image.
+        callbackUrl:
+          type: string
+          format: uri
+          pattern: ^https://.*
+          description: |
+            Optional HTTPS URL that receives a one-shot POST notification when avatar training completes or fails.
+            On success, sends `{ "event": "AVATAR_TRAINING_SUCCESS", "data": { "avatarId", "avatarName", "voiceId", "message" } }`.
+            On failure (after all retries), sends `{ "event": "AVATAR_TRAINING_FAILED", "data": { "avatarId", "avatarName", "message" } }`.
+            The callback is fired once and not retried if your endpoint is unreachable.
         extras:
           type: object
           description: "Optional dictionary of custom key-value pairs to extend the avatar metadata. Maximum of 10 key-value pairs of 256 characters allowed"
