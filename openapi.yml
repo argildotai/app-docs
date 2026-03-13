@@ -1015,6 +1015,8 @@ components:
                     default: 1.0
                     description: "Specifies the zoom scaling factor where 1.0 represents 100% (original size), and 2.0 is 200% (zoomed in)"
                 additionalProperties: false
+              broll:
+                $ref: '#/components/schemas/MomentBroll'
             additionalProperties: false
         subtitles:
           type: object
@@ -1103,6 +1105,96 @@ components:
           type: string
           enum: [ARGIL_V1, ARGIL_ATOM]
           description: "Model to use for the video generation."
+    BrollLayout:
+      type: string
+      enum:
+        [
+          "FULLSCREEN",
+          "AVATAR_BOTTOM_LEFT",
+          "AVATAR_BOTTOM_RIGHT",
+          "AVATAR_TOP_LEFT",
+          "AVATAR_TOP_RIGHT",
+          "SPLIT_AVATAR_LEFT",
+          "SPLIT_AVATAR_RIGHT",
+          "SPLIT_AVATAR_TOP",
+          "SPLIT_AVATAR_BOTTOM",
+          "BACKGROUND",
+        ]
+      description: "Layout controlling how the B-roll appears relative to the avatar."
+    MomentBroll:
+      description: |
+        Per-moment B-roll configuration. Specify the B-roll type and optional parameters for an individual moment.
+
+        When `prompt` or `query` is omitted, it is auto-generated from the moment's transcript via LLM.
+      oneOf:
+        - type: object
+          title: AVATAR_ACTION
+          description: "Generate a video B-roll featuring the avatar in action. Only available with AI Influencer (IMAGE-type) avatars. Consumes 10 image generation credits per moment."
+          required:
+            - type
+          properties:
+            type:
+              type: string
+              enum: [AVATAR_ACTION]
+            prompt:
+              type: string
+              description: "Describes the avatar's action. Auto-generated from the moment's transcript when omitted."
+            layout:
+              $ref: '#/components/schemas/BrollLayout'
+          additionalProperties: false
+        - type: object
+          title: GENERATION
+          description: "Generate an AI image as a B-roll. Consumes 10 image generation credits per moment."
+          required:
+            - type
+          properties:
+            type:
+              type: string
+              enum: [GENERATION]
+            prompt:
+              type: string
+              description: "Describes the image to generate. Auto-generated from the moment's transcript when omitted."
+            animate:
+              type: boolean
+              description: "Animate the generated image. Default: false."
+            layout:
+              $ref: '#/components/schemas/BrollLayout'
+          additionalProperties: false
+        - type: object
+          title: STOCKS_VIDEO
+          description: "Use a Getty Images stock video as a B-roll."
+          required:
+            - type
+          properties:
+            type:
+              type: string
+              enum: [STOCKS_VIDEO]
+            query:
+              type: string
+              description: "Search query for Getty Images. Auto-generated from the moment's transcript when omitted."
+            layout:
+              $ref: '#/components/schemas/BrollLayout'
+          additionalProperties: false
+        - type: object
+          title: GOOGLE_IMAGES
+          description: "Use a Google Images result as a B-roll."
+          required:
+            - type
+          properties:
+            type:
+              type: string
+              enum: [GOOGLE_IMAGES]
+            query:
+              type: string
+              description: "Search query for Google Images. Auto-generated from the moment's transcript when omitted."
+            animate:
+              type: boolean
+              description: "Animate the found image. Default: false."
+            layout:
+              $ref: '#/components/schemas/BrollLayout'
+          additionalProperties: false
+      discriminator:
+        propertyName: type
     Asset:
       type: object
       properties:
