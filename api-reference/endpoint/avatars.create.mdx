@@ -20,6 +20,7 @@ Create a new avatar from an image. Supports both URL and base64-encoded image fo
     "base64": "data:image/png;base64,iVBORw0KGgoAAAANS..."
   },
   "voiceId": "<voice_id>",
+  "callbackUrl": "https://your-server.com/webhook",
   "extras": {
     "custom_key": "custom_value"
   }
@@ -37,6 +38,7 @@ Create a new avatar from an image. Supports both URL and base64-encoded image fo
 ### Optional Fields
 
 - `voiceId`: UUID of an existing voice to use. If not provided, a voice design will be automatically created from the image.
+- `callbackUrl`: HTTPS URL that receives a one-shot POST notification when training completes or fails.
 - `extras`: Custom metadata dictionary (max 10 key-value pairs, 256 characters each)
 
 ## Response
