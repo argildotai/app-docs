@@ -840,7 +840,6 @@ components:
             Optional HTTPS URL that receives a one-shot POST notification when avatar training completes or fails.
             On success, sends `{ "event": "AVATAR_TRAINING_SUCCESS", "data": { "avatarId", "avatarName", "voiceId", "message" } }`.
             On failure (after all retries), sends `{ "event": "AVATAR_TRAINING_FAILED", "data": { "avatarId", "avatarName", "message" } }`.
-            The callback is fired once and not retried if your endpoint is unreachable.
         extras:
           type: object
           description: "Optional dictionary of custom key-value pairs to extend the avatar metadata. Maximum of 10 key-value pairs of 256 characters allowed"
