@@ -1125,8 +1125,6 @@ components:
       description: |
         Per-moment B-roll configuration. Specify the B-roll type and optional parameters for an individual moment.
 
-        **Mutually exclusive with the top-level `autoBrolls` field** — providing both in the same request returns a `400` error.
-
         When `prompt` or `query` is omitted, it is auto-generated from the moment's transcript via LLM.
       oneOf:
         - type: object
