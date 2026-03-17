@@ -5,36 +5,35 @@ description: "Build a multi-scene video from a single prompt"
 
 ## What is Story?
 
-Story lets you generate a multi-scene video from a single prompt. You describe what you want, and Argil automatically breaks it into a sequence of scenes with their own camera angles, timing, and actions. The result is a continuous video of up to 15 seconds, perfect for product ads, short explainers, or cinematic social content.
+Story lets you generate a multi-scene video from a single prompt. You describe what you want, and Argil automatically breaks it into a sequence of scenes with their own camera angles, timing, and actions. The result is a continuous video of up to 15 seconds, perfect for product ads, short clips, or cinematic social content.
 
 ## How it works
 
 1. **Describe your video** — Write a single prompt describing the full sequence you want (e.g., "A penguin leaving its group to reach the promised mountain.")
-2. **Generate scenes** — Argil splits your prompt into separate scenes (typically 2 to 4), each with its own detailed description, camera movement, and timing.
-3. **Review and edit** — Adjust each scene's text, reorder them, or add/remove scenes manually. Each scene can be set between 4s and 6s.
 4. **Add references** (optional) — Upload a first frame image or add reference images to guide the visual style.
+2. **Generate scenes** — Argil splits your prompt into separate scenes (typically 2 to 4), each with its own detailed description, camera movement, and timing.
+3. **Review and edit** — Adjust each scene's text, add/remove scenes manually. Each scene can be set between 3s and 15s.
 5. **Generate** — Hit Generate to render the full sequence in one go.
 
 You can also click **Write scenes manually** to skip the auto-split and write each scene yourself from scratch.
 
 ## Settings
 
-| Setting | Options |
-| --- | --- |
-| Model | Kling 3.0 Pro |
-| Aspect ratio | 9:16 (vertical) |
-| Sound | On / Off |
-| Max total duration | ~15 seconds (sum of all scenes) |
+| Setting      | Options                            |
+| ------------ | ---------------------------------- |
+| Model        | Kling 3.0 Pro / Kling 3.0          |
+| Aspect ratio | 9:16 (Portrait) / 16:9 (Landscape) |
+| Sound        | On / Off                           |
 
 ## Reference limits
 
 You can attach image or video references to guide the output. Here are the constraints:
 
-| Condition | Limit |
-| --- | --- |
-| Image references only | Up to 7 images per video |
+| Condition                      | Limit                                     |
+| ------------------------------ | ----------------------------------------- |
+| Image references only          | Up to 7 images per video                  |
 | When a video reference is used | Up to 4 references total (video included) |
-| Video references | 1 video max per generation |
+| Video references               | 1 video max per generation                |
 
 **Image requirements:** minimum 300 × 300 px, maximum 10 MB.
 
@@ -45,13 +44,13 @@ You can attach image or video references to guide the output. Here are the const
 - Keep your initial prompt focused on a clear narrative arc — Argil handles the scene breakdown best when there is a logical progression (setup, action, resolution).
 - Use the first frame option to lock the opening shot's composition and style.
 - After scene generation, review each scene's camera direction and adjust if the transitions feel too abrupt.
-- Shorter scenes (4s) work well for quick cuts; longer scenes (6s) suit slow, cinematic shots.
+- Shorter scenes (3s) work well for quick cuts; longer scenes (5-10s) suit slow, cinematic shots.
 
 ## FAQ
 
 <AccordionGroup>
   <Accordion title="How many scenes can I create?">
-    There is no hard cap on the number of scenes, but the total video duration cannot exceed approximately 15 seconds. Since each scene ranges from 4 to 6 seconds, you will typically get 2 to 4 scenes.
+    You can create up to 6 scenes, or a total of 15 seconds' worth of scenes. Since each scene ranges from 3 to 15 seconds, you will typically get 2 to 4 scenes.
   </Accordion>
   <Accordion title="Can I reorder or delete individual scenes?">
     Yes. After Argil generates the scene breakdown, you can edit any scene's prompt, delete a scene using the trash icon, or add a new scene with the "+ New scene" button.
