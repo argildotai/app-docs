@@ -948,7 +948,7 @@ components:
                 description: "The id of the voice to be used for this moment."
               audioUrl:
                 type: string
-                description: "The audio that will be used for the video rendering. Automatically generated from the transcript when not provided. Current limit: 20 seconds."
+                description: "The audio that will be used for the video rendering. Automatically generated from the transcript when not provided. Current limit: 40 seconds."
               videoUrl:
                 type: string
                 description: "The url of the avatar rendering video for this moment."
@@ -993,13 +993,16 @@ components:
           description: "An array of Moment items, each representing a portion of the complete video."
           items:
             type: object
+            description: "A video moment. Exactly one of `transcript` or `audioUrl` must be provided — they are mutually exclusive."
             required:
-              - transcript
               - avatarId
             properties:
               transcript:
                 type: string
-                description: "A portion of the complete transcript. Current limit: 250 characters"
+                description: "A portion of the complete transcript. Mutually exclusive with `audioUrl` — provide one or the other, not both. Current limit: 250 characters"
+              audioUrl:
+                type: string
+                description: "URL to an audio file for this moment, bypassing TTS generation. Mutually exclusive with `transcript` — provide one or the other, not both. Max duration: 40 seconds"
               avatarId:
                 type: string
                 description: "The id of the avatar to be used for this moment"
@@ -1015,9 +1018,6 @@ components:
               gestureSlug:
                 type: string
                 description: "The slug identifier of the gesture to be used for this moment"
-              audioUrl:
-                type: string
-                description: "Optional url to the audio to be used for the video rendering, for bypassing our audio generation model. Current limit: 20 seconds"
               zoom:
                 type: object
                 description: "Controls the zoom level of the viewport/display, allowing content to be scaled larger or smaller"
