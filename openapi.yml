@@ -51,6 +51,73 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+    post:
+      summary: Create a voice from audio
+      description: |
+        Creates a custom voice by cloning from an audio file.
+
+        The voice is available immediately after creation — voice cloning to the provider happens lazily at first use.
+
+        Settings vary by model. ElevenLabs models accept `voiceStability`, `voiceSimilarity`, `voiceStyle`, `voiceSpeed`, and `speakerBoost`.
+        The `eleven_v3` model only accepts `voiceStability` (must be 0, 0.5, or 1.0).
+        Minimax models accept `voiceSpeed`, `languageBoost`, and `emotion`.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/VoiceCreateArgs"
+            examples:
+              minimax_default:
+                summary: Create voice with default Minimax model
+                value:
+                  name: "My Custom Voice"
+                  audioUrl: "https://example.com/my-audio.mp3"
+              minimax_with_settings:
+                summary: Create voice with Minimax settings
+                value:
+                  name: "My Custom Voice"
+                  audioUrl: "https://example.com/my-audio.mp3"
+                  modelId: "speech-2.8-hd"
+                  settings:
+                    voiceSpeed: 1.1
+                    languageBoost: "English"
+                    emotion: "happy"
+                  language: "ENGLISH"
+                  gender: "MALE"
+              elevenlabs:
+                summary: Create voice with ElevenLabs model
+                value:
+                  name: "My Custom Voice"
+                  audioUrl: "https://example.com/my-audio.mp3"
+                  modelId: "eleven_multilingual_v2"
+                  settings:
+                    voiceStability: 0.8
+                    voiceSimilarity: 0.5
+                    voiceStyle: 0.0
+                    voiceSpeed: 1.0
+                    speakerBoost: true
+              elevenlabs_v3:
+                summary: Create voice with ElevenLabs V3 model
+                value:
+                  name: "My Custom Voice"
+                  audioUrl: "https://example.com/my-audio.mp3"
+                  modelId: "eleven_v3"
+                  settings:
+                    voiceStability: 0.5
+      responses:
+        201:
+          description: Voice created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Voice"
+        400:
+          description: Validation error (invalid audio, quota exceeded, etc.)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
   /voices/{id}:
     get:
       summary: Get a Voice by id
@@ -1307,13 +1374,16 @@ components:
         - SPANISH
         - FRENCH
         - PORTUGUESE
-        - BRAZILIAN_PORTUGUESE
         - GERMAN
         - RUSSIAN
         - HINDI
         - CHINESE
         - DUTCH
         - ARABIC
+        - POLISH
+        - BULGARIAN
+        - JAPANESE
+        - ITALIAN
     VoiceGender:
       type: string
       enum:
@@ -1335,6 +1405,160 @@ components:
         - public
         - private
       description: "Filter resources by visibility scope"
+    VoiceModelId:
+      type: string
+      description: "Voice model to use for TTS. Determines which provider (ElevenLabs or Minimax) and which settings are available."
+      enum:
+        - eleven_multilingual_v2
+        - eleven_multilingual_v1
+        - eleven_monolingual_v1
+        - eleven_turbo_v2
+        - eleven_turbo_v2_5
+        - eleven_flash_v2_5
+        - eleven_v3
+        - speech-02-hd
+        - speech-02-turbo
+        - speech-2.5-hd-preview
+        - speech-2.5-turbo-preview
+        - speech-2.6-hd
+        - speech-2.6-turbo
+        - speech-2.8-hd
+        - speech-2.8-turbo
+    MinimaxEmotion:
+      type: string
+      enum:
+        - auto
+        - happy
+        - sad
+        - angry
+        - fearful
+        - disgusted
+        - surprised
+        - neutral
+    MinimaxLanguageBoost:
+      type: string
+      enum:
+        - auto
+        - Afrikaans
+        - Arabic
+        - Bulgarian
+        - Catalan
+        - Chinese
+        - "Chinese,Yue"
+        - Croatian
+        - Czech
+        - Danish
+        - Dutch
+        - English
+        - Filipino
+        - Finnish
+        - French
+        - German
+        - Greek
+        - Hebrew
+        - Hindi
+        - Hungarian
+        - Indonesian
+        - Italian
+        - Japanese
+        - Korean
+        - Malay
+        - Norwegian
+        - Nynorsk
+        - Persian
+        - Polish
+        - Portuguese
+        - Romanian
+        - Russian
+        - Slovak
+        - Slovenian
+        - Spanish
+        - Swedish
+        - Tamil
+        - Thai
+        - Turkish
+        - Ukrainian
+        - Vietnamese
+    ElevenLabsSettings:
+      type: object
+      description: "Settings for ElevenLabs models (all except eleven_v3)"
+      properties:
+        voiceStability:
+          type: number
+          minimum: 0
+          maximum: 1
+          description: "Voice stability (0-1). Default: 0.8"
+        voiceSimilarity:
+          type: number
+          minimum: 0
+          maximum: 1
+          description: "Clarity + similarity (0-1). Default: 0.5"
+        voiceStyle:
+          type: number
+          minimum: 0
+          maximum: 1
+          description: "Style exaggeration (0-1). Default: 0.0"
+        voiceSpeed:
+          type: number
+          minimum: 0.7
+          maximum: 1.2
+          description: "Playback speed (0.7-1.2). Default: 1.0"
+        speakerBoost:
+          type: boolean
+          description: "Enable speaker boost. Default: true"
+      additionalProperties: false
+    ElevenLabsV3Settings:
+      type: object
+      description: "Settings for eleven_v3 model. Only stability is supported."
+      properties:
+        voiceStability:
+          type: number
+          enum: [0, 0.5, 1.0]
+          description: "0 = Creative, 0.5 = Natural, 1.0 = Robust. Default: 0.5"
+      additionalProperties: false
+    MinimaxSettings:
+      type: object
+      description: "Settings for Minimax models (speech-* models)"
+      properties:
+        voiceSpeed:
+          type: number
+          minimum: 0.7
+          maximum: 1.2
+          description: "Playback speed (0.7-1.2). Default: 1.0"
+        languageBoost:
+          $ref: "#/components/schemas/MinimaxLanguageBoost"
+        emotion:
+          $ref: "#/components/schemas/MinimaxEmotion"
+      additionalProperties: false
+    VoiceCreateArgs:
+      type: object
+      required:
+        - name
+        - audioUrl
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 256
+          description: "Name of the voice"
+        audioUrl:
+          type: string
+          format: uri
+          pattern: ^https://.*
+          description: "HTTPS URL to the audio file for voice cloning. Duration must be within workspace quota (typically 20s-5min)."
+        modelId:
+          $ref: "#/components/schemas/VoiceModelId"
+        settings:
+          description: "Model-specific settings. Fields depend on the chosen modelId."
+          oneOf:
+            - $ref: "#/components/schemas/ElevenLabsSettings"
+            - $ref: "#/components/schemas/ElevenLabsV3Settings"
+            - $ref: "#/components/schemas/MinimaxSettings"
+        language:
+          $ref: "#/components/schemas/VoiceLanguage"
+        gender:
+          $ref: "#/components/schemas/VoiceGender"
+      additionalProperties: false
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
