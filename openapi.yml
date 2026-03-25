@@ -1019,18 +1019,8 @@ components:
                 type: string
                 description: "Optional url to the audio to be used for the video rendering, for bypassing our audio generation model. Current limit: 20 seconds"
               zoom:
-                type: object
-                description: "Controls the zoom level of the viewport/display, allowing content to be scaled larger or smaller"
-                required:
-                  - level
-                properties:
-                  level:
-                    type: number
-                    minimum: 1.0
-                    maximum: 2.0
-                    default: 1.0
-                    description: "Specifies the zoom scaling factor where 1.0 represents 100% (original size), and 2.0 is 200% (zoomed in)"
-                additionalProperties: false
+                description: "Zoom effect applied to the avatar for this moment."
+                $ref: '#/components/schemas/Zoom'
               broll:
                 $ref: '#/components/schemas/MomentBroll'
             additionalProperties: false
@@ -1157,6 +1147,9 @@ components:
               description: "Describes the avatar's action. Auto-generated from the moment's transcript when omitted."
             layout:
               $ref: '#/components/schemas/BrollLayout'
+            zoom:
+              description: "Zoom effect applied to the B-roll."
+              $ref: '#/components/schemas/Zoom'
           additionalProperties: false
         - type: object
           title: GENERATION
@@ -1175,6 +1168,9 @@ components:
               description: "Animate the generated image. Default: false."
             layout:
               $ref: '#/components/schemas/BrollLayout'
+            zoom:
+              description: "Zoom effect applied to the B-roll."
+              $ref: '#/components/schemas/Zoom'
           additionalProperties: false
         - type: object
           title: STOCKS_VIDEO
@@ -1190,6 +1186,9 @@ components:
               description: "Search query for Getty Images. Auto-generated from the moment's transcript when omitted."
             layout:
               $ref: '#/components/schemas/BrollLayout'
+            zoom:
+              description: "Zoom effect applied to the B-roll."
+              $ref: '#/components/schemas/Zoom'
           additionalProperties: false
         - type: object
           title: GOOGLE_IMAGES
@@ -1208,9 +1207,39 @@ components:
               description: "Animate the found image. Default: false."
             layout:
               $ref: '#/components/schemas/BrollLayout'
+            zoom:
+              description: "Zoom effect applied to the B-roll."
+              $ref: '#/components/schemas/Zoom'
           additionalProperties: false
       discriminator:
         propertyName: type
+    Zoom:
+      type: object
+      description: |
+        Zoom effect configuration.
+
+        **Examples:**
+        - Static zoom: `{"scale": 1.2}`
+        - Ken Burns zoom in (progressive): `{"scale": 1.15, "type": "kenBurnsIn"}`
+        - Ken Burns zoom out (starts zoomed, pulls back): `{"scale": 1.15, "type": "kenBurnsOut"}`
+      required:
+        - scale
+      properties:
+        scale:
+          type: number
+          minimum: 1.0
+          maximum: 2.0
+          description: "Zoom factor. 1.0 = no zoom, 1.2 = 120%, 2.0 = 200%."
+        type:
+          type: string
+          enum: [static, kenBurnsIn, kenBurnsOut]
+          default: static
+          description: |
+            Animation style:
+            - `static`: constant zoom throughout the element's duration.
+            - `kenBurnsIn`: progressive zoom from 1.0 to the target scale.
+            - `kenBurnsOut`: starts at the target scale and progressively zooms back to 1.0.
+      additionalProperties: false
     Asset:
       type: object
       properties:
