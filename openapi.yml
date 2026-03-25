@@ -1473,73 +1473,37 @@ components:
         - Turkish
         - Ukrainian
         - Vietnamese
-    ElevenLabsSettings:
+    VoiceSettings:
       type: object
-      description: "Settings for ElevenLabs models (all except eleven_v3)"
+      description: "Model-specific voice settings. Available fields depend on the chosen modelId. See the Settings by Model section for details."
       properties:
         voiceStability:
           type: number
           minimum: 0
           maximum: 1
-          description: "Voice stability (0-1). Default: 0.8"
+          description: "ElevenLabs only. Voice stability (0-1). Default: 0.8 (0.5 for eleven_v3)"
         voiceSimilarity:
           type: number
           minimum: 0
           maximum: 1
-          description: "Clarity + similarity (0-1). Default: 0.5"
+          description: "ElevenLabs only. Clarity + similarity (0-1). Default: 0.5"
         voiceStyle:
           type: number
           minimum: 0
           maximum: 1
-          description: "Style exaggeration (0-1). Default: 0.0"
+          description: "ElevenLabs only. Style exaggeration (0-1). Default: 0.0"
         voiceSpeed:
           type: number
           minimum: 0.7
           maximum: 1.2
-          description: "Playback speed (0.7-1.2). Default: 1.0"
+          description: "ElevenLabs and Minimax. Playback speed (0.7-1.2). Default: 1.0"
         speakerBoost:
           type: boolean
-          description: "Enable speaker boost. Default: true"
-      additionalProperties: false
-    ElevenLabsV3Settings:
-      type: object
-      description: "Settings for eleven_v3 model. Same as other ElevenLabs models except Speaker Boost is not available."
-      properties:
-        voiceStability:
-          type: number
-          minimum: 0
-          maximum: 1
-          description: "Voice stability (0-1). Default: 0.5"
-        voiceSimilarity:
-          type: number
-          minimum: 0
-          maximum: 1
-          description: "Clarity + similarity (0-1). Default: 0.5"
-        voiceStyle:
-          type: number
-          minimum: 0
-          maximum: 1
-          description: "Style exaggeration (0-1). Default: 0.0"
-        voiceSpeed:
-          type: number
-          minimum: 0.7
-          maximum: 1.2
-          description: "Playback speed (0.7-1.2). Default: 1.0"
-      additionalProperties: false
-    MinimaxSettings:
-      type: object
-      description: "Settings for Minimax models (speech-* models)"
-      properties:
-        voiceSpeed:
-          type: number
-          minimum: 0.7
-          maximum: 1.2
-          description: "Playback speed (0.7-1.2). Default: 1.0"
+          description: "ElevenLabs only (not available for eleven_v3). Enable speaker boost. Default: true"
         languageBoost:
           $ref: "#/components/schemas/MinimaxLanguageBoost"
         emotion:
           $ref: "#/components/schemas/MinimaxEmotion"
-      additionalProperties: false
     VoiceCreateArgs:
       type: object
       required:
@@ -1559,11 +1523,7 @@ components:
         modelId:
           $ref: "#/components/schemas/VoiceModelId"
         settings:
-          description: "Model-specific settings. Fields depend on the chosen modelId."
-          oneOf:
-            - $ref: "#/components/schemas/ElevenLabsSettings"
-            - $ref: "#/components/schemas/ElevenLabsV3Settings"
-            - $ref: "#/components/schemas/MinimaxSettings"
+          $ref: "#/components/schemas/VoiceSettings"
         language:
           $ref: "#/components/schemas/VoiceLanguage"
         gender:
