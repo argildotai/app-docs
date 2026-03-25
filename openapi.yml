@@ -1501,9 +1501,13 @@ components:
           type: boolean
           description: "ElevenLabs only (not available for eleven_v3). Enable speaker boost. Default: true"
         languageBoost:
-          $ref: "#/components/schemas/MinimaxLanguageBoost"
+          description: "Minimax only. Boost a specific language for better pronunciation. Default: \"auto\""
+          allOf:
+            - $ref: "#/components/schemas/MinimaxLanguageBoost"
         emotion:
-          $ref: "#/components/schemas/MinimaxEmotion"
+          description: "Minimax only. Voice emotion. Default: \"auto\""
+          allOf:
+            - $ref: "#/components/schemas/MinimaxEmotion"
     VoiceCreateArgs:
       type: object
       required:
