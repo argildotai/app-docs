@@ -145,6 +145,7 @@
             "pages": [
               "api-reference/endpoint/voices.list",
               "api-reference/endpoint/voices.get",
+              "api-reference/endpoint/voices.create",
               "api-reference/endpoint/voices.sync"
             ]
           },

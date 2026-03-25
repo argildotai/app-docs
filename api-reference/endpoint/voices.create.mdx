@@ -1,0 +1,60 @@
+---
+openapi: post /voices
+sidebarTitle: "/voices"
+---
+
+import { Accordion } from "@mintlify/components";
+
+## Overview
+
+Creates a custom voice by cloning from an uploaded audio file. The voice is available immediately after creation.
+
+## Settings by Model
+
+Settings vary depending on the model you choose. The `modelId` determines which provider (ElevenLabs or Minimax) handles TTS at generation time.
+
+<Accordion title="ElevenLabs V3 (eleven_v3)">
+  **Model:** `eleven_v3`
+
+  **Settings:**
+  - `voiceStability` (0-1, default: 0.5) — Higher = more consistent, lower = more expressive
+  - `voiceSimilarity` (0-1, default: 0.5) — Clarity and similarity to the original voice
+  - `voiceStyle` (0-1, default: 0.0) — Style exaggeration. Higher values are more expressive but slower.
+  - `voiceSpeed` (0.7-1.2, default: 1.0) — Playback speed
+
+  Speaker Boost is not available for this model.
+</Accordion>
+
+<Accordion title="ElevenLabs models (eleven_multilingual_v2, etc.)">
+  **Models:** `eleven_multilingual_v2` (recommended), `eleven_multilingual_v1`, `eleven_monolingual_v1`, `eleven_turbo_v2`, `eleven_turbo_v2_5`, `eleven_flash_v2_5`
+
+  **Settings:**
+  - `voiceStability` (0-1, default: 0.8) — Higher = more consistent, lower = more expressive
+  - `voiceSimilarity` (0-1, default: 0.5) — Clarity and similarity to the original voice
+  - `voiceStyle` (0-1, default: 0.0) — Style exaggeration. Higher values are more expressive but slower.
+  - `voiceSpeed` (0.7-1.2, default: 1.0) — Playback speed
+  - `speakerBoost` (boolean, default: true) — Enhances speaker similarity
+</Accordion>
+
+<Accordion title="Minimax models (speech-*)">
+  **Models:** `speech-2.8-hd` (recommended), `speech-2.8-turbo`, `speech-2.6-hd`, `speech-2.6-turbo`, `speech-2.5-hd-preview`, `speech-2.5-turbo-preview`, `speech-02-hd`, `speech-02-turbo`
+
+  **Settings:**
+  - `voiceSpeed` (0.7-1.2, default: 1.0) — Playback speed
+  - `languageBoost` (enum, default: "auto") — Boost a specific language for better pronunciation
+  - `emotion` (enum, default: "auto") — Voice emotion: `happy`, `sad`, `angry`, `fearful`, `disgusted`, `surprised`, `neutral`
+</Accordion>
+
+## Default Model
+
+If `modelId` is omitted, the default is `speech-2.5-hd-preview` (Minimax).
+
+## Audio Requirements
+
+- Must be accessible via HTTPS URL
+- Duration must be between 30 seconds and 4 minutes
+- Supported formats: MP3, WAV, M4A
+
+## Voice Status
+
+The created voice is returned with status `IDLE`, meaning it is ready to be used in video generation immediately.
