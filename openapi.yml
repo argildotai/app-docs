@@ -1403,13 +1403,13 @@ components:
       type: string
       description: "Voice model to use for TTS. Determines which provider (ElevenLabs or Minimax) and which settings are available."
       enum:
-        - eleven_v3
         - eleven_multilingual_v2
         - eleven_multilingual_v1
         - eleven_monolingual_v1
         - eleven_turbo_v2
         - eleven_turbo_v2_5
         - eleven_flash_v2_5
+        - eleven_v3
         - speech-02-hd
         - speech-02-turbo
         - speech-2.5-hd-preview
@@ -1503,12 +1503,28 @@ components:
       additionalProperties: false
     ElevenLabsV3Settings:
       type: object
-      description: "Settings for eleven_v3 model. Only stability is supported."
+      description: "Settings for eleven_v3 model. Same as other ElevenLabs models except Speaker Boost is not available."
       properties:
         voiceStability:
           type: number
-          enum: [0, 0.5, 1.0]
-          description: "0 = Creative, 0.5 = Natural, 1.0 = Robust. Default: 0.5"
+          minimum: 0
+          maximum: 1
+          description: "Voice stability (0-1). Default: 0.5"
+        voiceSimilarity:
+          type: number
+          minimum: 0
+          maximum: 1
+          description: "Clarity + similarity (0-1). Default: 0.5"
+        voiceStyle:
+          type: number
+          minimum: 0
+          maximum: 1
+          description: "Style exaggeration (0-1). Default: 0.0"
+        voiceSpeed:
+          type: number
+          minimum: 0.7
+          maximum: 1.2
+          description: "Playback speed (0.7-1.2). Default: 1.0"
       additionalProperties: false
     MinimaxSettings:
       type: object

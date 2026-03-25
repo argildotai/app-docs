@@ -13,7 +13,19 @@ Creates a custom voice by cloning from an uploaded audio file. The voice is avai
 
 Settings vary depending on the model you choose. The `modelId` determines which provider (ElevenLabs or Minimax) handles TTS at generation time.
 
-<Accordion title="ElevenLabs models (eleven_*)">
+<Accordion title="ElevenLabs V3 (eleven_v3)">
+  **Model:** `eleven_v3`
+
+  **Settings:**
+  - `voiceStability` (0-1, default: 0.5) — Higher = more consistent, lower = more expressive
+  - `voiceSimilarity` (0-1, default: 0.5) — Clarity and similarity to the original voice
+  - `voiceStyle` (0-1, default: 0.0) — Style exaggeration. Higher values are more expressive but slower.
+  - `voiceSpeed` (0.7-1.2, default: 1.0) — Playback speed
+
+  Speaker Boost is not available for this model.
+</Accordion>
+
+<Accordion title="ElevenLabs models (eleven_multilingual_v2, etc.)">
   **Models:** `eleven_multilingual_v2` (recommended), `eleven_multilingual_v1`, `eleven_monolingual_v1`, `eleven_turbo_v2`, `eleven_turbo_v2_5`, `eleven_flash_v2_5`
 
   **Settings:**
@@ -22,17 +34,6 @@ Settings vary depending on the model you choose. The `modelId` determines which 
   - `voiceStyle` (0-1, default: 0.0) — Style exaggeration. Higher values are more expressive but slower.
   - `voiceSpeed` (0.7-1.2, default: 1.0) — Playback speed
   - `speakerBoost` (boolean, default: true) — Enhances speaker similarity
-</Accordion>
-
-<Accordion title="ElevenLabs V3 (eleven_v3)">
-  **Model:** `eleven_v3` (alpha)
-
-  Only `voiceStability` is supported, with 3 discrete values:
-  - `0` — Creative
-  - `0.5` — Natural (default)
-  - `1.0` — Robust
-
-  All other settings are ignored.
 </Accordion>
 
 <Accordion title="Minimax models (speech-*)">
