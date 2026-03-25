@@ -1403,13 +1403,13 @@ components:
       type: string
       description: "Voice model to use for TTS. Determines which provider (ElevenLabs or Minimax) and which settings are available."
       enum:
+        - eleven_v3
         - eleven_multilingual_v2
         - eleven_multilingual_v1
         - eleven_monolingual_v1
         - eleven_turbo_v2
         - eleven_turbo_v2_5
         - eleven_flash_v2_5
-        - eleven_v3
         - speech-02-hd
         - speech-02-turbo
         - speech-2.5-hd-preview
