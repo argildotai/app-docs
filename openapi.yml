@@ -55,12 +55,6 @@ paths:
       summary: Create a voice from audio
       description: |
         Creates a custom voice by cloning from an audio file.
-
-        The voice is available immediately after creation — voice cloning to the provider happens lazily at first use.
-
-        Settings vary by model. ElevenLabs models accept `voiceStability`, `voiceSimilarity`, `voiceStyle`, `voiceSpeed`, and `speakerBoost`.
-        The `eleven_v3` model only accepts `voiceStability` (must be 0, 0.5, or 1.0).
-        Minimax models accept `voiceSpeed`, `languageBoost`, and `emotion`.
       requestBody:
         required: true
         content:
