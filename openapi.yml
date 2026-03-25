@@ -1555,7 +1555,7 @@ components:
           type: string
           format: uri
           pattern: ^https://.*
-          description: "HTTPS URL to the audio file for voice cloning. Duration must be within workspace quota (typically 20s-5min)."
+          description: "HTTPS URL to the audio file for voice cloning (MP3, WAV, M4A). Duration must be between 30 seconds and 4 minutes."
         modelId:
           $ref: "#/components/schemas/VoiceModelId"
         settings:
