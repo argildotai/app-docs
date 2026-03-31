@@ -1090,7 +1090,9 @@ components:
                 type: string
                 description: "The slug identifier of the gesture to be used for this moment"
               zoom:
-                $ref: '#/components/schemas/Zoom'
+                description: "Zoom applied to the avatar in this moment."
+                allOf:
+                  - $ref: '#/components/schemas/Zoom'
               broll:
                 $ref: '#/components/schemas/MomentBroll'
             additionalProperties: false
@@ -1221,7 +1223,9 @@ components:
             layout:
               $ref: '#/components/schemas/BrollLayout'
             zoom:
-              $ref: '#/components/schemas/Zoom'
+              description: "Zoom applied to this B-roll."
+              allOf:
+                - $ref: '#/components/schemas/Zoom'
           additionalProperties: false
         - type: object
           title: GENERATION
@@ -1241,7 +1245,9 @@ components:
             layout:
               $ref: '#/components/schemas/BrollLayout'
             zoom:
-              $ref: '#/components/schemas/Zoom'
+              description: "Zoom applied to this B-roll."
+              allOf:
+                - $ref: '#/components/schemas/Zoom'
           additionalProperties: false
         - type: object
           title: STOCKS_VIDEO
@@ -1258,7 +1264,9 @@ components:
             layout:
               $ref: '#/components/schemas/BrollLayout'
             zoom:
-              $ref: '#/components/schemas/Zoom'
+              description: "Zoom applied to this B-roll."
+              allOf:
+                - $ref: '#/components/schemas/Zoom'
           additionalProperties: false
         - type: object
           title: GOOGLE_IMAGES
@@ -1278,7 +1286,9 @@ components:
             layout:
               $ref: '#/components/schemas/BrollLayout'
             zoom:
-              $ref: '#/components/schemas/Zoom'
+              description: "Zoom applied to this B-roll."
+              allOf:
+                - $ref: '#/components/schemas/Zoom'
           additionalProperties: false
       discriminator:
         propertyName: type
