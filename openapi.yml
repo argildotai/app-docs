@@ -1284,10 +1284,7 @@ components:
         propertyName: type
     Zoom:
       type: object
-      description: |
-        Controls zoom on the avatar or a B-roll element. Define keyframes to create animated zoom effects (e.g. Ken Burns, zoom-in-then-hold).
-
-        A single keyframe produces a constant zoom. Multiple keyframes create a smooth animation interpolated between control points.
+      description: "Zoom animation defined by keyframes. A single keyframe applies a constant zoom. Multiple keyframes animate smoothly between values."
       required:
         - keyframes
       properties:
