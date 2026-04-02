@@ -1207,7 +1207,7 @@ components:
       oneOf:
         - type: object
           title: AVATAR_ACTION
-          description: "Generate a video B-roll featuring the avatar in action. Only available with AI Influencer (IMAGE-type) avatars. Consumes 10 image generation credits per moment."
+          description: "Generate a video B-roll featuring the avatar in action. Only available with AI Influencer (IMAGE-type) avatars. Costs 40 credits for image generation plus 4 credits/second for animation."
           required:
             - type
           properties:
@@ -1216,10 +1216,10 @@ components:
               enum: [AVATAR_ACTION]
             prompt:
               type: string
-              description: "Describes the avatar's action. Auto-generated from the moment's transcript when omitted."
+              description: "Describes the scene/pose for the avatar image (first frame). Auto-generated from the moment's transcript when omitted."
             motionPrompt:
               type: string
-              description: "Describes the motion/camera movement for the avatar action video."
+              description: "Describes how the avatar moves/animates in the video. When omitted, falls back to `prompt` value, or is auto-generated from the transcript."
             layout:
               $ref: '#/components/schemas/BrollLayout'
             zoom:
