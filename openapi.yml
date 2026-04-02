@@ -1016,6 +1016,16 @@ components:
               gestureSlug:
                 type: string
                 description: "The slug identifier of the gesture to be used for this moment."
+              zoom:
+                description: "Current zoom effect applied to the avatar. Present only when a non-default zoom is set."
+                type: object
+              broll:
+                type: object
+                description: "B-roll information for this moment."
+                properties:
+                  zoom:
+                    description: "Current zoom effect applied to the B-roll. Present only when a non-default zoom is set."
+                    type: object
         videoUrl:
           type: string
           description: "The url of the final avatar rendering video, containing all the moments merged."
@@ -1080,18 +1090,9 @@ components:
                 type: string
                 description: "The slug identifier of the gesture to be used for this moment"
               zoom:
-                type: object
-                description: "Controls the zoom level of the viewport/display, allowing content to be scaled larger or smaller"
-                required:
-                  - level
-                properties:
-                  level:
-                    type: number
-                    minimum: 1.0
-                    maximum: 2.0
-                    default: 1.0
-                    description: "Specifies the zoom scaling factor where 1.0 represents 100% (original size), and 2.0 is 200% (zoomed in)"
-                additionalProperties: false
+                description: "Zoom applied to the avatar in this moment."
+                allOf:
+                  - $ref: '#/components/schemas/Zoom'
               broll:
                 $ref: '#/components/schemas/MomentBroll'
             additionalProperties: false
@@ -1221,6 +1222,10 @@ components:
               description: "Describes how the avatar moves/animates in the video. When omitted, falls back to `prompt` value, or is auto-generated from the transcript."
             layout:
               $ref: '#/components/schemas/BrollLayout'
+            zoom:
+              description: "Zoom applied to this B-roll."
+              allOf:
+                - $ref: '#/components/schemas/Zoom'
           additionalProperties: false
         - type: object
           title: GENERATION
@@ -1239,6 +1244,10 @@ components:
               description: "Animate the generated image. Default: false."
             layout:
               $ref: '#/components/schemas/BrollLayout'
+            zoom:
+              description: "Zoom applied to this B-roll."
+              allOf:
+                - $ref: '#/components/schemas/Zoom'
           additionalProperties: false
         - type: object
           title: STOCKS_VIDEO
@@ -1254,6 +1263,10 @@ components:
               description: "Search query for Getty Images. Auto-generated from the moment's transcript when omitted."
             layout:
               $ref: '#/components/schemas/BrollLayout'
+            zoom:
+              description: "Zoom applied to this B-roll."
+              allOf:
+                - $ref: '#/components/schemas/Zoom'
           additionalProperties: false
         - type: object
           title: GOOGLE_IMAGES
@@ -1272,9 +1285,54 @@ components:
               description: "Animate the found image. Default: false."
             layout:
               $ref: '#/components/schemas/BrollLayout'
+            zoom:
+              description: "Zoom applied to this B-roll."
+              allOf:
+                - $ref: '#/components/schemas/Zoom'
           additionalProperties: false
       discriminator:
         propertyName: type
+    Zoom:
+      type: object
+      description: "Zoom animation defined by keyframes. A single keyframe applies a constant zoom. Multiple keyframes animate smoothly between values."
+      required:
+        - keyframes
+      properties:
+        keyframes:
+          type: array
+          description: "List of zoom keyframes. Minimum 1, maximum 20."
+          minItems: 1
+          maxItems: 20
+          items:
+            type: object
+            required:
+              - time
+              - scale
+            properties:
+              time:
+                type: number
+                minimum: 0
+                maximum: 1
+                description: "Position in the moment's timeline (0 = start, 1 = end). Relative to moment duration."
+              scale:
+                type: number
+                minimum: 1
+                maximum: 3
+                description: "Zoom scale factor. 1.0 = no zoom (100%), 2.0 = 200%, 3.0 = 300%."
+              easing:
+                type: array
+                description: "Cubic bezier easing curve [x1, y1, x2, y2] (CSS convention). Omit for linear interpolation. Ignored on the first keyframe."
+                items:
+                  type: number
+                minItems: 4
+                maxItems: 4
+      example:
+        keyframes:
+          - time: 0
+            scale: 1
+          - time: 1
+            scale: 1.5
+            easing: [0.42, 0, 0.58, 1]
     Asset:
       type: object
       properties:
