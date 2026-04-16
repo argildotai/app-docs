@@ -1230,6 +1230,12 @@ components:
               description: "Zoom applied to this B-roll."
               allOf:
                 - $ref: '#/components/schemas/Zoom'
+            durationRatio:
+              type: number
+              minimum: 0.1
+              maximum: 1
+              multipleOf: 0.1
+              description: "Fraction of the moment's duration that the B-roll covers (0.1 to 1.0, in 0.1 increments). When omitted, automatically set based on transcript length (short transcripts → 1, long transcripts → 0.5)."
           additionalProperties: false
         - type: object
           title: GENERATION
@@ -1252,6 +1258,12 @@ components:
               description: "Zoom applied to this B-roll."
               allOf:
                 - $ref: '#/components/schemas/Zoom'
+            durationRatio:
+              type: number
+              minimum: 0.1
+              maximum: 1
+              multipleOf: 0.1
+              description: "Fraction of the moment's duration that the B-roll covers (0.1 to 1.0, in 0.1 increments). When omitted, automatically set based on transcript length (short transcripts → 1, long transcripts → 0.5)."
           additionalProperties: false
         - type: object
           title: STOCKS_VIDEO
@@ -1271,6 +1283,12 @@ components:
               description: "Zoom applied to this B-roll."
               allOf:
                 - $ref: '#/components/schemas/Zoom'
+            durationRatio:
+              type: number
+              minimum: 0.1
+              maximum: 1
+              multipleOf: 0.1
+              description: "Fraction of the moment's duration that the B-roll covers (0.1 to 1.0, in 0.1 increments). When omitted, automatically set based on transcript length (short transcripts → 1, long transcripts → 0.5)."
           additionalProperties: false
         - type: object
           title: GOOGLE_IMAGES
@@ -1293,6 +1311,12 @@ components:
               description: "Zoom applied to this B-roll."
               allOf:
                 - $ref: '#/components/schemas/Zoom'
+            durationRatio:
+              type: number
+              minimum: 0.1
+              maximum: 1
+              multipleOf: 0.1
+              description: "Fraction of the moment's duration that the B-roll covers (0.1 to 1.0, in 0.1 increments). When omitted, automatically set based on transcript length (short transcripts → 1, long transcripts → 0.5)."
           additionalProperties: false
       discriminator:
         propertyName: type
