@@ -539,24 +539,30 @@ paths:
             default: 20
       responses:
         200:
-          description: A paginated list of assets
+          description: An array of assets. Pagination metadata is in response headers.
+          headers:
+            X-Total-Count:
+              schema:
+                type: integer
+              description: Total number of assets matching the filters
+            X-Page:
+              schema:
+                type: integer
+              description: Current page number
+            X-Page-Size:
+              schema:
+                type: integer
+              description: Number of items per page
+            X-Total-Pages:
+              schema:
+                type: integer
+              description: Total number of pages
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  items:
-                    type: array
-                    items:
-                      $ref: "#/components/schemas/Asset"
-                  totalItems:
-                    type: integer
-                  currentPage:
-                    type: integer
-                  totalPages:
-                    type: integer
-                  itemsPerPage:
-                    type: integer
+                type: array
+                items:
+                  $ref: "#/components/schemas/Asset"
         400:
           description: Unexpected error
           content:
