@@ -36,10 +36,12 @@ curl -X POST https://api.argil.ai/v1/videos \
   -H "Authorization: ApiKey YOUR_KEY" \
   -H "Content-Type: application/json" \
   -d '{
-    "avatarId": "...",
-    "voiceId": "...",
+    "name": "my-video",
+    "type": "moments",
     "moments": [{
       "transcript": "Check out our product",
+      "avatarId": "...",
+      "voiceId": "...",
       "broll": {
         "type": "UPLOAD",
         "assetId": "ASSET_ID"
