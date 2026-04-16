@@ -172,7 +172,9 @@
             "group": "Assets",
             "pages": [
               "api-reference/endpoint/assets.list",
-              "api-reference/endpoint/assets.get"
+              "api-reference/endpoint/assets.create",
+              "api-reference/endpoint/assets.get",
+              "api-reference/endpoint/assets.delete"
             ]
           },
           {
