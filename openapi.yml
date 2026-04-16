@@ -992,6 +992,10 @@ components:
         status:
           type: string
           description: "Can be either `IDLE`, `GENERATING_AUDIO`, `GENERATING_VIDEO`, `DONE` or `FAILED`."
+        duration:
+          type: number
+          nullable: true
+          description: "Total video duration in seconds. `null` when audio hasn't been generated yet."
         moments:
           type: array
           description: "An array of Moment items, each representing a portion of the complete video."
