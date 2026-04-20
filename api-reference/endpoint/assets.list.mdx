@@ -2,14 +2,39 @@
 title: "List Assets"
 openapi: get /assets
 sidebarTitle: "/assets"
-description: "Get a list of available assets from your library"
+description: "Get a list of assets from your library"
 ---
 
-Returns an array of assets from your library that can be used in your videos.
+Returns an array of assets from your library. Supports filtering by type and status, with pagination via query parameters.
 
-## Audio Assets
+Pagination metadata is returned in response headers:
 
-Audio assets from this endpoint can be used as background music in your videos. When creating a video, you can reference an audio asset's ID in the `backgroundMusic` parameter to add it as background music. See the [Create Video endpoint](/api-reference/endpoint/videos.create) for more details.
+| Header | Description |
+|--------|-------------|
+| `X-Total-Count` | Total number of assets matching the filters |
+| `X-Page` | Current page number |
+| `X-Page-Size` | Number of items per page |
+| `X-Total-Pages` | Total number of pages |
 
+## Asset Types
+
+| Type | Description |
+|------|-------------|
+| `AUDIO` | Audio files for background music (system library) |
+| `IMAGE` | Uploaded images for use as B-roll |
+| `VIDEO` | Uploaded videos for use as B-roll |
+
+## Examples
+
+```bash
+# All assets (default: READY status)
+GET /assets
+
+# Only video assets
+GET /assets?type=VIDEO
+
+# Images and videos, page 2
+GET /assets?type=IMAGE&type=VIDEO&page=2&pageSize=10
+```
 
 ---

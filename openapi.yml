@@ -500,11 +500,63 @@ paths:
                 $ref: "#/components/schemas/Error"
   /assets:
     get:
-      summary: List audio assets
-      description: Returns an array of audio assets available for the user
+      summary: List assets
+      description: Returns a paginated list of assets from your library. Includes user-uploaded assets and system assets (e.g. music library).
+      parameters:
+        - name: type
+          in: query
+          description: "Filter by asset type. Can be specified multiple times (e.g. `?type=VIDEO&type=IMAGE`). Omit to return all types."
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+              enum: [AUDIO, IMAGE, VIDEO]
+        - name: status
+          in: query
+          description: "Filter by processing status. Default: READY."
+          required: false
+          schema:
+            type: string
+            enum: [PROCESSING, READY, FAILED]
+            default: READY
+        - name: page
+          in: query
+          description: Page number
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            default: 1
+        - name: pageSize
+          in: query
+          description: Number of items per page
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
       responses:
         200:
-          description: An array of audio assets
+          description: An array of assets. Pagination metadata is in response headers.
+          headers:
+            X-Total-Count:
+              schema:
+                type: integer
+              description: Total number of assets matching the filters
+            X-Page:
+              schema:
+                type: integer
+              description: Current page number
+            X-Page-Size:
+              schema:
+                type: integer
+              description: Number of items per page
+            X-Total-Pages:
+              schema:
+                type: integer
+              description: Total number of pages
           content:
             application/json:
               schema:
@@ -517,24 +569,119 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+    post:
+      summary: Upload an asset
+      description: |
+        Upload an image or video asset by providing a publicly accessible URL. The asset is downloaded and processed asynchronously.
+
+        Poll `GET /assets/{id}` until `status` is `READY` before using the asset as B-roll in a video.
+
+        **Size limits:** 50 MB for images, 2 GB for videos.
+
+        **Accepted formats:** JPEG, PNG, GIF, WEBP, AVIF for images. MP4, MOV for videos.
+
+        **Concurrent limit:** Maximum 5 assets processing at a time per workspace.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - type
+                - url
+              properties:
+                name:
+                  type: string
+                  description: "Display name for the asset"
+                  minLength: 1
+                  maxLength: 256
+                type:
+                  type: string
+                  enum: [IMAGE, VIDEO]
+                  description: "Asset type. Audio upload is not supported."
+                url:
+                  type: string
+                  format: uri
+                  description: "Publicly accessible URL to download the asset from"
+              additionalProperties: false
+            example:
+              name: "my-broll-clip"
+              type: "VIDEO"
+              url: "https://example.com/clip.mp4"
+      responses:
+        201:
+          description: Asset created and processing started
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Asset"
+        200:
+          description: Duplicate asset found — existing asset returned
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Asset"
+        400:
+          description: "Validation error (unsupported format, file too large, URL unreachable)"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        429:
+          description: "Too many assets processing concurrently (max 5)"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
   /assets/{id}:
     get:
-      summary: Get an Asset by id
-      description: Returns a single Asset identified by its id
+      summary: Get an asset by ID
+      description: Returns a single asset with its current processing status and metadata.
       parameters:
         - name: id
           in: path
           required: true
           schema:
             type: string
-            description: The id of the Asset to retrieve
+            format: uuid
+            description: The ID of the asset to retrieve
       responses:
         200:
-          description: Detailed information about the Asset
+          description: Asset details
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Asset"
+        404:
+          description: Asset not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      summary: Delete an asset
+      description: |
+        Soft-deletes an asset. The asset is hidden from listings but existing videos using it continue to render.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: Asset deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Asset deleted"
         404:
           description: Asset not found
           content:
@@ -1294,6 +1441,27 @@ components:
               allOf:
                 - $ref: '#/components/schemas/Zoom'
           additionalProperties: false
+        - type: object
+          title: UPLOAD
+          description: "Use a previously uploaded asset as B-roll. The asset must have status READY and be of type IMAGE or VIDEO. Upload assets via `POST /assets`."
+          required:
+            - type
+            - assetId
+          properties:
+            type:
+              type: string
+              enum: [UPLOAD]
+            assetId:
+              type: string
+              format: uuid
+              description: "ID of the uploaded asset (from `POST /assets`). Must be READY status and IMAGE or VIDEO type."
+            layout:
+              $ref: '#/components/schemas/BrollLayout'
+            zoom:
+              description: "Zoom applied to this B-roll."
+              allOf:
+                - $ref: '#/components/schemas/Zoom'
+          additionalProperties: false
       discriminator:
         propertyName: type
     Zoom:
@@ -1345,12 +1513,25 @@ components:
           format: uuid
         name:
           type: string
+          nullable: true
         type:
           type: string
-          enum: [AUDIO]
+          enum: [AUDIO, IMAGE, VIDEO]
+        status:
+          type: string
+          enum: [PROCESSING, READY, FAILED]
+          description: "Processing status. Poll until READY before using as B-roll."
         fileUrl:
           type: string
-          description: "URL to access the asset"
+          nullable: true
+          description: "URL to access the asset. Null while processing."
+        thumbnailUrl:
+          type: string
+          nullable: true
+          description: "URL to a thumbnail image. Null while processing."
+        createdAt:
+          type: string
+          format: date-time
     SubtitleStyle:
       type: object
       properties:

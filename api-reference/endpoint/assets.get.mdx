@@ -1,14 +1,22 @@
 ---
-title: "Get an Asset by id"
+title: "Get Asset"
 openapi: get /assets/{id}
 sidebarTitle: "/assets/{id}"
+description: "Get an asset by ID with its current processing status"
 ---
 
-Returns an asset identified by its id from your library that can be used in your videos.
+Returns an asset with its current processing status and metadata. Use this endpoint to poll for processing completion after uploading an asset.
 
-## Audio Assets
+## Status Lifecycle
 
-Audio assets from this endpoint can be used as background music in your videos. When creating a video, you can reference an audio asset's ID in the `backgroundMusic` parameter to add it as background music. See the [Create Video endpoint](/api-reference/endpoint/videos.create) for more details.
+```
+POST /assets → PROCESSING → READY (or FAILED)
+```
 
+| Status | Description |
+|--------|-------------|
+| `PROCESSING` | Asset is being downloaded and processed |
+| `READY` | Asset is ready to use as B-roll |
+| `FAILED` | Processing failed — upload a new asset |
 
 ---

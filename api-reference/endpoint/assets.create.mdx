@@ -1,0 +1,53 @@
+---
+title: "Upload Asset"
+openapi: post /assets
+sidebarTitle: "/assets"
+description: "Upload an image or video asset via URL for use as B-roll"
+---
+
+Upload an image or video by providing a publicly accessible URL. The asset is downloaded and processed asynchronously.
+
+## Usage Flow
+
+1. Call `POST /assets` with the asset URL, name, and type
+2. Receive the asset ID with `status: PROCESSING`
+3. Poll `GET /assets/{id}` until `status` is `READY`
+4. Use the asset ID in `POST /videos` with `broll.type: UPLOAD`
+
+## Example
+
+```bash
+# 1. Upload
+curl -X POST https://api.argil.ai/v1/assets \
+  -H "Authorization: ApiKey YOUR_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "product-demo",
+    "type": "VIDEO",
+    "url": "https://example.com/demo.mp4"
+  }'
+
+# 2. Poll until ready
+curl https://api.argil.ai/v1/assets/ASSET_ID \
+  -H "Authorization: ApiKey YOUR_KEY"
+
+# 3. Use as B-roll in a video
+curl -X POST https://api.argil.ai/v1/videos \
+  -H "Authorization: ApiKey YOUR_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "my-video",
+    "type": "moments",
+    "moments": [{
+      "transcript": "Check out our product",
+      "avatarId": "...",
+      "voiceId": "...",
+      "broll": {
+        "type": "UPLOAD",
+        "assetId": "ASSET_ID"
+      }
+    }]
+  }'
+```
+
+---
