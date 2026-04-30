@@ -1151,7 +1151,7 @@ components:
             properties:
               transcript:
                 type: string
-                description: "A portion of the complete transcript. Current limit: 250 characters."
+                description: "A portion of the complete transcript. Current limit: 500 characters."
               avatarId:
                 type: string
                 description: "The id of the avatar to be used for this moment."
@@ -1221,7 +1221,7 @@ components:
             properties:
               transcript:
                 type: string
-                description: "A portion of the complete transcript. Mutually exclusive with `audioUrl` — provide one or the other, not both. Current limit: 250 characters"
+                description: "A portion of the complete transcript. Mutually exclusive with `audioUrl` — provide one or the other, not both. Current limit: 500 characters"
               audioUrl:
                 type: string
                 description: "URL to an audio file for this moment, bypassing TTS generation. Mutually exclusive with `transcript` — provide one or the other, not both. Max duration: 40 seconds"
