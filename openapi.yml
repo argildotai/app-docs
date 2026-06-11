@@ -394,6 +394,27 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/VideoCreateArgs"
+            examples:
+              basic:
+                summary: Create a simple video
+                value:
+                  name: "My video"
+                  moments:
+                    - transcript: "Welcome to our product tour!"
+                      avatarId: "YOUR_AVATAR_ID"
+              avatar_holding_product:
+                summary: Avatar action B-roll with a product reference image
+                description: "First upload your product image via `POST /assets`, wait for its status to be READY, then reference it by id in an AVATAR_ACTION B-roll. The generated first frame will feature the avatar with your actual product."
+                value:
+                  name: "Product demo video"
+                  moments:
+                    - transcript: "This essential oil changed my daily routine."
+                      avatarId: "YOUR_AVATAR_ID"
+                      broll:
+                        type: "AVATAR_ACTION"
+                        prompt: "The avatar holding the product from the reference image close to the camera, label clearly visible, in a bright modern kitchen"
+                        motionPrompt: "Gently presents the bottle towards the camera"
+                        productImageAssetId: "YOUR_ASSET_ID"
       responses:
         201:
           description: Successfully created Video
@@ -1371,6 +1392,13 @@ components:
             motionPrompt:
               type: string
               description: "Describes how the avatar moves/animates in the video. When omitted, falls back to `prompt` value, or is auto-generated from the transcript."
+            useAvatarAsStartFrame:
+              type: boolean
+              description: "Skip first-frame generation and use the avatar's original image directly as the start frame. Cannot be combined with `productImageAssetId`. Default: false."
+            productImageAssetId:
+              type: string
+              format: uuid
+              description: "ID of an uploaded product image (from `POST /assets`, must be READY status and IMAGE type). The product is passed as a reference image to the first-frame generation so the avatar appears with the actual product (e.g. holding your branded bottle with a readable label). Cannot be combined with `useAvatarAsStartFrame`."
             layout:
               $ref: '#/components/schemas/BrollLayout'
             zoom:
