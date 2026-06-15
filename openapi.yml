@@ -1228,13 +1228,60 @@ components:
               avatarId:
                 type: string
                 description: "The id of the avatar to be used for this moment"
+              voice:
+                type: object
+                description: |
+                  The voice for this moment, with optional per-generation model and settings overrides.
+                  Replaces the legacy `voiceId`/`voiceModel` fields — provide either `voice` or those legacy fields, not both.
+                required:
+                  - id
+                properties:
+                  id:
+                    type: string
+                    description: "The id of the voice to use for this moment."
+                  model:
+                    type: string
+                    description: |
+                      Optional override for the voice's default TTS model. Must be compatible with the voice's provider; defaults to the voice's stored model when omitted.
+                      ElevenLabs: eleven_multilingual_v2, eleven_multilingual_v1, eleven_monolingual_v1, eleven_turbo_v2, eleven_turbo_v2_5, eleven_flash_v2_5, eleven_v3
+                      Minimax: speech-02-hd, speech-02-turbo, speech-2.5-hd-preview, speech-2.5-turbo-preview, speech-2.6-hd, speech-2.6-turbo, speech-2.8-hd, speech-2.8-turbo
+                  settings:
+                    type: object
+                    description: |
+                      Per-generation voice settings, validated against the resolved model. Overrides the voice's stored defaults.
+                      ElevenLabs: voiceStability, voiceSimilarity, voiceStyle (0-1), voiceSpeed (0.7-1.2), speakerBoost (bool). eleven_v3 accepts voiceStability/voiceSimilarity/voiceStyle/voiceSpeed only.
+                      Minimax: voiceSpeed (0.7-1.2), languageBoost, emotion.
+                    properties:
+                      voiceStability:
+                        type: number
+                        description: "0-1. For ElevenLabs voices, controls consistency vs. expressiveness (lower = more variable)."
+                      voiceSimilarity:
+                        type: number
+                        description: "0-1. ElevenLabs only."
+                      voiceStyle:
+                        type: number
+                        description: "0-1. ElevenLabs only."
+                      voiceSpeed:
+                        type: number
+                        description: "0.7-1.2. Playback speed."
+                      speakerBoost:
+                        type: boolean
+                        description: "ElevenLabs standard models only."
+                      languageBoost:
+                        type: string
+                        description: "Minimax only."
+                      emotion:
+                        type: string
+                        description: "Minimax only."
+                    additionalProperties: false
+                additionalProperties: false
               voiceId:
                 type: string
-                description: "The id of the voice to be used for this moment. Optional, default is the avatar's voice."
+                description: "[LEGACY] The id of the voice to be used for this moment. Optional, default is the avatar's voice. Prefer the `voice` object. Cannot be combined with `voice`."
               voiceModel:
                 type: string
                 description: |
-                  Optional override for the voice's default TTS model. Must be compatible with the voice's provider.
+                  [LEGACY] Optional override for the voice's default TTS model. Prefer `voice.model`. Cannot be combined with `voice`. Must be compatible with the voice's provider.
                   ElevenLabs voices: eleven_multilingual_v2, eleven_multilingual_v1, eleven_monolingual_v1, eleven_turbo_v2, eleven_turbo_v2_5, eleven_flash_v2_5, eleven_v3
                   Minimax voices: speech-02-hd, speech-02-turbo, speech-2.5-hd, speech-2.5-turbo, speech-2.6-hd, speech-2.6-turbo, speech-2.8-hd, speech-2.8-turbo
               gestureSlug:
