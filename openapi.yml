@@ -1353,6 +1353,11 @@ components:
                   "BACKGROUND",
                 ]
               description: "Layout control for moments containing a B-roll. Controls how the B-rolls appears relative to the avatar."
+            length:
+              type: string
+              enum: ["auto", "1/2", "full"]
+              default: "auto"
+              description: "Length of each B-roll relative to its moment: 'auto' (default) uses half the moment when its transcript is longer than 80 characters and the full moment otherwise, '1/2' always uses half the moment, 'full' always uses the full moment."
           required:
             - enable
             - source
