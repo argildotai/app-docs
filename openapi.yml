@@ -99,6 +99,15 @@ paths:
                   modelId: "eleven_v3"
                   settings:
                     voiceStability: 0.5
+              elevenlabs_v4:
+                summary: Create voice with ElevenLabs V4 model
+                value:
+                  name: "My Custom Voice"
+                  audioUrl: "https://example.com/my-audio.mp3"
+                  modelId: "eleven_v4"
+                  settings:
+                    voiceStability: 0.8
+                    voiceSimilarity: 0.5
       responses:
         201:
           description: Voice created successfully
@@ -1243,13 +1252,13 @@ components:
                     type: string
                     description: |
                       Optional override for the voice's default TTS model. Must be compatible with the voice's provider; defaults to the voice's stored model when omitted.
-                      ElevenLabs: eleven_multilingual_v2, eleven_multilingual_v1, eleven_monolingual_v1, eleven_turbo_v2, eleven_turbo_v2_5, eleven_flash_v2_5, eleven_v3
+                      ElevenLabs: eleven_multilingual_v2, eleven_multilingual_v1, eleven_monolingual_v1, eleven_turbo_v2, eleven_turbo_v2_5, eleven_flash_v2_5, eleven_v3, eleven_v4
                       Minimax: speech-02-hd, speech-02-turbo, speech-2.5-hd-preview, speech-2.5-turbo-preview, speech-2.6-hd, speech-2.6-turbo, speech-2.8-hd, speech-2.8-turbo
                   settings:
                     type: object
                     description: |
                       Per-generation voice settings, validated against the resolved model. Overrides the voice's stored defaults.
-                      ElevenLabs: voiceStability, voiceSimilarity, voiceStyle (0-1), voiceSpeed (0.7-1.2), speakerBoost (bool). eleven_v3 accepts voiceStability/voiceSimilarity/voiceStyle/voiceSpeed only.
+                      ElevenLabs: voiceStability, voiceSimilarity, voiceStyle (0-1), voiceSpeed (0.7-1.2), speakerBoost (bool). eleven_v3 accepts voiceStability/voiceSimilarity/voiceStyle/voiceSpeed only. eleven_v4 accepts voiceStability/voiceSimilarity only.
                       Minimax: voiceSpeed (0.7-1.2), languageBoost, emotion.
                     properties:
                       voiceStability:
@@ -1282,7 +1291,7 @@ components:
                 type: string
                 description: |
                   [LEGACY] Optional override for the voice's default TTS model. Prefer `voice.model`. Cannot be combined with `voice`. Must be compatible with the voice's provider.
-                  ElevenLabs voices: eleven_multilingual_v2, eleven_multilingual_v1, eleven_monolingual_v1, eleven_turbo_v2, eleven_turbo_v2_5, eleven_flash_v2_5, eleven_v3
+                  ElevenLabs voices: eleven_multilingual_v2, eleven_multilingual_v1, eleven_monolingual_v1, eleven_turbo_v2, eleven_turbo_v2_5, eleven_flash_v2_5, eleven_v3, eleven_v4
                   Minimax voices: speech-02-hd, speech-02-turbo, speech-2.5-hd, speech-2.5-turbo, speech-2.6-hd, speech-2.6-turbo, speech-2.8-hd, speech-2.8-turbo
               gestureSlug:
                 type: string
@@ -1712,6 +1721,7 @@ components:
         - eleven_turbo_v2_5
         - eleven_flash_v2_5
         - eleven_v3
+        - eleven_v4
         - speech-02-hd
         - speech-02-turbo
         - speech-2.5-hd-preview
@@ -1801,7 +1811,7 @@ components:
           description: "ElevenLabs and Minimax. Playback speed (0.7-1.2). Default: 1.0"
         speakerBoost:
           type: boolean
-          description: "ElevenLabs only (not available for eleven_v3). Enable speaker boost. Default: true"
+          description: "ElevenLabs only (not available for eleven_v3 or eleven_v4). Enable speaker boost. Default: true"
         languageBoost:
           description: "Minimax only. Boost a specific language for better pronunciation. Default: \"auto\""
           allOf:
