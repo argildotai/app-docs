@@ -959,7 +959,7 @@ components:
         type:
           type: string
           enum: ["VIDEO"]
-          description: "Avatar creation type - must be 'VIDEO' for video-based avatars. DEPRECATED: This method will be removed in a future version."
+          description: "Rejected. POST /avatars with type VIDEO returns 400. Use type IMAGE and datasetImage. Do not send a training video."
         name:
           type: string
           description: "Name of the avatar"
@@ -974,7 +974,7 @@ components:
               type: string
               format: uri
               pattern: ^https://.*
-              description: "HTTPS URL to the source video for training. Must be 1-5 minutes long, in MP4 or MOV format, resolution between 720p and 4K. Max size 1.5GB."
+              description: "Not accepted. Video-based avatar creation is no longer supported. Do not upload a 1-5 minute training video."
           additionalProperties: false
         consentVideo:
           type: object
@@ -985,7 +985,7 @@ components:
               type: string
               format: uri
               pattern: ^https://.*
-              description: "HTTPS URL to the consent video recording. Must be 30 seconds or less, in MP4 or MOV format. Max size 100MB."
+              description: "Not accepted. A consent video is not part of avatar creation. Use an image."
           additionalProperties: false
         extras:
           type: object
@@ -1073,8 +1073,8 @@ components:
         - IDLE
         - REFUSED
       description: |
-        * NOT_TRAINED - Initial state after VIDEO mode avatar creation (before training starts)
-        * TRAINING - Avatar is currently training. For IMAGE mode avatars, this is the initial status after creation.
+        * NOT_TRAINED - Legacy status from removed VIDEO mode creation. New avatars are not created from a video.
+        * TRAINING - Avatar is being prepared from an image. This is the initial status after image creation.
         * TRAINING_FAILED - Training process failed
         * IDLE - Avatar is ready to use
         * REFUSED - Avatar was refused by moderation
