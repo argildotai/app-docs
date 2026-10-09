@@ -8,6 +8,8 @@ description: "Get notified when an avatar video generation completed successfull
 
 The `VIDEO_GENERATION_SUCCESS` event is triggered when a video generation process completes successfully in Argil. This webhook event provides your service with a payload containing detailed information about the successful video generation.
 
+`renderCost` is the credits debited for this render (`0` when the render was free). `renderCostRefunded` is `false` on success. The same fields are sent to a one-shot `callbackUrl` passed to `POST /videos/{id}/render`.
+
 ## Payload Details
 
 When this event triggers, the following data is sent to your callback URL:
@@ -19,7 +21,10 @@ When this event triggers, the following data is sent to your callback URL:
     "videoId": "<video_id>",
     "videoName": "<video_name>",
     "videoUrl": "<public_url_to_access_video>",
-    "extras": "<additional_key-value_data_related_to_the_video>"
+    "message": "Video generation completed successfully",
+    "extras": "<additional_key-value_data_related_to_the_video>",
+    "renderCost": 150,
+    "renderCostRefunded": false
   }
 }
 ```

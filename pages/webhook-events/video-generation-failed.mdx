@@ -8,6 +8,8 @@ description: "Get notified when an avatar video generation failed"
 
 The `VIDEO_GENERATION_FAILED` event is triggered when a video generation process fails in Argil. This webhook event provides your service with a payload containing detailed information about the failed generation.
 
+`renderCost` is the credits that were debited for this render. `renderCostRefunded` is `true` when that debit was refunded. A failed render is refunded before this webhook is sent, so the flag is usually `true`. If the refund itself failed, the flag is `false` and the charge still stands. A free render sends `renderCost: 0` and `renderCostRefunded: false`.
+
 ## Payload Details
 
 When this event triggers, the following data is sent to your callback URL:
@@ -18,8 +20,10 @@ When this event triggers, the following data is sent to your callback URL:
   "data": {
     "videoId": "<video_id>",
     "videoName": "<video_name>",
-    "videoUrl": "<public_url_to_access_video>",
-    "extras": "<additional_key-value_data_related_to_the_video>"
+    "message": "<why the render failed>",
+    "extras": "<additional_key-value_data_related_to_the_video>",
+    "renderCost": 150,
+    "renderCostRefunded": true
   }
 }
 ```

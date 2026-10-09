@@ -463,10 +463,56 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+  /videos/{id}/estimate:
+    get:
+      summary: Estimate the credit cost of rendering a Video
+      description: >
+        Returns the credit cost of a render started right now, without debiting
+        or starting one. The numbers match POST /videos/{id}/render. Creation
+        costs (speech synthesis and other work already done while building the
+        project) are not included. `newBalance` may be negative; this route
+        still returns 200.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            description: The id of the Video to estimate
+      responses:
+        200:
+          description: Render quote and the workspace balance
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RenderEstimate"
+        400:
+          description: The project cannot be rendered (for example it has no moments)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        403:
+          description: The API key cannot read this video
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        404:
+          description: Video not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
   /videos/{id}/render:
     post:
       summary: Render a Video by id
-      description: Returns a single Video object, with its updated status and information
+      description: >
+        Starts a render and returns the Video plus `renderCost`, the credits
+        debited for this render (0 when the bundle was free). Quote the same
+        number beforehand with GET /videos/{id}/estimate. Creation costs are
+        not included.
       parameters:
         - name: id
           in: path
@@ -487,20 +533,72 @@ paths:
                   description: >
                     Optional HTTPS URL to receive a one-shot webhook notification when this specific render completes (success or fail).
                     The callback is fired once and then discarded.
+                    Both this callback and workspace webhooks include `renderCost`
+                    (credits debited for this render) and `renderCostRefunded`
+                    (true when that debit was refunded, which is the usual case
+                    when the render fails).
                   example: "https://example.com/hooks/argil-render"
       responses:
         200:
-          description: Detailed information about the Video
+          description: The video plus the credits debited for this render
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Video"
+                allOf:
+                  - $ref: "#/components/schemas/Video"
+                  - type: object
+                    required:
+                      - renderCost
+                    properties:
+                      renderCost:
+                        type: integer
+                        minimum: 0
+                        description: >
+                          Credits debited for this render. 0 when the bundle was free.
+                          Absent from GET /videos and GET /videos/{id}.
         400:
           description: Unexpected error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+        402:
+          description: Not enough credits to render this project. Nothing was debited.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - error
+                properties:
+                  success:
+                    type: boolean
+                    enum: [false]
+                  error:
+                    type: object
+                    required:
+                      - code
+                      - message
+                      - details
+                    properties:
+                      code:
+                        type: string
+                        enum: [INSUFFICIENT_CREDITS]
+                      message:
+                        type: string
+                      details:
+                        type: object
+                        required:
+                          - renderCost
+                          - currentBalance
+                        properties:
+                          renderCost:
+                            type: integer
+                            description: Credits this render would have debited
+                          currentBalance:
+                            type: integer
+                            description: Workspace balance before the refused debit
         404:
           description: Video not found
           content:
@@ -1211,6 +1309,34 @@ components:
           additionalProperties:
             type: string
           maxProperties: 10
+    RenderEstimate:
+      type: object
+      required:
+        - videoCost
+        - brollCost
+        - brollAnimationCost
+        - totalCost
+        - currentBalance
+        - newBalance
+      properties:
+        videoCost:
+          type: integer
+          description: Lipsync credits for a render started now
+        brollCost:
+          type: integer
+          description: Image and stock b-roll credits
+        brollAnimationCost:
+          type: integer
+          description: Seedance animation credits
+        totalCost:
+          type: integer
+          description: Sum of the three buckets. This is what POST /videos/{id}/render debits.
+        currentBalance:
+          type: integer
+          description: Workspace credit balance
+        newBalance:
+          type: integer
+          description: currentBalance minus totalCost. May be negative.
     VideoCreateArgs:
       type: object
       required:

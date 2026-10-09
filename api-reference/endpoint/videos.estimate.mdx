@@ -1,0 +1,6 @@
+---
+openapi: get /videos/{id}/estimate
+sidebarTitle: "/videos/{id}/estimate"
+---
+
+Returns what a render started right now would cost, without debiting or starting one. `newBalance` can be negative. The route still returns 200 so you can show the price before asking the user to buy credits.

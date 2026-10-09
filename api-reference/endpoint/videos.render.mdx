@@ -13,7 +13,9 @@ You can optionally pass a `callbackUrl` in the request body to receive a one-sho
 }
 ```
 
-The events you will receive on this callback are [VIDEO_GENERATION_SUCCESS](/pages/webhook-events/video-generation-success) or [VIDEO_GENERATION_FAILED](/pages/webhook-events/video-generation-failed).
+The events you will receive on this callback are [VIDEO_GENERATION_SUCCESS](/pages/webhook-events/video-generation-success) or [VIDEO_GENERATION_FAILED](/pages/webhook-events/video-generation-failed). Both include `renderCost` and `renderCostRefunded`.
+
+The 200 response is the video plus `renderCost`, the credits debited for this render. Quote that number first with [GET /videos/{id}/estimate](/api-reference/endpoint/videos.estimate). When the balance is too low the render does not start, and the 402 body includes `renderCost` and `currentBalance`.
 
 <Note>
   The `callbackUrl` must use HTTPS.
