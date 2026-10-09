@@ -156,6 +156,7 @@
               "api-reference/endpoint/videos.create",
               "api-reference/endpoint/videos.get",
               "api-reference/endpoint/videos.delete",
+              "api-reference/endpoint/videos.estimate",
               "api-reference/endpoint/videos.render"
             ]
           },
